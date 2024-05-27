@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import RecommendNow from "./recommendNow";
 import { useRef } from "react";
+import certificate from "./Certificate";
 
 function Recommend() {
 
@@ -24,12 +24,24 @@ function Recommend() {
             <Slide>
                 <LeftButton onClick={onLeftClick}>{'<'}</LeftButton>
                 <Row ref={rowRef}>
-                    <RecommendNow />
-                    <RecommendNow />
-                    <RecommendNow />
-                    <RecommendNow />
-                    <RecommendNow />
-                    <RecommendNow />
+                    {certificate.map((data) => (
+                        <RecommendWrapper key={data.title}>
+                            <Subject>
+                                <Img src="/img/ADsP.jpg" alt="img" />
+                                <RecommentdTitle >
+                                    <SubTitle>{data.title}</SubTitle>
+                                    <TitleDetail>{data.subtitle}</TitleDetail>
+                                </RecommentdTitle>
+                                <Detail>
+                                    {data.난이도}
+                                    <br />
+                                    {data.접수비}
+                                    <br />
+                                    {data.end}
+                                </Detail>
+                        </Subject>
+                        </RecommendWrapper>
+                    ))}
                 </Row>
                 <RightButton onClick={onRightClick}>{'>'}</RightButton>
             </Slide>
@@ -75,23 +87,69 @@ const Row = styled.div`
 
 const LeftButton = styled.button`
     border: none;
+    background-color: white;
+    font-size: 20px;
     border-radius: 50%;
     height: 50px;
     width: 50px;
     cursor: pointer;
     transition: 400ms all ease-in-out;
     &:hover {
-        transform: scale(1.08);
+        transform: scale(1.28);
     }
 `;
 
 const RightButton = styled.button`
-border: none;
-border-radius: 50%;
-height: 50px;
-width: 50px;
-cursor: pointer;
-transition: 400ms all ease-in-out;
-&:hover {
-    transform: scale(1.08);
+    border: none;
+    font-size: 20px;
+    background-color: white;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    transition: 400ms all ease-in-out;
+    &:hover {
+        transform: scale(1.28);
 }`;
+
+const RecommendWrapper = styled.div`
+    transition: 400ms all ease-in-out;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.08);
+    }
+`;
+
+const Subject = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+`;
+
+const Img = styled.img`
+    margin-bottom: 10px;
+`;
+
+const RecommentdTitle = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 5px;
+    align-items: baseline;
+`;
+
+const SubTitle = styled.h2`
+    font-size: 20px;
+    font-weight: 600;
+`;
+
+const TitleDetail = styled.h3`
+    font-size: 12px;
+`;
+
+const Detail = styled.span`
+    padding: 10px 5px;
+    font-size: 14px;
+`;

@@ -1,11 +1,20 @@
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import Challengers from './Challenger';
+
+
 
 function Head() {
+
+    const { challengeId } = useParams();
+
+    const userId = "user1"
+
     return (
         <Wrapper>
             <Title>
                 <MainTitle>
-                    ADsP 2주 챌린지
+                    {Challengers[userId][0].challenges[0][challengeId][0].name} 2주 챌린지
                 </MainTitle>
                 <SubTitle>
                     <div>기간: 2024.5.10 - 2024.5.25</div>
@@ -15,7 +24,7 @@ function Head() {
             </Title>
             <Status>
                 <StatusTitle>
-                    <Nickname>도한</Nickname>
+                    <Nickname>{Challengers[userId][0].name}</Nickname>
                     님의 챌린지는
                 </StatusTitle>
                 <Percentage>

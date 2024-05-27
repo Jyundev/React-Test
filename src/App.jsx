@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Test />
       },
       {
-        path: "challenge",
+        path: ":challengeId",
         element: <Challenge />
       },
     ]

@@ -2,13 +2,13 @@ import styled from "styled-components"
 
 function RecommendNow() {
     return (
-        <Wrapper>
+        <RecommendWrapper>
             <Subject>
                 <Img src="/img/ADsP.jpg" alt="" />
-                <Title>
+                <RecommentdTitle>
                     <SubTitle>ADsP</SubTitle>
                     <TitleDetail>(데이터분석준전문가)</TitleDetail>
-                </Title>
+                </RecommentdTitle>
                 <Detail>
                     데이터분석
                     <br />
@@ -17,13 +17,13 @@ function RecommendNow() {
                     뭐 쓸지 몰라서 일단 대충 씀
                 </Detail>
             </Subject>
-        </Wrapper>
+        </RecommendWrapper>
     )
 }
 
 export default RecommendNow
 
-const Wrapper = styled.div`
+const RecommendWrapper = styled.div`
     width: 100%;
     transition: 400ms all ease-in-out;
     cursor: pointer;
@@ -44,7 +44,7 @@ const Img = styled.img`
     margin-bottom: 10px;
 `;
 
-const Title = styled.div`
+const RecommentdTitle = styled.div`
     display: flex;
     flex-direction: row;
     padding: 10px;

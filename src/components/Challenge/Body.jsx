@@ -1,37 +1,40 @@
 import styled from "styled-components";
-import stepsData from "./Step";
+import Challengers from "./Challenger";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 
 function Body() {
 
-    const [selected, setSelected] = useState([]);
-    const [click, setClick] = useState(false);
-    const [title, setTitle] = useState("")
-    const [daySelected, setDaySelected] = useState([]);
+    const userId = "user1"
 
-    const { steps } = stepsData;
+    const { challengeId } = useParams();
+    
+    const challenge = Challengers[userId][0].challenges[0][challengeId][0];
 
-    const firstIncompleteStep = steps.find(step => step.status === false)?.days || [];
+    const basicView = challenge.steps.find(step => step.complete === false) || [];
+    
 
-    const firstIncompleteStepData = steps.find(step => step.status === false) || [];
+    const [clickedStep, setClickedStep] = useState([]);
+    const [stepTitle, setStepTitle] = useState();
+    const [toDo, setToDo] = useState(basicView.days.find(day => day.complete === false));
+    const [Clicked, setClicked] = useState(false);
 
-    const dayBarClick = (days) => {
-        setSelected(days.days);
-        setClick(true);
-        setTitle(days.step)
+    const ChangeStep = (step) => {
+        setClickedStep(step.days);
+        setStepTitle(step.step);
+        setClicked(true);
     };
 
-    const dayButtonClick = (step) => {
-        setDaySelected(step.description)
-        console.log(daySelected)
-    }
+    const ChangeTodo = (day) => {
+        setToDo(day);
+    };
 
     return (
         <Wrapper>
             <StepBar>
-                {steps.map((step) => (
-                    <Step key={step.step} onClick={() => dayBarClick(step)}>
-                        {!step.status ? `Step ${step.step}` : `Complete!`}
+                {challenge.steps.map((step) => (
+                    <Step key={step.step} onClick={() => ChangeStep(step)}>
+                        {!step.complete ? `${step.step} 단계` : "완료!"}
                     </Step>
                 ))}
             </StepBar>
@@ -39,19 +42,21 @@ function Body() {
                 <StepWrapper>
                     <StepSubWrapper>
                         <StepTitle>
-                        {!click ? `Step ${firstIncompleteStepData.step}` : `Step ${title}`}
+                        {!Clicked ? basicView.step : stepTitle} 단계
                         </StepTitle>
-                        {!click ? firstIncompleteStep.map((day) => (
-                            <DayButton key={day.day} onClick={() => dayButtonClick(day)}>
-                                <div>{day.day} day</div>
-                                <div>{!day.status ? "미완료" : "완료"}</div>
+                        {!Clicked ? basicView.days.map((day) => (
+                            <DayButton key={day.day} onClick={() => ChangeTodo(day)}>
+                                <Day>{day.day} 일차</Day>
+                                <DayComplete>{!day.complete ? "미완료😶" : "완료😎"}</DayComplete>
                             </DayButton>
-                        )) : selected.map((day) => (
-                            <DayButton key={day.day} onClick={() => dayButtonClick(day)}>
-                                <div>{day.day} day</div>
-                                <div>{!day.status ? "미완료" : "완료"}</div>
-                            </DayButton>
-                        ))}
+                        )) :
+                            clickedStep.map((day) => (
+                                <DayButton key={day.day} onClick={() => ChangeTodo(day)}>
+                                    <Day>{day.day} day</Day>
+                                    <DayComplete>{!day.complete ? "미완료😶" : "완료😎"}</DayComplete>
+                                </DayButton>
+                            )) 
+                        }
                         <FinalTest>
                             중간 점검!
                         </FinalTest>
@@ -59,11 +64,11 @@ function Body() {
                 </StepWrapper>
                 <Subject>
                     <ToDoList>
-                        <h1>ToDo List</h1>
-                        {daySelected}
+                        <ToDoTitle>오늘의 숙제 📖: {!Clicked ? basicView.days.find(day => day.complete === false).day : toDo.day} 일차</ToDoTitle>
+                        <ToDoSubject>{toDo.subject}</ToDoSubject>
                     </ToDoList>
                     <Memo>
-                        <div>메모장</div>
+                        <MemoTitle>메모장</MemoTitle>
                         <Form>
                             <TextArea 
                                 placeholder="기억해야 할 것을 기록하세요!"
@@ -83,9 +88,12 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 100px;
     gap: 60px;
     height: 1000px;
+    background: #485563;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 `;
 
 const StepBar = styled.div`
@@ -95,6 +103,7 @@ const StepBar = styled.div`
     justify-content: center;
     gap: 60px;
     font-size: 30px;
+    margin-top: 100px;
 `;
 
 const Step = styled.button`
@@ -126,6 +135,7 @@ const Main = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     width: 70%;
     height: 600px;
     overflow-y: auto;
@@ -149,7 +159,7 @@ const StepSubWrapper = styled.div`
     padding: 20px;
     gap: 30px;
     border: 4px solid #bb64e0;
-    background-color: #e5b2fb34;
+    background-color: #e5b5fa4c;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
 `;
@@ -157,6 +167,7 @@ const StepSubWrapper = styled.div`
 const StepTitle = styled.h1`
     font-size: 28px;
     font-weight: 600;
+    color: white;
 `;
 
 const DayButton = styled.button`
@@ -178,6 +189,15 @@ const DayButton = styled.button`
     }
 `;
 
+const Day = styled.h2`
+    font-size: 15px;
+    font-weight: 600;
+    color: #220522;
+`
+
+const DayComplete = styled.p`
+`
+
 const FinalTest = styled.button``;
 
 const Subject = styled.div`
@@ -186,27 +206,57 @@ const Subject = styled.div`
     align-items: center;
     justify-content: center;
     width: 70%;
+    height: 90%;
     gap: 30px;
 `;
 
 const ToDoList = styled.div`
-    border: 1px solid black;
     width: 70%;
-    height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+    padding: 20px;
+`;
+
+const ToDoTitle = styled.h1`
+    font-size: 25px;
+    font-weight: 600;
+    color: beige;
+    margin-bottom: 20px;
+`;
+
+const ToDoSubject = styled.p`
+    font-size: 35px;
+    color: #ffffffc2;
+    font-weight: 600;
+    background: #73C8A9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #373B44, #73C8A9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #373B44, #73C8A9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    padding: 10px;
+    border-radius: 7px;
 `;
 
 const Memo = styled.div`
     border: 1px solid black;
     width: 70%;
-    height: 300px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
+`;
+
+const MemoTitle = styled.h1`
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 20px;
 `;
 
 const Form = styled.form`
@@ -224,5 +274,9 @@ const TextArea = styled.textarea`
     padding: 10px;
     &:focus {
         border: 2px solid skyblue;
+    }
+    background-color: #ffffff45;
+    &::placeholder {
+        color: white;
     }
 `;
