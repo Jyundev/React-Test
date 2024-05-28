@@ -11,6 +11,35 @@ const Challengers = {
                                 {
                                     step: 1,
                                     complete: true,
+                                    test: [
+                                        {
+                                            id: 1, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                        {
+                                            id: 2, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                        {
+                                            id: 3, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                    ],
                                     days: [
                                     { day: 1, subject: "20-100페이지", complete: true, },
                                     { day: 2, subject: "30-100페이지", complete: true, },
@@ -22,6 +51,35 @@ const Challengers = {
                                 {
                                     step: 2,
                                     complete: false,
+                                    test: [
+                                        {
+                                            id: 1, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                        {
+                                            id: 2, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                        {
+                                            id: 3, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                    ],
                                     days: [
                                     { day: 6, subject: "70-100페이지", complete: true, },
                                     { day: 7, subject: "80-100페이지", complete: true, },
@@ -33,6 +91,35 @@ const Challengers = {
                                 {
                                     step: 3,
                                     complete: false,
+                                    test: [
+                                        {
+                                            id: 1, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                        {
+                                            id: 2, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                        {
+                                            id: 3, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                    ],
                                     days: [
                                     { day: 11, subject: "210-100페이지", complete: false, },
                                     { day: 12, subject: "220-100페이지", complete: false, },
@@ -44,6 +131,35 @@ const Challengers = {
                                 {
                                     step: 4,
                                     complete: false,
+                                    test: [
+                                        {
+                                            id: 1, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                        {
+                                            id: 2, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                        {
+                                            id: 3, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                            answer: "① 사과",
+                                        },
+                                    ],
                                     days: [
                                     { day: 16, subject: "260-100페이지", complete: false, },
                                     { day: 17, subject: "270-100페이지", complete: false, },
@@ -55,6 +171,32 @@ const Challengers = {
                                 {
                                     step: 5,
                                     complete: false,
+                                    test: [
+                                        {
+                                            id: 1, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                        },
+                                        {
+                                            id: 2, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                        },
+                                        {
+                                            id: 3, 
+                                            question: "다음 중 옳은 것을 고르시오.",
+                                            item1: "① 사과",
+                                            item2: "② 오렌지",
+                                            item3: "③ 체리",
+                                            item4: "④ 코끼리",
+                                        },
+                                    ],
                                     days: [
                                     { day: 21, subject: "20-100페이지", complete: false, },
                                     { day: 22, subject: "20-100페이지", complete: false, },

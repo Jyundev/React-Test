@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Challengers from "./Challenger";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import Modal from "./Modal";
 
 function Body() {
 
@@ -18,16 +19,28 @@ function Body() {
     const [stepTitle, setStepTitle] = useState();
     const [toDo, setToDo] = useState(basicView.days.find(day => day.complete === false));
     const [Clicked, setClicked] = useState(false);
+    const [modal, setModal] = useState(false);
+    const [test, setTest] = useState(basicView.test)
+    console.log(test)
 
     const ChangeStep = (step) => {
         setClickedStep(step.days);
         setStepTitle(step.step);
         setClicked(true);
+        setTest(step.test)
     };
 
     const ChangeTodo = (day) => {
         setToDo(day);
     };
+
+    const ModalOpen = () => {
+        setModal(true);
+    }
+
+    const ModalClose = () => {
+        setModal(false);
+    }
 
     return (
         <Wrapper>
@@ -51,20 +64,23 @@ function Body() {
                             </DayButton>
                         )) :
                             clickedStep.map((day) => (
-                                <DayButton key={day.day} onClick={() => ChangeTodo(day)}>
+                                <DayButton key={day.day} onClick={() => ChangeTodo(day)} >
                                     <Day>{day.day} day</Day>
                                     <DayComplete>{!day.complete ? "미완료😶" : "완료😎"}</DayComplete>
                                 </DayButton>
                             )) 
                         }
-                        <FinalTest>
+                        <FinalTest onClick={ModalOpen}>
                             중간 점검!
                         </FinalTest>
                     </StepSubWrapper>
                 </StepWrapper>
+                {modal && 
+                    <Modal test={test} onClose={ModalClose} />
+                }
                 <Subject>
                     <ToDoList>
-                        <ToDoTitle>오늘의 숙제 📖: {!Clicked ? basicView.days.find(day => day.complete === false).day : toDo.day} 일차</ToDoTitle>
+                        <ToDoTitle>오늘의 숙제 📖: {toDo.day} 일차</ToDoTitle>
                         <ToDoSubject>{toDo.subject}</ToDoSubject>
                     </ToDoList>
                     <Memo>
@@ -74,7 +90,7 @@ function Body() {
                                 placeholder="기억해야 할 것을 기록하세요!"
                             />
                         </Form>
-                        <button>저장</button>
+                        <MemoButton>저장</MemoButton>
                     </Memo>
                 </Subject>
             </Main>
@@ -242,7 +258,6 @@ const ToDoSubject = styled.p`
 `;
 
 const Memo = styled.div`
-    border: 1px solid black;
     width: 70%;
     height: 350px;
     display: flex;
@@ -257,6 +272,19 @@ const MemoTitle = styled.h1`
     font-size: 30px;
     font-weight: 600;
     padding: 20px;
+`;
+
+const MemoButton = styled.button`
+    border: 3px solid green;
+    width: 30%;
+    height: 35px;;
+    background-color: #26bd26;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        background-color: #4dcf4d;
+    }
 `;
 
 const Form = styled.form`
