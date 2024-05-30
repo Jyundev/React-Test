@@ -12,6 +12,8 @@ import reset from "styled-reset"
 import Profile from "./routes/Profile"
 import Test from "./routes/Test"
 import Challenge from "./routes/Challenge"
+import LoginTest from "./routes/LoginTest"
+import TokenTest from "./routes/Tokentest"
 
 const router = createBrowserRouter([
   {
@@ -45,7 +47,15 @@ const router = createBrowserRouter([
   {
     path: "/join",
     element: <Join />
-  }
+  },
+  {
+    path: "logintest",
+    element: <LoginTest />
+  },
+  {
+    path: "tokentest",
+    element: <TokenTest />
+  },
 ])
 
 function App() {
