@@ -22,7 +22,7 @@ function Test() {
                         Apple
                     </label>
                     <label>
-                        <input 
+                        <input
                             type='checkbox'
                             {...register("fruits", { required: "At least one fruit must be selected" })}
                             value="banana"

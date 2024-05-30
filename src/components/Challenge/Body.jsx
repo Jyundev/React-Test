@@ -21,7 +21,6 @@ function Body() {
     const [Clicked, setClicked] = useState(false);
     const [modal, setModal] = useState(false);
     const [test, setTest] = useState(basicView.test)
-    console.log(test)
 
     const ChangeStep = (step) => {
         setClickedStep(step.days);
@@ -106,10 +105,9 @@ const Wrapper = styled.div`
     align-items: center;
     gap: 60px;
     height: 1000px;
-    background: #485563;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    background: #485563; 
+    background: -webkit-linear-gradient(to right, #29323c, #485563); 
+    background: linear-gradient(to right, #29323c, #485563); 
 `;
 
 const StepBar = styled.div`
@@ -132,12 +130,12 @@ const Step = styled.button`
     font-size: 20px;
     font-weight: 600;
     color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 
     &:hover {
-        background-color: #32b9f8; /* 호버 시 배경색 변경 */
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 변경 */
-        transform: translateY(-2px); /* 호버 시 살짝 위로 이동 */
+        background-color: #32b9f8; 
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
+        transform: translateY(-2px); 
     }
 
     &:active {
