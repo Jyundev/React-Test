@@ -7,6 +7,9 @@ const Challengers = {
                     adsp :[
                         {
                             name: "ADsP",
+                            start: "2024.5.10",
+                            end: "2024.5.25",
+                            test_date: "2024.5.26",
                             steps: [
                                 {
                                     step: 1,
@@ -211,6 +214,9 @@ const Challengers = {
                     sqld :[
                         {
                             name: "SQLd",
+                            start: "2024.5.10",
+                            end: "2024.5.25",
+                            test_date: "2024.5.26",
                             steps: [
                                 {
                                     step: 1,
