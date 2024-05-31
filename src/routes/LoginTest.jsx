@@ -22,8 +22,12 @@ function LoginTest() {
                 password
             });
             if (response.status === 200) {
-                // Assuming the response contains a token or success message
-                navigate("/tokentest");
+                localStorage.clear();
+                localStorage.setItem('token', response.data.token);
+                const responseData = response.data.token
+                console.log(responseData)
+                navigate("/");
+
             } else {
                 setError("Login failed. Please try again.");
             }

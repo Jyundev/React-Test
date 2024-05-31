@@ -1,54 +1,62 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom"
-import { auth } from "../filebase";
-import { FirebaseError } from "firebase/app";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import GithubButton from "../components/GithubButton";
 
-function Login() {
-  const navigate = useNavigate();
-  const [isLoading, setLoading] = useState(false);
-  const { register, handleSubmit } = useForm();
-  const [error, setError] = useState("");
+function LoginTest() {
+    const navigate = useNavigate();
+    const [isLoading, setLoading] = useState(false);
+    const { register, handleSubmit } = useForm();
+    const [error, setError] = useState("");
 
-  const onSubmit = async (data) => {
-    setError("");
-    if (isLoading) return;
-    try {
-      setLoading(true);
-      const { email, password } = data;
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
-    } catch(e) {
-      if (e instanceof FirebaseError) {
-        setError(e.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
-  
-  return (
-    <Wrapper>
+    const onSubmit = async (data) => {
+        setError("");
+        if (isLoading) return;
+        try {
+            setLoading(true);
+            const { username, password } = data;
+            const response = await axios.post("http://52.78.44.47/api/v1/auth/authenticate", {
+                username,
+                password
+            });
+            if (response.status === 200) {
+                localStorage.clear();
+                localStorage.setItem('token', response.data.token);
+                const responseData = response.data.token
+                console.log(responseData)
+                navigate("/");
+
+            } else {
+                setError("Login failed. Please try again.");
+            }
+        } catch (e) {
+            setError(e.response ? e.response.data.message : "An error occurred. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+    
+    return (
+        <Wrapper>
             <Title>🚀 Log in 🚀</Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Input {...register("email", {required: true})} placeholder="Email" type="email" />
+                <Input {...register("username", {required: true})} placeholder="Email" type="email" />
                 <Input {...register("password", {required: true})} placeholder="Password" type="password" />
                 <Input type="submit" value={isLoading ? "Loading..." : "Login"} />
             </Form>
             {error !== "" ? <Error>{error}</Error> : null}
             <Switcher>
-                Don&apos;t have an account?  {/* '를 &apos; 로 대체합니다. */}
+                Don&apos;t have an account? {/* '를 &apos; 로 대체합니다. */}
                 <Link to="/join">Create one &rarr;</Link>
             </Switcher>
             <GithubButton />
         </Wrapper>
-  )
+    );
 }
 
-export default Login
+export default LoginTest;
 
 const Wrapper = styled.div`
     height: 100%;

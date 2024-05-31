@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { auth } from "../filebase";
 import styled from "styled-components";
 import GithubButton from "../components/GithubButton";
+import axios from "axios";
 
 
 export default function Join() {
@@ -16,24 +17,23 @@ export default function Join() {
     const [error, setError] = useState("");
 
     const onSubmit = async (data) => { // onSubmit 함수의 매개변수 타입을 FormData로 지정
+        console.log(data); // 요청 내용 출력   
         setError("");
         if (isLoading) return;
         try {
             setLoading(true);
-            const { name, email, password } = data;
-            // create an account
-            const credentials = await createUserWithEmailAndPassword(auth, email, password);
-            // set the name of the user
-            await updateProfile(credentials.user, {
-                displayName: name,
-            });
-            // redirect to the home page     
-            navigate("/");   
+            const { nickname, email, password } = data;
+            const res = await axios.post("http://52.78.44.47/api/v1/public/join", {
+                nickname,
+                email,
+                password
+            })
+            // redirect to the home page
+            // navigate("/");   
+            console.log(res)
         } catch(e) {
             // setError
-            if (e instanceof FirebaseError) {
-                setError(e.message);
-            }
+            setError(e.message);
         }
         finally {
             setLoading(false)
@@ -44,7 +44,7 @@ export default function Join() {
         <Wrapper>
             <Title>🚀 Join 🚀</Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Input {...register("name", { required: true })} placeholder="Name" type="text" />
+                <Input {...register("nickname", { required: true })} placeholder="Name" type="text" />
                 <Input {...register("email", { required: true })} placeholder="Email" type="email" />
                 <Input {...register("password", { required: true })} placeholder="Password" type="password" />
                 <Input type="submit" value={isLoading ? "Loading..." : "Create Account"} />

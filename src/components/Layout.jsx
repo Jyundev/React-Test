@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { auth } from '../filebase';
 import styled from 'styled-components';
+import axios from 'axios';
 
 function Layout() {
 
@@ -10,7 +11,7 @@ function Layout() {
     const onLogout = async() => {
         const ok = confirm("정말로 로그아웃 하시겠습니까?");
         if(ok) {
-            await auth.signOut();
+            await axios.post("http://52.78.44.47/logout");
             navigate("/login")
         }
     }
