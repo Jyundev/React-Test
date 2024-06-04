@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useRef } from "react";
 import certificate from "./Certificate";
+import { useNavigate } from "react-router-dom";
 
 function Recommend() {
 
@@ -18,6 +19,8 @@ function Recommend() {
         }
     }
 
+    const navigate = useNavigate();
+
     return (
         <Wrapper>
             <Title>🔥늦기 전에 접수하세요!</Title>
@@ -25,7 +28,7 @@ function Recommend() {
                 <LeftButton onClick={onLeftClick}>{'<'}</LeftButton>
                 <Row ref={rowRef}>
                     {certificate.map((data) => (
-                        <RecommendWrapper key={data.title}>
+                        <RecommendWrapper key={data.title} onClick={() => navigate(`/${data.name}`)}>
                             <Subject>
                                 <Img src="/img/ADsP.jpg" alt="img" />
                                 <RecommentdTitle >

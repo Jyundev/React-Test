@@ -24,10 +24,7 @@ function LoginTest() {
             if (response.status === 200) {
                 localStorage.clear();
                 localStorage.setItem('token', response.data.token);
-                const responseData = response.data.token
-                console.log(responseData)
                 navigate("/");
-
             } else {
                 setError("Login failed. Please try again.");
             }

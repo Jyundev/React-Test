@@ -1,18 +1,23 @@
-import styled from "styled-components"
+// Head.js
+import styled from "styled-components";
+import { userStore } from "../UserStore";
 
 function Head() {
+    const { userInfo } = userStore();
+    console.log(userInfo)
+
     return (
         <Wrapper>
-            <Photo src="\public\img\쉽지않네.png" alt="profile photo" />
-            <Name>user1</Name>
-            <Word>
-                " 코딩 좋아^^ "
-            </Word>
+            <Photo src="/img/쉽지않네.png" alt="profile photo" />
+            <Name>{userInfo.data.nickname}</Name>
+            <EditButton>
+                Edit
+            </EditButton>
         </Wrapper>
     )
 }
 
-export default Head
+export default Head;
 
 const Wrapper = styled.div`
     display: flex;
@@ -27,13 +32,16 @@ const Wrapper = styled.div`
     padding: 40px;
 `;
 
-
 const Photo = styled.img`
     border-radius: 100%;
     border: 6px solid white;
     width: 150px;
     height: 150px;
     box-shadow: 0 5px 20px;
+    transition: transform 0.3s ease-in-out;
+    &:hover {
+        transform: scale(1.08);
+    }
 `;
 
 const Name = styled.h1`
@@ -42,9 +50,17 @@ const Name = styled.h1`
     color: white;
 `;
 
-const Word = styled.h2`
+const EditButton = styled.button`
     font-size: 25px;
     font-weight: 600;
-    color: white;
     margin-top: 10px;
+    background-color: #26bd26;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 5px 5px 10px grey;
+    cursor: pointer;
+    &:hover {
+        background-color: #4dcf4d;
+    }
 `;

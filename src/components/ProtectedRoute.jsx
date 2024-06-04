@@ -1,6 +1,8 @@
 import { Navigate } from "react-router-dom";
 import PropTypes from 'prop-types'; 
 
+console.log(localStorage.getItem('token'))
+
 function ProtectedRoute({children}) {
     const user = localStorage.getItem('token');
     if (user === null) {

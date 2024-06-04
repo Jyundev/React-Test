@@ -3,10 +3,13 @@ import Challengers from "./Challenger";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Modal from "./Modal";
+import { userStore } from "../UserStore";
 
 function Body() {
 
-    const userId = "user1"
+    const { userInfo } = userStore();
+
+    const userId = userInfo.data.nickname
 
     const { challengeId } = useParams();
     

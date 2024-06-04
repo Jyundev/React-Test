@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import Challengers from './Challenger';
+import { userStore } from '../UserStore';
 
 
 
 function Head() {
 
     const { challengeId } = useParams();
+    
+    const { userInfo } = userStore();
 
-    const userId = "user1"
+    const userId = userInfo.data.nickname
+
+    console.log(userInfo.data.nickname)
 
     return (
         <Wrapper>

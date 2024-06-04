@@ -13,12 +13,13 @@ import Profile from "./routes/Profile"
 import Test from "./routes/Test"
 import Challenge from "./routes/Challenge"
 import LoginTest from "./routes/LoginTest"
-import TokenTest from "./routes/Tokentest"
+import ScrollToTop from "./components/ScrollToTop"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <ProtectedRoute>
+              <ScrollToTop />
               <Layout />
             </ProtectedRoute>,
     children: [
@@ -51,10 +52,6 @@ const router = createBrowserRouter([
   {
     path: "logintest",
     element: <LoginTest />
-  },
-  {
-    path: "tokentest",
-    element: <TokenTest />
   },
 ])
 

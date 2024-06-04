@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { auth } from '../filebase';
 import styled from 'styled-components';
 import axios from 'axios';
 

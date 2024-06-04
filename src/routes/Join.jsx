@@ -1,12 +1,9 @@
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FirebaseError } from "firebase/app";
 import { useForm } from "react-hook-form";
-import { auth } from "../filebase";
 import styled from "styled-components";
 import GithubButton from "../components/GithubButton";
-import axios from "axios";
+import { JoinApi } from "../components/UserApi";
 
 
 export default function Join() {
@@ -16,29 +13,30 @@ export default function Join() {
     const { register, handleSubmit } = useForm(); // useForm에 제네릭으로 FormData 지정
     const [error, setError] = useState("");
 
-    const onSubmit = async (data) => { // onSubmit 함수의 매개변수 타입을 FormData로 지정
-        console.log(data); // 요청 내용 출력   
+    const onSubmit = async (data) => {
         setError("");
         if (isLoading) return;
         try {
             setLoading(true);
             const { nickname, email, password } = data;
-            const res = await axios.post("http://52.78.44.47/api/v1/public/join", {
+            const response = await JoinApi.post("/api/v1/public/join", {
                 nickname,
                 email,
                 password
-            })
+            });
+            console.log("Response data:", response.data); // 서버에서 받은 응답 데이터를 콘솔에 출력합니다.
             // redirect to the home page
-            // navigate("/");   
-            console.log(res)
+            navigate("/");
         } catch(e) {
             // setError
-            setError(e.message);
+            setError(e.response ? e.response.data.message : "An error occurred. Please try again.");
+            console.log(e)
         }
         finally {
             setLoading(false)
         }
     };
+    
 
     return (
         <Wrapper>

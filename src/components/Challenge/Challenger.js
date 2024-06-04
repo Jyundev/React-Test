@@ -1,7 +1,7 @@
 const Challengers = {
-    user1: [
+    do: [
         {
-            name: "user1",
+            name: "do",
             challenges: [
                 {
                     adsp :[

@@ -2,6 +2,7 @@ const certificate = [
         
             {   
                 id: 1,
+                name: 'adsp',
                 title: 'ADsP', 
                 subtitle: '데이터분석준전문가',
                 start: '2024-05-15',
@@ -11,6 +12,7 @@ const certificate = [
             },
             { 
                 id: 2,
+                name: 'sqld',
                 title: 'SQLd', 
                 subtitle: 'SQL 개발자',
                 start: '2024-05-20',
