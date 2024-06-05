@@ -1,9 +1,25 @@
 import styled from "styled-components";
-import { useRef } from "react";
-import certificate from "./Certificate";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Recommend() {
+
+    const [RowData, setRowData] = useState([])
+
+    const Challenge = async() => {
+        try {
+            const data = await axios.get('http://52.78.44.47/api/v1/challenge/all');
+            console.log(data.data);
+            setRowData(data.data);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    useEffect(() => {
+        Challenge();
+    }, [])
 
     const rowRef = useRef(null);
 
@@ -27,20 +43,17 @@ function Recommend() {
             <Slide>
                 <LeftButton onClick={onLeftClick}>{'<'}</LeftButton>
                 <Row ref={rowRef}>
-                    {certificate.map((data) => (
-                        <RecommendWrapper key={data.title} onClick={() => navigate(`/${data.name}`)}>
+                    {RowData.map((data) => (
+                        <RecommendWrapper key={data.challenge_id} onClick={() => navigate(`/joinchallenge/${data.challenge_id}`)}>
                             <Subject>
                                 <Img src="/img/ADsP.jpg" alt="img" />
                                 <RecommentdTitle >
-                                    <SubTitle>{data.title}</SubTitle>
-                                    <TitleDetail>{data.subtitle}</TitleDetail>
+                                    <SubTitle>{data.challengeName}</SubTitle>
                                 </RecommentdTitle>
                                 <Detail>
-                                    {data.난이도}
+                                    {data.book}
                                     <br />
-                                    {data.접수비}
-                                    <br />
-                                    {data.end}
+                                    {data.challengeDetail}
                                 </Detail>
                         </Subject>
                         </RecommendWrapper>
@@ -113,7 +126,9 @@ const RightButton = styled.button`
     transition: 400ms all ease-in-out;
     &:hover {
         transform: scale(1.28);
-}`;
+    }
+`;
+
 
 const RecommendWrapper = styled.div`
     transition: 400ms all ease-in-out;

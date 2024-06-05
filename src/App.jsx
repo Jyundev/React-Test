@@ -10,10 +10,11 @@ import LoadingScreen from "./components/LoadingScreen"
 import styled, { createGlobalStyle } from "styled-components"
 import reset from "styled-reset"
 import Profile from "./routes/Profile"
-import Test from "./routes/Test"
 import Challenge from "./routes/Challenge"
-import LoginTest from "./routes/LoginTest"
 import ScrollToTop from "./components/ScrollToTop"
+import CheckInterest from "./routes/CheckInterest"
+import Test from "./routes/Test"
+import JoinChallenge from "./routes/JoinChallenge"
 
 const router = createBrowserRouter([
   {
@@ -32,12 +33,38 @@ const router = createBrowserRouter([
         element: <Profile />
       },
       {
+        path: "checkinterest",
+        element: <CheckInterest />
+      },
+      {
         path: "test",
         element: <Test />
       },
+    ]
+  },
+  {
+    path: "/challenge",
+    element: <ProtectedRoute>
+              <ScrollToTop />
+              <Layout />
+            </ProtectedRoute>,
+    children: [
       {
         path: ":challengeId",
         element: <Challenge />
+      },
+    ]
+  },
+  {
+    path: "/joinchallenge",
+    element: <ProtectedRoute>
+              <ScrollToTop />
+              <Layout />
+            </ProtectedRoute>,
+    children: [
+      {
+        path: ":challengeId",
+        element: <JoinChallenge />
       },
     ]
   },
@@ -48,10 +75,6 @@ const router = createBrowserRouter([
   {
     path: "/join",
     element: <Join />
-  },
-  {
-    path: "logintest",
-    element: <LoginTest />
   },
 ])
 

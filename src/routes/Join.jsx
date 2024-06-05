@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import GithubButton from "../components/GithubButton";
 import { JoinApi } from "../components/UserApi";
+import axios from "axios";
 
 
 export default function Join() {
@@ -19,18 +20,26 @@ export default function Join() {
         try {
             setLoading(true);
             const { nickname, email, password } = data;
-            const response = await JoinApi.post("/api/v1/public/join", {
+            await JoinApi.post("/api/v1/public/join", {
                 nickname,
                 email,
                 password
             });
-            console.log("Response data:", response.data); // 서버에서 받은 응답 데이터를 콘솔에 출력합니다.
-            // redirect to the home page
-            navigate("/");
+            const username = email
+            const response = await axios.post("http://52.78.44.47/api/v1/auth/authenticate", {
+                username,
+                password
+            });
+            if (response.status === 200) {
+                localStorage.clear();
+                localStorage.setItem('token', response.data.token);
+                navigate("/checkinterest");
+            } else {
+                alert(response ? response.data.message : "Login failed. Please try again.")
+            }
         } catch(e) {
             // setError
             setError(e.response ? e.response.data.message : "An error occurred. Please try again.");
-            console.log(e)
         }
         finally {
             setLoading(false)
@@ -53,6 +62,7 @@ export default function Join() {
                 <Link to="/login">Log in &rarr;</Link>
             </Switcher>
             <GithubButton />
+
         </Wrapper>
     )
 }
