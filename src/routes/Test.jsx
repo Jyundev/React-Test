@@ -1,32 +1,22 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Test() {
 
-    const [RowData, setRowData] = useState([]);
-
-    const Challenge = async () => {
-        try {
-            const { data } = await axios.get('http://52.78.44.47/api/v1/challenge/chapter/all');
-            setRowData(data);
-        } catch (error) {
-            console.error("Failed to fetch challenges", error);
-        }
-    }
-
-    const challengeId = 1;
+    const [userData, setUserData] = useState();
 
     useEffect(() => {
-        Challenge();
+        const fetchData = async () => {
+            const response = await axios.get('http://52.78.44.47/api/v1/certificate/calandar');
+            setUserData(response.data)
+        }
+        fetchData();
     }, []);
-
-    const specificChallenge = RowData.find(data => data.challenge_id === challengeId);
-
-    console.log(specificChallenge)
+    console.log(userData)
 
     return (
-        <div>Test</div>
-    )
+        <></>
+    );
 }
 
-export default Test
+export default Test;

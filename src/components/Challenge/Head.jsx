@@ -1,35 +1,31 @@
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-import Challengers from './Challenger';
 import { userStore } from '../UserStore';
 
 
 
 function Head() {
 
-    const { challengeId } = useParams();
-    
-    const { userInfo } = userStore();
+    const { userInfo, challengeInfo } = userStore();
 
     const userId = userInfo.data.nickname
 
-    console.log(userInfo.data.nickname)
+    console.log(challengeInfo)
 
     return (
         <Wrapper>
             <Title>
                 <MainTitle>
-                    {Challengers[userId][0].challenges[0][challengeId][0].name} 2주 챌린지
+                    {challengeInfo.name} 2주 챌린지
                 </MainTitle>
                 <SubTitle>
                     <div>기간: 2024.5.10 - 2024.5.25</div>
                     <div>시험일: 2024.5.26</div>
-                    <div>함께 하는 이들: 25명</div>
+                    <div>함께 하는 이들: {challengeInfo.total_user}명</div>
                 </SubTitle>
             </Title>
             <Status>
                 <StatusTitle>
-                    <Nickname>{Challengers[userId][0].name}</Nickname>
+                    <Nickname>{userId}</Nickname>
                     님의 챌린지는
                 </StatusTitle>
                 <Percentage>

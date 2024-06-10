@@ -17,13 +17,14 @@ function CheckInterest() {
         if (isLoading) return;
         try {
             setLoading(true);
-            const  {job, interest, qualifiedCertificate } = data;
-            const response = await AuthApi.put('/api/v1/user/do@g.com', {
+            const  {gender, age, job, interest, qualified_certificate } = data;
+            await AuthApi.post('/api/v1/user/info', {
+                age,
+                gender,
                 job,
                 interest,
-                qualifiedCertificate
+                qualified_certificate
             });
-            console.log(response)
             navigate('/');
         } catch (e) {
             alert(e.response ? e.response.data.message : "An error occurred. Please try again.")
@@ -40,6 +41,21 @@ function CheckInterest() {
         <Wrapper>
             <Title>입력해주세요😎</Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
+                <Check>
+                    <Subtitle>나이</Subtitle>
+                    <Age>
+                        <AgeInput type='number' min={0} max={120} placeholder='나이' {...register('age', {required: true})} />
+                        <label>세</label>
+                    </Age>
+                </Check>
+                <Check>
+                    <Subtitle>성별</Subtitle>
+                    <Select {...register('gender', {required: true})} defaultValue=''>
+                        <option value='' disabled>성별</option>
+                        <option value='남자'>남</option>
+                        <option value='여자'>여</option>
+                    </Select>
+                </Check>
                 <Check>
                     <Subtitle>직업</Subtitle>
                     <CheckList >
@@ -81,7 +97,7 @@ function CheckInterest() {
                                         type="checkbox"
                                         value={data}
                                         id={data}
-                                        {...register('qualifiedCertificate', {required: true})}
+                                        {...register('qualified_certificate', {required: true})}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
                                 </InputWrapper>
@@ -121,6 +137,47 @@ const Form = styled.form`
     align-items: center;
     gap: 20px;
     width: 70%;
+`;
+
+const Age = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+`;
+
+const AgeInput = styled.input`
+    width: 150px;
+    padding: 10px;
+    margin-left: 20px;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transition: border-color 0.3s;
+    &:focus {
+        border-color: #66afe9;
+        outline: none;
+        box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+    }
+`;
+
+const Select = styled.select`
+    width: 150px;
+    padding: 10px;
+    margin-left: 20px;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transition: border-color 0.3s;
+    &:focus {
+        border-color: #66afe9;
+        outline: none;
+        box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+    }
 `;
 
 const Check = styled.div`

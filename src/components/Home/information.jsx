@@ -2,34 +2,25 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"
 import styled from 'styled-components'
-import { useState } from 'react'
-
-const events = [
-    {   title: 'ADsP 접수', 
-        start: '2024-05-15',
-        end: '2024-05-17',
-        extendedProps:{
-            난이도: '하',
-            접수비: '50000'
-            } 
-    },
-    {   title: 'SQLd 시험', 
-        start: '2024-05-20',
-        end: '2024-05-25',
-        extendedProps:{
-            난이도: '중',
-            접수비: '50000'
-            } 
-    },
-    ]
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function Information() {
+
+    const [calandarData, setCalandarData] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get('http://52.78.44.47/api/v1/certificate/calandar');
+            setCalandarData(response.data)
+        }
+        fetchData();
+    }, []);
 
     const [detail, setDetail] = useState();
     const [select, setSelected] = useState(false);
 
     const handleDateClick = (e) => {
-        console.log(e)
         setDetail(e.event);
         setSelected(true);
     }
@@ -40,15 +31,13 @@ function Information() {
         return arg.date.getDate().toString(); // 일자만 표시
     };
 
-    console.log(detail)
-
     return (
         <Wrapper>
             <CalendarWrapper>
                 <FullCalendar
                     plugins={[ dayGridPlugin, interactionPlugin ]}
                     initialView='dayGridMonth'
-                    events={events}
+                    events={calandarData}
                     eventClick={handleDateClick}
                     height="auto"
                     locale='ko'
@@ -60,8 +49,8 @@ function Information() {
                 {!select ? <Title>일정을 선택해주세요</Title> : 
                     <div>
                         <Title>{detail.title}</Title>
-                        <Title>{detail.extendedProps.난이도}</Title>
-                        <Title>{detail.extendedProps.접수비}</Title>
+                        <Title>{detail.extendedProps[0].round}</Title>
+                        <Title>{detail.extendedProps[0].type}</Title>
                     </div>
                 }
             </DetailWrapper>

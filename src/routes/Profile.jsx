@@ -5,9 +5,10 @@ import Head from "../components/Profile/Head";
 import LoadingScreen from "../components/LoadingScreen";
 import { useEffect } from "react";
 import { userStore } from "../components/UserStore";
+import UserInfo from "../components/Profile/UserInfo";
 
 function Profile() {
-    const { isLoading, fetchUserData } = userStore();
+    const { fetchUserDataLoading, fetchUserData } = userStore();
 
     useEffect(() => {
         fetchUserData();
@@ -15,9 +16,10 @@ function Profile() {
 
     return (
         <Wrapper>
-            {isLoading ? <LoadingScreen /> : 
+            {fetchUserDataLoading ? <LoadingScreen /> : 
                 <>
                     <Head />
+                    <UserInfo />
                     <CheckChallenges />
                 </>
             }

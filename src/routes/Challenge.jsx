@@ -4,18 +4,21 @@ import Body from "../components/Challenge/Body";
 import { useEffect } from "react";
 import { userStore } from "../components/UserStore";
 import LoadingScreen from "../components/LoadingScreen";
+import { useParams } from "react-router-dom";
 
 function Challenge() {
-    const { isLoading, fetchUserData } = userStore();
+    const { fetchUserDataLoading, fetchUserData, fetchChallengeData, fetchChallengeDataLoading } = userStore();
+
+    const { challengeId } = useParams();
 
     useEffect(() => {
         fetchUserData();
-    }, [fetchUserData]);
-    
+        fetchChallengeData({ challengeId }); 
+    }, [fetchUserData, fetchChallengeData, challengeId]);
 
     return (
         <Wrapper>
-            {isLoading ? <LoadingScreen /> : 
+            {fetchUserDataLoading | fetchChallengeDataLoading ? <LoadingScreen /> : 
                 <>
                     <Head />
                     <Body />

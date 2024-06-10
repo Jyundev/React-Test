@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
-import axios from 'axios';
+import { AuthApi } from './UserApi';
+import { FaSearch } from "react-icons/fa";
 
 function Layout() {
 
@@ -10,8 +11,14 @@ function Layout() {
     const onLogout = async() => {
         const ok = confirm("정말로 로그아웃 하시겠습니까?");
         if(ok) {
-            await axios.post("http://52.78.44.47/logout");
-            navigate("/login")
+            try {
+                await AuthApi.post("http://52.78.44.47/api/v1/logout");
+                localStorage.clear();
+                navigate("/login")
+            } catch (e) {
+                console.error(e);
+            }
+            
         }
     }
     useEffect(() => {
@@ -44,6 +51,11 @@ function Layout() {
                     <StyledLink to="/profile">
                         <MenuItem>
                             내 정보
+                        </MenuItem>
+                    </StyledLink>
+                    <StyledLink to="/search">
+                        <MenuItem>
+                            <FaSearch />
                         </MenuItem>
                     </StyledLink>
                 </Menu>
@@ -88,9 +100,8 @@ const Menu = styled.div`
     display: flex;
     align-items: center;
     flex-direction: row;
-    width: 200px;
-    justify-content: space-between;
     padding: 0 20px;
+    gap: 20px;
 `;
 
 const MenuItem = styled.div`

@@ -163,10 +163,6 @@ const SubTitle = styled.h2`
     font-weight: 600;
 `;
 
-const TitleDetail = styled.h3`
-    font-size: 12px;
-`;
-
 const Detail = styled.span`
     padding: 10px 5px;
     font-size: 14px;

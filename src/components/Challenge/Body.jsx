@@ -1,26 +1,18 @@
 import styled from "styled-components";
-import Challengers from "./Challenger";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Modal from "./Modal";
 import { userStore } from "../UserStore";
 
 function Body() {
 
-    const { userInfo } = userStore();
+    const { challengeInfo } = userStore();
 
-    const userId = userInfo.data.nickname
-
-    const { challengeId } = useParams();
-    
-    const challenge = Challengers[userId][0].challenges[0][challengeId][0];
-
-    const basicView = challenge.steps.find(step => step.complete === false) || [];
+    const basicView = challengeInfo.steps.find(step => step.complete === true) || [];
     
 
     const [clickedStep, setClickedStep] = useState([]);
     const [stepTitle, setStepTitle] = useState();
-    const [toDo, setToDo] = useState(basicView.days.find(day => day.complete === false));
+    const [toDo, setToDo] = useState(basicView.days.find(day => day.complete === true));
     const [Clicked, setClicked] = useState(false);
     const [modal, setModal] = useState(false);
     const [test, setTest] = useState(basicView.test)
@@ -47,7 +39,7 @@ function Body() {
     return (
         <Wrapper>
             <StepBar>
-                {challenge.steps.map((step) => (
+                {challengeInfo.steps.map((step) => (
                     <Step key={step.step} onClick={() => ChangeStep(step)}>
                         {!step.complete ? `${step.step} 단계` : "완료!"}
                     </Step>

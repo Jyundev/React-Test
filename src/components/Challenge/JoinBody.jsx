@@ -32,11 +32,14 @@ function JoinBody() {
     
     const challenge = RowData.challengeName;
 
+    const onClick = () => {
+
+    }
     
 
     return (
         <Wrapper>
-            <Button>도전!</Button>
+            <Button onClick={() => onClick()}>도전!</Button>
             <Title>
                 <UserName>{userId}</UserName> 님, 어디 계세요!
             </Title>

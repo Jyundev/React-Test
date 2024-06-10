@@ -15,6 +15,7 @@ import ScrollToTop from "./components/ScrollToTop"
 import CheckInterest from "./routes/CheckInterest"
 import Test from "./routes/Test"
 import JoinChallenge from "./routes/JoinChallenge"
+import Search from "./routes/Search"
 
 const router = createBrowserRouter([
   {
@@ -37,8 +38,8 @@ const router = createBrowserRouter([
         element: <CheckInterest />
       },
       {
-        path: "test",
-        element: <Test />
+        path: "search",
+        element: <Search />
       },
     ]
   },
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
   {
     path: "/join",
     element: <Join />
+  },
+  {
+    path: "test",
+    element: <Test />
   },
 ])
 
