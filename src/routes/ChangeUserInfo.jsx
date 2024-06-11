@@ -3,13 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { AuthApi } from '../components/UserApi';
 import { useNavigate } from 'react-router-dom';
-import { C } from '@table-library/react-table-library/Cell-a4350b14';
+import { userStore } from '../components/UserStore';
 
-function CheckInterest() {
+function ChangeUserInfo() {
+
+    const { userInfo } = userStore();
+    console.log(userInfo)
 
     const userId = localStorage.getItem('userId');
-
-    console.log(userId)
 
     const navigate = useNavigate();
 
@@ -23,14 +24,14 @@ function CheckInterest() {
         try {
             setLoading(true);
             const  {gender, age, job, interest, qualifiedCertificate } = data;
-            await AuthApi.post('/api/v1/user/info/' + userId, {
+            await AuthApi.put('/api/v1/user/' + userId, {
                 age,
                 gender,
                 job,
                 interest,
                 qualifiedCertificate
             });
-            navigate('/');
+            navigate('/profile');
         } catch (e) {
             alert(e.response ? e.response.data.message : "An error occurred. Please try again.")
         } finally {
@@ -49,13 +50,20 @@ function CheckInterest() {
                 <Check>
                     <Subtitle>나이</Subtitle>
                     <Age>
-                        <AgeInput type='number' min={0} max={120} placeholder='나이' {...register('age', {required: true})} />
+                        <AgeInput 
+                                type='number' 
+                                min={0} 
+                                max={120} 
+                                placeholder='나이' 
+                                defaultValue={userInfo.data.age ? userInfo.data.age : '나이'}
+                                {...register('age', {required: true})} 
+                        />
                         <label>세</label>
                     </Age>
                 </Check>
                 <Check>
                     <Subtitle>성별</Subtitle>
-                    <Select {...register('gender', {required: true})} defaultValue=''>
+                    <Select {...register('gender', {required: true})} defaultValue={userInfo.data.gender ? userInfo.data.gender : '성별'}>
                         <option value='' disabled>성별</option>
                         <option value='남자'>남</option>
                         <option value='여자'>여</option>
@@ -69,7 +77,8 @@ function CheckInterest() {
                                     <Input
                                         type="radio"
                                         value={data}
-                                        id={data}
+                                        id={data}  
+                                        defaultChecked={userInfo.data.job.includes(data)}
                                         {...register('job', {required: true})}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
@@ -86,6 +95,7 @@ function CheckInterest() {
                                         type="checkbox"
                                         value={data}
                                         id={data}
+                                        defaultChecked={userInfo.data.interest.includes(data)}
                                         {...register('interest', {required: true})}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
@@ -102,20 +112,21 @@ function CheckInterest() {
                                         type="checkbox"
                                         value={data}
                                         id={data}
-                                        {...register('qualifiedCertificate', {required: true})}
+                                        defaultChecked = {userInfo.data.qualifiedCertificate.includes(data)}
+                                        {...register('qualifiedCertificate', {required: false})}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
                                 </InputWrapper>
                         ))}
                     </CheckList>
                 </Check>
-                <input type="submit" value={isLoading ? "Loading..." : "저장"} />
+                <SubmitButton type="submit" value={isLoading ? "Loading..." : "저장"} />
             </Form>
         </Wrapper>
     );
 }
 
-export default CheckInterest;
+export default ChangeUserInfo;
 
 const Wrapper = styled.div`
     height: 100%;
@@ -233,7 +244,23 @@ const InputWrapper = styled.div`
 const Input = styled.input`
     display: none;
     &:checked + label {
-        border: 3px solid black;
+        border: 3px solid blue;
     }
 `;
+
+const SubmitButton = styled.input`
+    margin-top: 30px;
+    border: 3px solid green;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #26bd26;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        background-color: #4dcf4d;
+    }
+`
 

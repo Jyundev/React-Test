@@ -7,9 +7,9 @@ function Head() {
 
     const { userInfo, challengeInfo } = userStore();
 
-    const userId = userInfo.data.nickname
-
     console.log(challengeInfo)
+
+    const userId = userInfo.data.nickname
 
     return (
         <Wrapper>
@@ -18,8 +18,8 @@ function Head() {
                     {challengeInfo.name} 2주 챌린지
                 </MainTitle>
                 <SubTitle>
-                    <div>기간: 2024.5.10 - 2024.5.25</div>
-                    <div>시험일: 2024.5.26</div>
+                    <div>기간: {challengeInfo.start} - {challengeInfo.end}</div>
+                    <div>시험일: {challengeInfo.test_date}</div>
                     <div>함께 하는 이들: {challengeInfo.total_user}명</div>
                 </SubTitle>
             </Title>
@@ -29,12 +29,12 @@ function Head() {
                     님의 챌린지는
                 </StatusTitle>
                 <Percentage>
-                    56%
+                    {challengeInfo.my_progress}%
                 </Percentage>
                 <StatusTitleBottom>
                     진행 중입니다!
                 </StatusTitleBottom>
-                <Progress value={0.56} />
+                <Progress value={challengeInfo.my_progress/100} />
             </Status>
         </Wrapper>
     )

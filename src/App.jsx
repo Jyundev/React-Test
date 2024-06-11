@@ -16,6 +16,7 @@ import CheckInterest from "./routes/CheckInterest"
 import Test from "./routes/Test"
 import JoinChallenge from "./routes/JoinChallenge"
 import Search from "./routes/Search"
+import ChangeUserInfo from "./routes/ChangeUserInfo"
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <Search />
+      },
+      {
+        path: "changeuserinfo",
+        element: <ChangeUserInfo />
       },
     ]
   },

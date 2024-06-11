@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { AuthApi } from "../UserApi";
 import { userStore } from "../UserStore";
 
 function UserInfo() {
@@ -24,7 +22,9 @@ function UserInfo() {
                 </Tr>
                 <Tr>
                     <Th>관심 분야</Th>
-                    <Td>{userInfo.data.interest}</Td>
+                    <Td>{userInfo.data.interest.map((interest) => (
+                        <p key={interest}>{interest}</p>
+                    ))}</Td>
                     <Th></Th>
                     <Td></Td>
                 </Tr>

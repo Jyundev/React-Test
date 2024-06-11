@@ -11,10 +11,12 @@ function Challenge() {
 
     const { challengeId } = useParams();
 
+    const userId = localStorage.getItem('userId');
+
     useEffect(() => {
         fetchUserData();
-        fetchChallengeData({ challengeId }); 
-    }, [fetchUserData, fetchChallengeData, challengeId]);
+        fetchChallengeData({ challengeId, userId }); 
+    }, [fetchUserData, fetchChallengeData, challengeId, userId]);
 
     return (
         <Wrapper>

@@ -2,20 +2,26 @@ import styled from "styled-components";
 import { useState } from "react";
 import Modal from "./Modal";
 import { userStore } from "../UserStore";
+import { AuthApi } from "../UserApi";
+import { useParams } from "react-router-dom";
 
 function Body() {
 
     const { challengeInfo } = userStore();
 
-    const basicView = challengeInfo.steps.find(step => step.complete === true) || [];
+    const { challengeId } = useParams();
+
+    const userId = localStorage.getItem('userId')
+
+    const basicView = challengeInfo.steps.find(step => step.complete === false) || [];
     
 
     const [clickedStep, setClickedStep] = useState([]);
     const [stepTitle, setStepTitle] = useState();
-    const [toDo, setToDo] = useState(basicView.days.find(day => day.complete === true));
+    const [toDo, setToDo] = useState(basicView.days.find(day => day.complete === false));
     const [Clicked, setClicked] = useState(false);
     const [modal, setModal] = useState(false);
-    const [test, setTest] = useState(basicView.test)
+    const [test, setTest] = useState(basicView.test);
 
     const ChangeStep = (step) => {
         setClickedStep(step.days);
@@ -26,6 +32,7 @@ function Body() {
 
     const ChangeTodo = (day) => {
         setToDo(day);
+        console.log(toDo)
     };
 
     const ModalOpen = () => {
@@ -34,6 +41,15 @@ function Body() {
 
     const ModalClose = () => {
         setModal(false);
+    }
+
+    const submit = async() => {
+        const step = 1;
+        const day = 0;
+        await AuthApi.post(`api/v1/user/challenge/update/${challengeId}/${userId}`, {
+            step,
+            day
+        })
     }
 
     return (
@@ -82,9 +98,10 @@ function Body() {
                         <Form>
                             <TextArea 
                                 placeholder="기억해야 할 것을 기록하세요!"
+                                defaultValue={toDo.memo}
                             />
                         </Form>
-                        <MemoButton>저장</MemoButton>
+                        <form onSubmit={submit}><MemoButton>저장</MemoButton></form>
                     </Memo>
                 </Subject>
             </Main>

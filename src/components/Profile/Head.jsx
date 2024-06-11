@@ -1,16 +1,22 @@
 // Head.js
 import styled from "styled-components";
 import { userStore } from "../UserStore";
+import { useNavigate } from "react-router-dom";
 
 function Head() {
+
     const { userInfo } = userStore();
-    console.log(userInfo)
+    const navigate = useNavigate();
+
+    const onClick = () => {
+        navigate('/changeuserinfo')
+    }
 
     return (
         <Wrapper>
             <Photo src="/img/쉽지않네.png" alt="profile photo" />
             <Name>{userInfo.data.nickname}</Name>
-            <EditButton>
+            <EditButton onClick={onClick}>
                 Edit
             </EditButton>
         </Wrapper>
