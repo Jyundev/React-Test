@@ -14,6 +14,9 @@ function Test() {
     }, []);
     console.log(userData)
 
+    const userId = localStorage.getItem('userId');
+    console.log(userId)
+
     return (
         <></>
     );

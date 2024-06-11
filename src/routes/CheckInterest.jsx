@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 function CheckInterest() {
 
+    const userId = localStorage.getItem('userId');
+
     const navigate = useNavigate();
 
     const [isLoading, setLoading] = useState(false);
@@ -18,7 +20,7 @@ function CheckInterest() {
         try {
             setLoading(true);
             const  {gender, age, job, interest, qualified_certificate } = data;
-            await AuthApi.post('/api/v1/user/info', {
+            await AuthApi.post('/api/v1/user/info/' + userId, {
                 age,
                 gender,
                 job,

@@ -33,6 +33,7 @@ export default function Join() {
             if (response.status === 200) {
                 localStorage.clear();
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('userId', response.headers.user_id);
                 navigate("/checkinterest");
             } else {
                 alert(response ? response.data.message : "Login failed. Please try again.")
