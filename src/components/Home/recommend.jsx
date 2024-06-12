@@ -78,7 +78,7 @@ const Title = styled.h1`
     align-self: flex-start;
     margin-bottom: 10px; 
     font-weight: 900;
-    font-size: 20px;
+    font-size: 25px;
 `;
 
 const Slide = styled.div`
@@ -103,7 +103,7 @@ const Row = styled.div`
 
 const LeftButton = styled.button`
     border: none;
-    background-color: white;
+    background-color: #ffffff40;
     font-size: 20px;
     border-radius: 50%;
     height: 50px;
@@ -118,7 +118,7 @@ const LeftButton = styled.button`
 const RightButton = styled.button`
     border: none;
     font-size: 20px;
-    background-color: white;
+    background-color: #ffffff40;
     border-radius: 50%;
     height: 50px;
     width: 50px;
@@ -144,6 +144,7 @@ const Subject = styled.div`
     width: 250px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
 `;
 
 const Img = styled.img`

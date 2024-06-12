@@ -8,12 +8,14 @@ import { userStore } from "../components/UserStore";
 import UserInfo from "../components/Profile/UserInfo";
 
 function Profile() {
-    const { fetchUserDataLoading, fetchUserData } = userStore();
+    const { fetchUserDataLoading, fetchUserData, userInfo } = userStore();
 
     useEffect(() => {
         fetchUserData();
     }, [fetchUserData]);
 
+    console.log(userInfo)
+    
     return (
         <Wrapper>
             {fetchUserDataLoading ? <LoadingScreen /> : 

@@ -67,10 +67,18 @@ const Wrapper = styled.div`
     justify-content: center;
     gap: 60px;
     margin-top: 20px;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 
 const CalendarWrapper = styled.div`
-    width: 60vh;
+    width: 80vh;
+    border-radius: 30px;
+    box-shadow: 3px 4px 15px grey;
+    padding: 30px;
+    background-color: #ffffff62;
 
     .fc-day-sun a {
     color: #ff6868;

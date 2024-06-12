@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Modal from "./Modal";
 import { userStore } from "../UserStore";
 import { AuthApi } from "../UserApi";
 import { useParams } from "react-router-dom";
+import { IoIosLock } from "react-icons/io";
 
 function Body() {
 
@@ -13,75 +14,107 @@ function Body() {
 
     const userId = localStorage.getItem('userId')
 
-    const basicView = challengeInfo.steps.find(step => step.complete === false) || [];
+    console.log(challengeInfo.steps[challengeInfo.steps.length - 1])
+    console.log(challengeInfo.steps.find(step => step.complete === false))
+
+    const basicView = challengeInfo.steps.find(step => step.complete === false) ? challengeInfo.steps.find(step => step.complete === false) : challengeInfo.steps[challengeInfo.steps.length - 1];
+
+    const basicTest = basicView.days.find(day => day.test != 0)
+
+    const incompleteDay = basicView.days.find(day => day.complete === false);
     
 
-    const [clickedStep, setClickedStep] = useState([]);
-    const [stepTitle, setStepTitle] = useState();
-    const [toDo, setToDo] = useState(basicView.days.find(day => day.complete === false));
+    const [clickedStep, setClickedStep] = useState(basicView.days);
+    const [stepTitle, setStepTitle] = useState(basicView.step);
+    const [stepTitleName, setStepTitleName] = useState(basicView.partName)
+    const [toDo, setToDo] = useState(incompleteDay ? incompleteDay : basicView.days[basicView.days.length - 1]);
     const [Clicked, setClicked] = useState(false);
     const [modal, setModal] = useState(false);
-    const [test, setTest] = useState(basicView.test);
+    const [test, setTest] = useState(basicTest ? basicTest.test : null);
+    const [memo, setMemo] = useState();
 
-    const ChangeStep = (step) => {
+    const step = stepTitle;
+    const day = toDo.day;
+
+    const ChangeStep = useCallback((step) => {
         setClickedStep(step.days);
         setStepTitle(step.step);
+        setStepTitleName(step.partName)
         setClicked(true);
-        setTest(step.test)
-    };
+        setTest(step.days.find(day => day.test != 0))
+    }, []);
 
     const ChangeTodo = (day) => {
         setToDo(day);
-        console.log(toDo)
     };
 
     const ModalOpen = () => {
-        setModal(true);
+        if(toDo.test == 0) {
+            alert("단계를 완료하셔야 합니다!") 
+        } else {
+            setModal(true);
+        }
     }
 
     const ModalClose = () => {
         setModal(false);
     }
 
-    const submit = async() => {
-        const step = 1;
-        const day = 0;
-        await AuthApi.post(`api/v1/user/challenge/update/${challengeId}/${userId}`, {
-            step,
-            day
-        })
+    const saveMemo = (e) => {
+        setMemo(e.target.value);
     }
+
+    const submit = async () => {
+        try {
+            await Promise.all([
+                AuthApi.post(`api/v1/user/challenge/update/${challengeId}/${userId}`, {
+                    step,
+                    day
+                }),
+                AuthApi.post(`/api/v1/user/challengeMemo/${challengeId}/${userId}`, {
+                    step,
+                    day,
+                    memo
+                })
+            ]);
+            console.log('Both requests completed successfully');
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    };
+    
 
     return (
         <Wrapper>
             <StepBar>
                 {challengeInfo.steps.map((step) => (
                     <Step key={step.step} onClick={() => ChangeStep(step)}>
-                        {!step.complete ? `${step.step} 단계` : "완료!"}
+                        {!step.complete ? `${step.step} 단계 🔥` : "완료 🚀"}
                     </Step>
                 ))}
             </StepBar>
+            <StepName>{stepTitleName}</StepName>
             <Main>
                 <StepWrapper>
                     <StepSubWrapper>
                         <StepTitle>
-                        {!Clicked ? basicView.step : stepTitle} 단계
+                        {stepTitle} 단계
                         </StepTitle>
                         {!Clicked ? basicView.days.map((day) => (
                             <DayButton key={day.day} onClick={() => ChangeTodo(day)}>
-                                <Day>{day.day} 일차</Day>
-                                <DayComplete>{!day.complete ? "미완료😶" : "완료😎"}</DayComplete>
+                                <Day>{!day.complete ? day.day + ' 일차' : null} </Day>
+                                <DayComplete>{!day.complete ? "😶" : "완료😎"}</DayComplete>
                             </DayButton>
                         )) :
                             clickedStep.map((day) => (
                                 <DayButton key={day.day} onClick={() => ChangeTodo(day)} >
-                                    <Day>{day.day} day</Day>
-                                    <DayComplete>{!day.complete ? "미완료😶" : "완료😎"}</DayComplete>
+                                    <Day>{!day.complete ? day.day + ' 일차'  : null}</Day>
+                                    <DayComplete>{!day.complete ? "😶" : "완료😎"}</DayComplete>
                                 </DayButton>
                             )) 
                         }
                         <FinalTest onClick={ModalOpen}>
-                            중간 점검!
+                            {toDo.test != 0 ? '중간 점검!' : <IoIosLock size={30}/>}
                         </FinalTest>
                     </StepSubWrapper>
                 </StepWrapper>
@@ -97,8 +130,8 @@ function Body() {
                         <MemoTitle>메모장</MemoTitle>
                         <Form>
                             <TextArea 
-                                placeholder="기억해야 할 것을 기록하세요!"
-                                defaultValue={toDo.memo}
+                                placeholder={toDo.memo}
+                                onChange={saveMemo}
                             />
                         </Form>
                         <form onSubmit={submit}><MemoButton>저장</MemoButton></form>
@@ -130,6 +163,10 @@ const StepBar = styled.div`
     gap: 60px;
     font-size: 30px;
     margin-top: 100px;
+    @media (max-width: 768px) {
+        width: 80%;
+        gap: 30px;
+    }
 `;
 
 const Step = styled.button`
@@ -155,6 +192,16 @@ const Step = styled.button`
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 클릭 시 그림자 원래대로 */
         transform: translateY(0); /* 클릭 시 원래 위치로 */
     }
+    @media (max-width: 768px) {
+        font-size: 15px;
+    }
+`;
+
+const StepName = styled.div`
+    color: white;
+    font-weight: 600;
+    font-size: 40px;
+    margin-top: 30px;
 `;
 
 const Main = styled.div`
@@ -201,16 +248,17 @@ const DayButton = styled.button`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
+    border-radius: 30px;
     border: none;
-    background-color: #efd0fc;
-    border: 3px solid #9805d7;
+    background-color: #b303ff;
+    border: 4px solid #c674e9;
+    box-shadow: 0 0 20px  rgba(0, 0, 0, 0.2);
+    color: lightyellow;
     height: 60px;
     width: 80%;
     cursor: pointer;
     &:hover {
-        background-color: #e0a4fa; /* 호버 시 배경색 변경 */
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 변경 */
+        box-shadow: 0 0px 25px lightpink; /* 호버 시 그림자 변경 */
         transform: translateY(-2px); /* 호버 시 살짝 위로 이동 */
     }
 `;
@@ -218,13 +266,28 @@ const DayButton = styled.button`
 const Day = styled.h2`
     font-size: 15px;
     font-weight: 600;
-    color: #220522;
+    color: lightyellow;
 `
 
 const DayComplete = styled.p`
+font-size: 20px;
+font-weight: 600;
 `
 
-const FinalTest = styled.button``;
+const FinalTest = styled.button`
+    border: 3px solid green;
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #26bd26;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        background-color: #4dcf4d;
+    }
+`;
 
 const Subject = styled.div`
     display: flex;
@@ -286,8 +349,10 @@ const MemoTitle = styled.h1`
 
 const MemoButton = styled.button`
     border: 3px solid green;
-    width: 30%;
-    height: 35px;;
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 600;
     background-color: #26bd26;
     border-radius: 5px;
     color: white;

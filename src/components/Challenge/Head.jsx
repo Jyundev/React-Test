@@ -50,29 +50,45 @@ const Wrapper = styled.div`
     background: linear-gradient(to right, #8e44ad, #c0392b);
     display: grid;
     grid-template-columns: 4fr 3fr;
+
+    @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        height: auto;
+        padding-bottom: 50px;
+    }
 `;
 
 const Title = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: flex-end; 
     font-weight: 600;
     gap: 45px;
     color: #fffffff8;
+    @media (max-width: 768px) {
+        align-items: center;
+    }
 `;
 
 const MainTitle = styled.div`
     font-size: 70px;
     margin-top: 80px;
     margin-left: 40px;
+    @media (max-width: 768px) {
+        font-size: 60px;
+    }
 `;
 
 const SubTitle = styled.div`
     display: flex;
     flex-direction: column;
-    font-size: 17px;
+    font-size: 25px;
     gap: 8px;
-    margin-left: 160px;
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
 `;
 
 const Status = styled.div`
@@ -89,18 +105,31 @@ const StatusTitle = styled.div`
     display: flex;
     flex-direction: row;
     align-items: baseline;
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
 `;
 
 const Nickname = styled.div`
     margin-right: 10px;
-    font-size: 40px;
+    font-size: 50px;
     color: white;
+    @media (max-width: 768px) {
+        font-size: 40px;
+    }
 `;
 
-const Percentage = styled.div`
+const Percentage = styled.span`
     font-weight: 1000;
-    font-size: 40px;
+    font-size: 45px;
+    color: #f3f396;
+    text-shadow: 0 0 5px lightyellow;
+    &:hover {
+        text-shadow: 0px 0px 25px lightyellow;
+    }
 `;
+
+
 
 const StatusTitleBottom = styled.div`
     font-weight: 600;

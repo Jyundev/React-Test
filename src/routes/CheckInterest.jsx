@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { AuthApi } from '../components/UserApi';
 import { useNavigate } from 'react-router-dom';
-import { C } from '@table-library/react-table-library/Cell-a4350b14';
 
 function CheckInterest() {
 

@@ -69,15 +69,15 @@ function Modal({ test, onClose }) {
                         ))}
                     </Test>
                     <ButtonWrapper>
-                        <button type="button" onClick={handlePrev} disabled={currentPage === 0}>
-                            Previous
-                        </button>
+                        <Button type="button" onClick={handlePrev} disabled={currentPage === 0}>
+                            이전
+                        </Button>
                         {currentPage === test.length - 1 ? (
-                            <button type='submit'>Submit</button>
+                            <Button type='submit'>제출</Button>
                         ) : (
-                            <button type="button" onClick={handleNext}>
-                                Next
-                            </button>
+                            <Button type="button" onClick={handleNext}>
+                                다음
+                            </Button>
                         )}
                     </ButtonWrapper>
                 </TestWrapper>
@@ -129,17 +129,22 @@ const TestWrapper = styled.form`
     justify-content: center;
     align-items: center;
     gap: 30px;
-    background-color: white;
+    background: #606c88;  
+    background: -webkit-linear-gradient(to right, #3f4c6b, #606c88); 
+    background: linear-gradient(to right, #3f4c6b, #606c88); 
+    color: white;
     width: 50%;
     height: auto;
     padding: 20px;
-    border: 4px solid black;
+    box-shadow: 0 0 10px lightyellow;
+    border-radius: 20px;
 `;
 
 const Test = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+    line-height: 22px;
 `;
 
 const Question = styled.div``;
@@ -159,17 +164,45 @@ const ButtonWrapper = styled.div`
     width: 100%;
 `;
 
+const Button = styled.button`
+    border: none;
+    background-color: #06a7e1;
+    border-radius: 40px;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+
+    &:hover {
+        background-color: #32b9f8; 
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
+        transform: translateY(-2px); 
+    }
+
+    &:active {
+        background-color: #004b6e; /* 클릭 시 배경색 변경 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 클릭 시 그림자 원래대로 */
+        transform: translateY(0); /* 클릭 시 원래 위치로 */
+    }
+`;
+
 const Result = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 30px;
-    background-color: white;
+    background: #606c88;  
+    background: -webkit-linear-gradient(to right, #3f4c6b, #606c88); 
+    background: linear-gradient(to right, #3f4c6b, #606c88); 
+    color: white;
     width: 50%;
     height: auto;
     padding: 20px;
-    border: 4px solid black;
+    box-shadow: 0 0 10px lightyellow;
+    border-radius: 20px;
 `;
 
 const PaginationInfo = styled.div`

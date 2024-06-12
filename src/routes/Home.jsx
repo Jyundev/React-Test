@@ -1,14 +1,29 @@
 import styled from "styled-components";
 import Information from "../components/Home/information";
 import Recommend from "../components/Home/recommend";
+import { userStore } from "../components/UserStore";
+import { useEffect } from "react";
+import LoadingScreen from "../components/LoadingScreen";
 
 function Home() {
+
+  const { fetchUserDataLoading, fetchUserData } = userStore();
+
+    useEffect(() => {
+        fetchUserData();
+    }, [fetchUserData]);
+
+
   return (
     <Wrapper>
-      <Information />
-      <Recommend />
+    {fetchUserDataLoading ? <LoadingScreen /> : 
+        <>
+            <Information />
+            <Recommend />
+        </>
+    }
+      
     </Wrapper>
-
   )
 }
 

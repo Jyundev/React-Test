@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { userStore } from "../UserStore";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import { AuthApi } from "../UserApi";
 
 function JoinBody() {
+
+    const navigate = useNavigate();
 
     const [RowData, setRowData] = useState([]);
 
@@ -28,12 +31,21 @@ function JoinBody() {
 
     const { userInfo } = userStore();
 
-    const userId = userInfo.data.nickname
+    const userNickname = userInfo.data.nickname
+
+    const userId = localStorage.getItem('userId');
     
     const challenge = RowData.challengeName;
 
-    const onClick = () => {
-
+    const onClick = async() => {
+        try {await AuthApi.post(`/api/v1/user/challenge/update/${challengeId}/${userId}`, {
+            userId,
+            challengeId
+        })
+        } catch (error) {
+            alert(error)
+        }
+        navigate(`/challenge/${challengeId}`)
     }
     
 
@@ -41,7 +53,7 @@ function JoinBody() {
         <Wrapper>
             <Button onClick={() => onClick()}>도전!</Button>
             <Title>
-                <UserName>{userId}</UserName> 님, 어디 계세요!
+                <UserName>{userNickname}</UserName> 님, 어디 계세요!
             </Title>
             <Subtitle>
                 <ChallengeName>{challenge}</ChallengeName> 챌린지 하러 가셔야죠 🚀
