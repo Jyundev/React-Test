@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Recommend() {
+function HotRecommend() {
 
     const [RowData, setRowData] = useState([])
 
     const Challenge = async() => {
         try {
-            const data = await axios.get('http://52.78.44.47/api/v1/challenge/recent');
+            const data = await axios.get('http://52.78.44.47/api/v1/challenge/hot');
             console.log(data.data);
             setRowData(data.data);
         } catch (e) {
@@ -39,7 +39,7 @@ function Recommend() {
 
     return (
         <Wrapper>
-            <Title>🔥늦기 전에 도전하세요!</Title>
+            <Title>🔥HOT 챌린지에 도전하세요!</Title>
             <Slide>
                 <LeftButton onClick={onLeftClick}>{'<'}</LeftButton>
                 <Row ref={rowRef}>
@@ -62,7 +62,7 @@ function Recommend() {
     )
 }
 
-export default Recommend
+export default HotRecommend
 
 const Wrapper = styled.div`
     display: flex;

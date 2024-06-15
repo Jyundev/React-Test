@@ -21,7 +21,7 @@ function Certificate() {
         Challenge();
     }, []);
 
-    const specificChallenge = RowData.find(data => data.challenge_id === challengeId);
+    const specificChallenge = RowData.find(data => data.challengeId === challengeId);
 
     console.log(specificChallenge)
 

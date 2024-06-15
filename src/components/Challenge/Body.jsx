@@ -3,19 +3,18 @@ import { useCallback, useState } from "react";
 import Modal from "./Modal";
 import { userStore } from "../UserStore";
 import { AuthApi } from "../UserApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoIosLock } from "react-icons/io";
 
 function Body() {
+
+    const navigate = useNavigate();
 
     const { challengeInfo } = userStore();
 
     const { challengeId } = useParams();
 
     const userId = localStorage.getItem('userId')
-
-    console.log(challengeInfo.steps[challengeInfo.steps.length - 1])
-    console.log(challengeInfo.steps.find(step => step.complete === false))
 
     const basicView = challengeInfo.steps.find(step => step.complete === false) ? challengeInfo.steps.find(step => step.complete === false) : challengeInfo.steps[challengeInfo.steps.length - 1];
 
@@ -33,6 +32,8 @@ function Body() {
     const [test, setTest] = useState(basicTest ? basicTest.test : null);
     const [memo, setMemo] = useState();
 
+    console.log(test)
+
     const step = stepTitle;
     const day = toDo.day;
 
@@ -41,7 +42,7 @@ function Body() {
         setStepTitle(step.step);
         setStepTitleName(step.partName)
         setClicked(true);
-        setTest(step.days.find(day => day.test != 0))
+        setTest(step.days.find(day => day.test != 0).test)
     }, []);
 
     const ChangeTodo = (day) => {
@@ -78,8 +79,9 @@ function Body() {
                 })
             ]);
             console.log('Both requests completed successfully');
-        } catch (error) {
-            console.error('An error occurred:', error);
+        } catch (e) {
+            console.error('An error occurred:', e);
+            navigate('/error', {state: {error: e.message}})
         }
     };
     

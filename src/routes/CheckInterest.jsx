@@ -8,8 +8,6 @@ function CheckInterest() {
 
     const userId = localStorage.getItem('userId');
 
-    console.log(userId)
-
     const navigate = useNavigate();
 
     const [isLoading, setLoading] = useState(false);

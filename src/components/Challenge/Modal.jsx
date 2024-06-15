@@ -4,103 +4,47 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 function Modal({ test, onClose }) {
-    const { handleSubmit, register, getValues } = useForm();
-    const [completed, setCompleted] = useState(false);
-    const [userAnswers, setUserAnswers] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
 
-    const correctAnswers = test.map(item => item.answer);
+    const [testData, setTestData] = useState(test[0])
 
-    const onSubmit = () => {
-        const answers = getValues();
-        const formattedAnswers = Object.keys(answers).map(key => answers[key]);
-        setUserAnswers(formattedAnswers);
-        setCompleted(true);
-    };
+    console.log(test[0])
 
-    // 맞춘 문제 수를 계산하는 함수
-    const calculateCorrectAnswers = () => {
-        return userAnswers.reduce((count, answer, index) => (
-            answer === correctAnswers[index] ? count + 1 : count
-        ), 0);
-    };
-
-    // 틀린 문제와 정답을 반환하는 함수
-    const getIncorrectAnswers = () => {
-        return userAnswers.map((answer, index) => ({
-            question: test[index].question,
-            userAnswer: answer,
-            correctAnswer: correctAnswers[index],
-            isCorrect: answer === correctAnswers[index],
-        }));
-    };
-
-    // 맞춘 문제 수
-    const correctCount = completed ? calculateCorrectAnswers() : 0;
-    // 총 문제 수
-    const totalCount = correctAnswers.length;
-    // 틀린 문제와 정답
-    const incorrectAnswers = completed ? getIncorrectAnswers() : [];
-
-    // 페이지 이동 함수
-    const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, test.length - 1));
-    const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 0));
+    const handleNumClick = (e) =>{
+        setTestData(e);
+    }
 
     return (
         <Wrapper onClick={onClose}>
-            {!completed ?
-                <TestWrapper onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit(onSubmit)}>
-                    <PaginationInfo>
-                        문제 {currentPage + 1} / {test.length}
-                    </PaginationInfo>
-                    <Test key={test[currentPage].id}>
-                        <Question>{test[currentPage].id}. {test[currentPage].question}</Question>
-                        {[test[currentPage].item1, test[currentPage].item2, test[currentPage].item3, test[currentPage].item4].map((item, idx) => (
-                            <Label key={idx} htmlFor={`item${idx + 1}-${test[currentPage].id}`}>
-                                <Item
-                                    id={`item${idx + 1}-${test[currentPage].id}`}
-                                    name={`answer${test[currentPage].id}`}
-                                    type="radio"
-                                    value={item}
-                                    {...register(`answer${test[currentPage].id}`, { required: "선택한 항목이 없습니다." })}
-                                />
-                                {item}
-                            </Label>
-                        ))}
-                    </Test>
-                    <ButtonWrapper>
-                        <Button type="button" onClick={handlePrev} disabled={currentPage === 0}>
-                            이전
+            <SubWrapper onClick={(e) => e.stopPropagation()}>
+                <FormWrapper >
+                    <TestWrapper key={testData.num}>
+                        <Question>{testData.num}. {testData.question}</Question>
+                        <ItemWrapper>
+                            <Item type="checkbox" id={`${testData.num}-item1`} name={testData.num} value={testData.item1} />
+                            <Label htmlFor={`${testData.num}-item1`}>{testData.item1}</Label>
+                        </ItemWrapper>
+                        <ItemWrapper>
+                            <Item type="checkbox" id={`${testData.num}-item2`} name={testData.num} value={testData.item2} />
+                            <Label htmlFor={`${testData.num}-item2`}>{testData.item2}</Label>
+                        </ItemWrapper>
+                        <ItemWrapper>
+                            <Item type="checkbox" id={`${testData.num}-item3`} name={testData.num} value={testData.item3} />
+                            <Label htmlFor={`${testData.num}-item3`}>{testData.item3}</Label>
+                        </ItemWrapper>
+                        <ItemWrapper>
+                            <Item type="checkbox" id={`${testData.num}-item4`} name={testData.num} value={testData.item4} />
+                            <Label htmlFor={`${testData.num}-item4`}>{testData.item4}</Label>
+                        </ItemWrapper>
+                    </TestWrapper>
+                </FormWrapper>
+                <ButtonWrapper>
+                    {test.map((btn) => (
+                        <Button key={btn.num} onClick={() => handleNumClick(btn)}>
+                            {btn.num}
                         </Button>
-                        {currentPage === test.length - 1 ? (
-                            <Button type='submit'>제출</Button>
-                        ) : (
-                            <Button type="button" onClick={handleNext}>
-                                다음
-                            </Button>
-                        )}
-                    </ButtonWrapper>
-                </TestWrapper>
-                :
-                <Result>
-                    <h2>퀴즈 결과</h2>
-                    <p>
-                        {totalCount}문제 중 {correctCount}문제 맞춤
-                    </p>
-                    <h3>틀린 문제</h3>
-                    <ul>
-                        {incorrectAnswers.map((item, index) => (
-                            !item.isCorrect && (
-                                <li key={index}>
-                                    <p>질문: {item.question}</p>
-                                    <p>내 답: {item.userAnswer}</p>
-                                    <p>정답: {item.correctAnswer}</p>
-                                </li>
-                            )
-                        ))}
-                    </ul>
-                </Result>
-            }
+                    ))}
+                </ButtonWrapper>
+            </SubWrapper>
         </Wrapper>
     );
 }
@@ -123,7 +67,7 @@ const Wrapper = styled.div`
     background-color: #ffffff1c;
 `;
 
-const TestWrapper = styled.form`
+const SubWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -137,31 +81,35 @@ const TestWrapper = styled.form`
     height: auto;
     padding: 20px;
     box-shadow: 0 0 10px lightyellow;
-    border-radius: 20px;
 `;
 
-const Test = styled.div`
+const FormWrapper = styled.form`
+`;
+
+const TestWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    line-height: 22px;
+    align-items: center;
+    padding: 20px;
 `;
 
-const Question = styled.div``;
+const Question = styled.h2``;
+
+const ItemWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+`;
 
 const Item = styled.input``;
 
-const Label = styled.label`
-    cursor: pointer;
-    &:hover {
-        font-weight: 900;
-    }
-`;
+const Label = styled.label``;
 
 const ButtonWrapper = styled.div`
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: row;
+    gap: 20px;
 `;
 
 const Button = styled.button`

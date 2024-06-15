@@ -18,12 +18,13 @@ function JoinBody() {
     const Challenge = useCallback(async () => {
         try {
             const { data } = await axios.get('http://52.78.44.47/api/v1/challenge/all');
-            const specificData = data.find(item => item.challenge_id === id)
+            const specificData = data.find(item => item.challengeId === id)
             setRowData(specificData);
-        } catch (error) {
-            console.error("Failed to fetch challenges", error);
+        } catch (e) {
+            console.error("Failed to fetch challenges", e);
+            navigate('/error', {state: {error: e.message}})
         }
-    }, [id])
+    }, [id, navigate])
 
     useEffect(() => {
         Challenge();

@@ -2,23 +2,47 @@
 import styled from "styled-components";
 import { userStore } from "../UserStore";
 import { useNavigate } from "react-router-dom";
+import { AuthApi } from "../UserApi";
 
 function Head() {
 
-    const { userInfo } = userStore();
+    const { userInfo, initUserData } = userStore();
     const navigate = useNavigate();
 
-    const onClick = () => {
+    const onEditClick = () => {
         navigate('/changeuserinfo')
+    }
+
+    const onDeleteClick = async () => {
+        const userId = localStorage.getItem('userId');
+        const ok = confirm("정말로 아이디를 삭제하시겠습니까?");
+        if (ok) {
+            try {
+                await AuthApi.delete(`/api/v1/user/delete/${userId}`, {
+                    userId,
+                })
+                localStorage.clear();
+                initUserData();
+                navigate('/login');
+            } catch (e) {
+                console.log(e)
+                navigate('/error', {state: {error: e.message}})
+            }
+        }
     }
 
     return (
         <Wrapper>
             <Photo src="/img/쉽지않네.png" alt="profile photo" />
             <Name>{userInfo.data.nickname}</Name>
-            <EditButton onClick={onClick}>
-                Edit
-            </EditButton>
+            <ButtonWrapper>
+                <EditButton onClick={onEditClick}>
+                    수정
+                </EditButton>
+                <DeleteButton onClick={onDeleteClick}>
+                    삭제
+                </DeleteButton>
+            </ButtonWrapper>
         </Wrapper>
     )
 }
@@ -56,6 +80,12 @@ const Name = styled.h1`
     color: white;
 `;
 
+const ButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+`;
+
 const EditButton = styled.button`
     font-size: 25px;
     font-weight: 600;
@@ -70,3 +100,19 @@ const EditButton = styled.button`
         background-color: #4dcf4d;
     }
 `;
+
+const DeleteButton = styled.button`
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: 10px;
+    background-color: #d9534f; 
+    border: none;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 5px 5px 10px grey;
+    cursor: pointer;
+    &:hover {
+        background-color: #c9302c; 
+    }
+`;
+

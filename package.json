@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.596.0",
+    "@aws-sdk/lib-storage": "^3.596.0",
     "@emotion/react": "^11.11.4",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/interaction": "^6.1.11",
     "@fullcalendar/react": "^6.1.11",
     "@table-library/react-table-library": "^4.1.7",
-    "aws-sdk": "^2.1638.0",
+    "aws-sdk": "^2.1640.0",
     "firebase": "^10.12.1",
     "fullcalendar": "^6.1.11",
     "prop-types": "^15.8.1",
@@ -23,6 +25,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
     "react-icons": "^5.2.1",
+    "react-paginate": "^8.2.0",
     "react-router-dom": "^6.23.1",
     "react-table": "^7.8.0",
     "recoil": "^0.7.7",

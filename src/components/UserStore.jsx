@@ -24,5 +24,8 @@ export const userStore = create((set) => ({
             console.log(error)
             set({ fetchChallengeDataLoading: false })
         }
+    },
+    initUserData: () => {
+        set({userInfo: null, challengeInfo: null})
     }
 }));

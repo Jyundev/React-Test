@@ -3,9 +3,11 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
 import { AuthApi } from './UserApi';
 import { FaSearch } from "react-icons/fa";
+import { userStore } from './UserStore';
 
 function Layout() {
 
+    const {initUserData} = userStore();
     const navigate = useNavigate();
     const [isNavFixed, setIsNavFixed] = useState(false);
     const onLogout = async() => {
@@ -14,6 +16,7 @@ function Layout() {
             try {
                 await AuthApi.post("http://52.78.44.47/api/v1/logout");
                 localStorage.clear();
+                initUserData();
                 navigate("/login")
             } catch (e) {
                 console.error(e);

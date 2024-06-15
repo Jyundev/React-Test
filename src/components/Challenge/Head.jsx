@@ -7,8 +7,6 @@ function Head() {
 
     const { userInfo, challengeInfo } = userStore();
 
-    console.log(challengeInfo)
-
     const userId = userInfo.data.nickname
 
     return (
