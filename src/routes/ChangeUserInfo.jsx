@@ -8,9 +8,10 @@ import { userStore } from '../components/UserStore';
 function ChangeUserInfo() {
 
     const { userInfo } = userStore();
-    console.log(userInfo)
 
     const userId = localStorage.getItem('userId');
+
+    const token = localStorage.getItem('token');
 
     const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ function ChangeUserInfo() {
         try {
             setLoading(true);
             const  {gender, age, job, interest, qualifiedCertificate } = data;
-            await AuthApi.put('/api/v1/user/' + userId, {
+            await AuthApi({token}).put('/api/v1/user/' + userId, {
                 age,
                 gender,
                 job,

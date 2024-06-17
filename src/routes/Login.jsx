@@ -20,7 +20,7 @@ function LoginTest() {
             const response = await axios.post("http://52.78.44.47/api/v1/auth/authenticate", {
                 username,
                 password
-            });
+            })
             if (response.status === 200) {
                 localStorage.clear();
                 localStorage.setItem('token', response.data.token);

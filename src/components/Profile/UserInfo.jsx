@@ -22,9 +22,10 @@ function UserInfo() {
                 </Tr>
                 <Tr>
                     <Th>관심 분야</Th>
-                    <Td>{userInfo.data.interest.map((interest) => (
+                    <Td>{userInfo.data.interest ? userInfo.data.interest.map((interest) => (
                         <p key={interest}>{interest}</p>
-                    ))}</Td>
+                    )): null}
+                    </Td>
                     <Th></Th>
                     <Td></Td>
                 </Tr>

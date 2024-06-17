@@ -8,11 +8,13 @@ import HotRecommend from "../components/Home/hotRecommend";
 
 function Home() {
 
-  const { fetchUserDataLoading, fetchUserData } = userStore();
+  const { fetchUserDataLoading, fetchUserData, userInfo } = userStore();
 
     useEffect(() => {
         fetchUserData();
     }, [fetchUserData]);
+
+    console.log(userInfo);
 
 
   return (
@@ -21,7 +23,6 @@ function Home() {
         <>
             <Information />
             <Recommend />
-            <HotRecommend />
         </>
     }
       

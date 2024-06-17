@@ -5,37 +5,42 @@ import { useState } from "react";
 
 function Modal({ test, onClose }) {
 
-    const [testData, setTestData] = useState(test[0])
+    const [selectedNum, setSelectedNum] = useState(1)
 
     console.log(test[0])
 
     const handleNumClick = (e) =>{
-        setTestData(e);
+        setSelectedNum(e);
     }
 
     return (
         <Wrapper onClick={onClose}>
             <SubWrapper onClick={(e) => e.stopPropagation()}>
-                <FormWrapper >
-                    <TestWrapper key={testData.num}>
-                        <Question>{testData.num}. {testData.question}</Question>
-                        <ItemWrapper>
-                            <Item type="checkbox" id={`${testData.num}-item1`} name={testData.num} value={testData.item1} />
-                            <Label htmlFor={`${testData.num}-item1`}>{testData.item1}</Label>
-                        </ItemWrapper>
-                        <ItemWrapper>
-                            <Item type="checkbox" id={`${testData.num}-item2`} name={testData.num} value={testData.item2} />
-                            <Label htmlFor={`${testData.num}-item2`}>{testData.item2}</Label>
-                        </ItemWrapper>
-                        <ItemWrapper>
-                            <Item type="checkbox" id={`${testData.num}-item3`} name={testData.num} value={testData.item3} />
-                            <Label htmlFor={`${testData.num}-item3`}>{testData.item3}</Label>
-                        </ItemWrapper>
-                        <ItemWrapper>
-                            <Item type="checkbox" id={`${testData.num}-item4`} name={testData.num} value={testData.item4} />
-                            <Label htmlFor={`${testData.num}-item4`}>{testData.item4}</Label>
-                        </ItemWrapper>
-                    </TestWrapper>
+                <FormWrapper>
+                    {test.map((test) => (
+                        <TestWrapper key={test.num}>
+                            <Question>{test.num}. {test.question}</Question>
+                            <ItemSelect>
+                                <ItemWrapper>
+                                    <Item type="checkbox" id={`${test.num}-item1`} name={test.num} value={1} />
+                                    <Label htmlFor={`${test.num}-item1`}>{test.item1}</Label>
+                                </ItemWrapper>
+                                <ItemWrapper>
+                                    <Item type="checkbox" id={`${test.num}-item2`} name={test.num} value={2} />
+                                    <Label htmlFor={`${test.num}-item2`}>{test.item2}</Label>
+                                </ItemWrapper>
+                                <ItemWrapper>
+                                    <Item type="checkbox" id={`${test.num}-item3`} name={test.num} value={3} />
+                                    <Label htmlFor={`${test.num}-item3`}>{test.item3}</Label>
+                                </ItemWrapper>
+                                <ItemWrapper>
+                                    <Item type="checkbox" id={`${test.num}-item4`} name={test.num} value={4} />
+                                    <Label htmlFor={`${test.num}-item4`}>{test.item4}</Label>
+                                </ItemWrapper>
+                            </ItemSelect>
+                        </TestWrapper>
+                    ))}
+                    
                 </FormWrapper>
                 <ButtonWrapper>
                     {test.map((btn) => (
@@ -43,6 +48,7 @@ function Modal({ test, onClose }) {
                             {btn.num}
                         </Button>
                     ))}
+                    <ResultButton>결과 보기</ResultButton>
                 </ButtonWrapper>
             </SubWrapper>
         </Wrapper>
@@ -72,15 +78,16 @@ const SubWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
     background: #606c88;  
     background: -webkit-linear-gradient(to right, #3f4c6b, #606c88); 
     background: linear-gradient(to right, #3f4c6b, #606c88); 
     color: white;
     width: 50%;
     height: auto;
-    padding: 20px;
+    padding: 30px;
     box-shadow: 0 0 10px lightyellow;
+    margin-top: 50px;
 `;
 
 const FormWrapper = styled.form`
@@ -89,11 +96,13 @@ const FormWrapper = styled.form`
 const TestWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    align-items: flex-start;
+    gap: 20px;
 `;
 
 const Question = styled.h2``;
+
+const ItemSelect = styled.div``;
 
 const ItemWrapper = styled.div`
     display: flex;
@@ -109,14 +118,14 @@ const Label = styled.label``;
 const ButtonWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 30px;
 `;
 
 const Button = styled.button`
     border: none;
     background-color: #06a7e1;
-    border-radius: 40px;
-    width: 50px;
+    border-radius: 100%;
+    width: 30px;
     height: 30px;
     cursor: pointer;
     font-size: 15px;
@@ -136,25 +145,4 @@ const Button = styled.button`
     }
 `;
 
-const Result = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    background: #606c88;  
-    background: -webkit-linear-gradient(to right, #3f4c6b, #606c88); 
-    background: linear-gradient(to right, #3f4c6b, #606c88); 
-    color: white;
-    width: 50%;
-    height: auto;
-    padding: 20px;
-    box-shadow: 0 0 10px lightyellow;
-    border-radius: 20px;
-`;
-
-const PaginationInfo = styled.div`
-    align-self: flex-start;
-    margin-bottom: -20px;
-    font-weight: bold;
-`;
+const ResultButton = styled.button``;

@@ -6,6 +6,8 @@ import { AuthApi } from "../UserApi";
 
 function Head() {
 
+    const token = localStorage.getItem('token');
+
     const { userInfo, initUserData } = userStore();
     const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ function Head() {
         const ok = confirm("정말로 아이디를 삭제하시겠습니까?");
         if (ok) {
             try {
-                await AuthApi.delete(`/api/v1/user/delete/${userId}`, {
+                await AuthApi({token}).delete(`/api/v1/user/delete/${userId}`, {
                     userId,
                 })
                 localStorage.clear();
@@ -40,7 +42,7 @@ function Head() {
                     수정
                 </EditButton>
                 <DeleteButton onClick={onDeleteClick}>
-                    삭제
+                    탈퇴
                 </DeleteButton>
             </ButtonWrapper>
         </Wrapper>

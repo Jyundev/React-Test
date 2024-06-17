@@ -38,8 +38,10 @@ function JoinBody() {
     
     const challenge = RowData.challengeName;
 
+    const token = localStorage.getItem('token')
+
     const onClick = async() => {
-        try {await AuthApi.post(`/api/v1/user/challenge/update/${challengeId}/${userId}`, {
+        try {await AuthApi({token}).post(`/api/v1/user/challenge/update/${challengeId}/${userId}`, {
             userId,
             challengeId
         })

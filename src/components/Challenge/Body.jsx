@@ -34,6 +34,8 @@ function Body() {
 
     console.log(test)
 
+    const token = localStorage.getItem('token');
+
     const step = stepTitle;
     const day = toDo.day;
 
@@ -68,11 +70,11 @@ function Body() {
     const submit = async () => {
         try {
             await Promise.all([
-                AuthApi.post(`api/v1/user/challenge/update/${challengeId}/${userId}`, {
+                AuthApi({token}).post(`api/v1/user/challenge/update/${challengeId}/${userId}`, {
                     step,
                     day
                 }),
-                AuthApi.post(`/api/v1/user/challengeMemo/${challengeId}/${userId}`, {
+                AuthApi({token}).post(`/api/v1/user/challengeMemo/${challengeId}/${userId}`, {
                     step,
                     day,
                     memo

@@ -8,6 +8,8 @@ function CheckInterest() {
 
     const userId = localStorage.getItem('userId');
 
+    const token = localStorage.getItem('token');
+
     const navigate = useNavigate();
 
     const [isLoading, setLoading] = useState(false);
@@ -20,7 +22,7 @@ function CheckInterest() {
         try {
             setLoading(true);
             const  {gender, age, job, interest, qualifiedCertificate } = data;
-            await AuthApi.post('/api/v1/user/info/' + userId, {
+            await AuthApi({token}).post('/api/v1/user/info/' + userId, {
                 age,
                 gender,
                 job,

@@ -14,10 +14,11 @@ function Layout() {
         const ok = confirm("정말로 로그아웃 하시겠습니까?");
         if(ok) {
             try {
-                await AuthApi.post("http://52.78.44.47/api/v1/logout");
+                const token = localStorage.getItem('token')
+                await AuthApi({token}).post("http://52.78.44.47/api/v1/logout");
                 localStorage.clear();
                 initUserData();
-                navigate("/login")
+                navigate("/login");
             } catch (e) {
                 console.error(e);
             }
