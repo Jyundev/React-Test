@@ -11,17 +11,14 @@ function JoinHead() {
 
     const { challengeId } = useParams();
 
-    const id = parseInt(challengeId, 10);
-
     const Challenge = useCallback(async () => {
         try {
-            const { data } = await axios.get('http://52.78.44.47/api/v1/challenge/all');
-            const specificData = data.find(item => item.challengeId === id)
-            setRowData(specificData);
+            const { data } = await axios.get(`http://52.78.44.47/api/v1/challenge/detail/${challengeId}`);
+            setRowData(data.data);
         } catch (error) {
             console.error("Failed to fetch challenges", error);
         }
-    }, [id])
+    }, [challengeId])
 
     useEffect(() => {
         Challenge();
@@ -36,9 +33,9 @@ function JoinHead() {
                     {RowData.challengeName} 챌린지
                 </MainTitle>
                 <SubTitle>
-                    <div>기간: 2024.5.10 - 2024.5.25</div>
-                    <div>시험일: 2024.5.26</div>
-                    <div>함께 하는 이들: 25명</div>
+                    <div>기간: {RowData.startDay} - {RowData.endDay}</div>
+                    <div>시험일: {RowData.testDay}</div>
+                    <div>함께 하는 이들: {}명</div>
                 </SubTitle>
             </Title>
         </Wrapper>

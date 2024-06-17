@@ -10,8 +10,7 @@ function Recommend() {
     const Challenge = async() => {
         try {
             const data = await axios.get('http://52.78.44.47/api/v1/challenge/recent');
-            console.log(data.data);
-            setRowData(data.data);
+            setRowData(data.data.data);
         } catch (e) {
             console.error(e);
         }
@@ -46,11 +45,14 @@ function Recommend() {
                     {RowData.map((data) => (
                         <RecommendWrapper key={data.challengeId} onClick={() => navigate(`/joinchallenge/${data.challengeId}`)}>
                             <Subject>
-                                <Img src="/img/ADsP.jpg" alt="img" />
+                                <Img src={data.thumbnail} alt="img" />
                                 <RecommentdTitle >
                                     <SubTitle>{data.challengeName}</SubTitle>
                                 </RecommentdTitle>
                                 <Detail>
+                                <Dday>D{Math.floor((new Date() - new Date(data.startDay))/(1000 * 60 * 60 * 24))}</Dday>
+                                    <TestDate>{data.startDay} - {data.endDay}</TestDate>
+                                    
                                 </Detail>
                         </Subject>
                         </RecommendWrapper>
@@ -157,11 +159,19 @@ const RecommentdTitle = styled.div`
 `;
 
 const SubTitle = styled.h2`
-    font-size: 20px;
+    font-size: 23px;
     font-weight: 600;
 `;
 
-const Detail = styled.span`
+const Detail = styled.div`
     padding: 10px 5px;
-    font-size: 14px;
+    font-size: 17px;
+    margin-left: 15px;
+`;
+
+const TestDate = styled.div``;
+
+const Dday = styled.span`
+    color: red;
+    font-weight: 600;
 `;

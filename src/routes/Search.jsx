@@ -1,21 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 
 function Search() {
 
     const [certificateData, setCertificateData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
+
+    const navigate = useNavigate();
     
     const fetchData = async () => {
         try {
             const response = await axios.get('http://52.78.44.47/api/v1/certificate/all');
-            setCertificateData(response.data);
-            setFilteredData(response.data); 
+            setCertificateData(response.data.data);
+            setFilteredData(response.data.data); 
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
+
+    console.log(certificateData)
 
     useEffect(() => {
         fetchData();
@@ -30,6 +35,10 @@ function Search() {
         setFilteredData(filtered);
     };
 
+    const onClick = (id) => {
+        navigate(`/certificate/${id}`)
+    }
+
     return (
         <Wrapper>
             <Title>자격증을 검색하세요 🔎</Title>
@@ -40,7 +49,7 @@ function Search() {
             />
             <SearchResult>
                 {filteredData.map(item => (
-                    <Certificate key={item.certificate_id}>
+                    <Certificate key={item.certificate_id} onClick={() => onClick(item.certificate_id)}>
                         {item.certificateFullName}
                     </Certificate>
                 ))}
@@ -95,4 +104,5 @@ const Certificate = styled.div`
     border-radius: 20px;
     width: 250px;
     height: 250px;
+    cursor: pointer;
 `;

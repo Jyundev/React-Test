@@ -19,6 +19,7 @@ import Search from "./routes/Search"
 import ChangeUserInfo from "./routes/ChangeUserInfo"
 import ErrorPage from "./routes/ErrorPage"
 import PaginationTest from "./routes/PaginationTest"
+import Certificate from "./routes/Certificate"
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,19 @@ const router = createBrowserRouter([
       {
         path: ":challengeId",
         element: <JoinChallenge />
+      },
+    ]
+  },
+  {
+    path: "/certificate",
+    element: <ProtectedRoute>
+              <ScrollToTop />
+              <Layout />
+            </ProtectedRoute>,
+    children: [
+      {
+        path: ":certificateId",
+        element: <Certificate />
       },
     ]
   },

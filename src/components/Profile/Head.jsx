@@ -35,7 +35,7 @@ function Head() {
 
     return (
         <Wrapper>
-            <Photo src="/img/쉽지않네.png" alt="profile photo" />
+            <Photo src={userInfo.data.profileImage} alt="profile photo" />
             <Name>{userInfo.data.nickname}</Name>
             <ButtonWrapper>
                 <EditButton onClick={onEditClick}>
@@ -67,6 +67,7 @@ const Wrapper = styled.div`
 const Photo = styled.img`
     border-radius: 100%;
     border: 6px solid white;
+    background-color: grey;
     width: 150px;
     height: 150px;
     box-shadow: 0 5px 20px;
@@ -89,13 +90,14 @@ const ButtonWrapper = styled.div`
 `;
 
 const EditButton = styled.button`
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 600;
     margin-top: 10px;
-    background-color: #26bd26;
+    background-color: white;
     border: none;
     border-radius: 5px;
-    color: white;
+    color: black;
+    padding: 7px;
     box-shadow: 5px 5px 10px grey;
     cursor: pointer;
     &:hover {
@@ -104,17 +106,18 @@ const EditButton = styled.button`
 `;
 
 const DeleteButton = styled.button`
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 600;
     margin-top: 10px;
-    background-color: #d9534f; 
+    background-color: white; 
     border: none;
     border-radius: 5px;
-    color: white;
+    color: black;
+    padding: 7px;
     box-shadow: 5px 5px 10px grey;
     cursor: pointer;
     &:hover {
-        background-color: #c9302c; 
+        background-color: #ff5a54; 
     }
 `;
 

@@ -12,6 +12,8 @@ function Body() {
 
     const { challengeInfo } = userStore();
 
+    console.log(challengeInfo)
+
     const { challengeId } = useParams();
 
     const userId = localStorage.getItem('userId')
@@ -31,8 +33,6 @@ function Body() {
     const [modal, setModal] = useState(false);
     const [test, setTest] = useState(basicTest ? basicTest.test : null);
     const [memo, setMemo] = useState();
-
-    console.log(test)
 
     const token = localStorage.getItem('token');
 
@@ -74,7 +74,7 @@ function Body() {
                     step,
                     day
                 }),
-                AuthApi({token}).post(`/api/v1/user/challengeMemo/${challengeId}/${userId}`, {
+                AuthApi({token}).post(`/api/v1/user/challenge/challengeMemo/${challengeId}/${userId}`, {
                     step,
                     day,
                     memo

@@ -1,12 +1,17 @@
 import styled from "styled-components"
-import { useEffect } from "react";
+import {  useEffect } from "react";
 import { userStore } from "../components/UserStore";
 import LoadingScreen from "../components/LoadingScreen";
 import JoinBody from "../components/Challenge/JoinBody";
 import JoinHead from "../components/Challenge/JoinHead";
+import { useParams } from "react-router-dom";
 
 function JoinChallenge() {
-    const { isLoading, fetchUserData } = userStore();
+
+    const {challengeId} = useParams();
+
+    const { fetchUserDataLoading, fetchUserData  } = userStore();
+
 
     useEffect(() => {
         fetchUserData();
@@ -15,7 +20,7 @@ function JoinChallenge() {
 
     return (
         <Wrapper>
-            {isLoading ? <LoadingScreen /> : 
+            {fetchUserDataLoading ? <LoadingScreen /> : 
                 <>
                     <JoinHead />
                     <JoinBody />

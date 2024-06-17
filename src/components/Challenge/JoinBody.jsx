@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { userStore } from "../UserStore";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
@@ -7,24 +7,18 @@ import { AuthApi } from "../UserApi";
 
 function JoinBody() {
 
-    const navigate = useNavigate();
-
     const [RowData, setRowData] = useState([]);
 
     const { challengeId } = useParams();
 
-    const id = parseInt(challengeId, 10);
-
     const Challenge = useCallback(async () => {
         try {
-            const { data } = await axios.get('http://52.78.44.47/api/v1/challenge/all');
-            const specificData = data.find(item => item.challengeId === id)
-            setRowData(specificData);
+            const { data } = await axios.get(`http://52.78.44.47/api/v1/challenge/detail/${challengeId}`);
+            setRowData(data.data);
         } catch (e) {
             console.error("Failed to fetch challenges", e);
-            navigate('/error', {state: {error: e.message}})
         }
-    }, [id, navigate])
+    }, [challengeId])
 
     useEffect(() => {
         Challenge();
@@ -40,16 +34,18 @@ function JoinBody() {
 
     const token = localStorage.getItem('token')
 
-    const onClick = async() => {
-        try {await AuthApi({token}).post(`/api/v1/user/challenge/update/${challengeId}/${userId}`, {
-            userId,
-            challengeId
-        })
+    const onClick = async () => {
+        try {
+            await AuthApi({ token }).post(`/api/v1/user/challenge/update/${challengeId}/${userId}`, {
+                userId,
+                challengeId
+            });
+            window.location.href = `http://localhost:5173/challenge/${challengeId}`
+            // navigate(`/challenge/${challengeId}`);
         } catch (error) {
-            alert(error)
+            console.error('Error updating challenge:', error);
         }
-        navigate(`/challenge/${challengeId}`)
-    }
+    };
     
 
     return (

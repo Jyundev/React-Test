@@ -8,15 +8,16 @@ import { userStore } from "../components/UserStore";
 import UserInfo from "../components/Profile/UserInfo";
 
 function Profile() {
-    const { fetchUserDataLoading, fetchUserData } = userStore();
+    const { fetchUserDataLoading, fetchUserData, fetchChallengeList, fetchChalengeListLoading } = userStore();
 
     useEffect(() => {
         fetchUserData();
-    }, [fetchUserData]);
+        fetchChallengeList();
+    }, [fetchUserData, fetchChallengeList]);
     
     return (
         <Wrapper>
-            {fetchUserDataLoading ? <LoadingScreen /> : 
+            {fetchUserDataLoading | fetchChalengeListLoading ? <LoadingScreen /> : 
                 <>
                     <Head />
                     <UserInfo />

@@ -12,7 +12,7 @@ function Information() {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get('http://52.78.44.47/api/v1/certificate/calandar');
-            setCalandarData(response.data)
+            setCalandarData(response.data.data)
         }
         fetchData();
     }, []);

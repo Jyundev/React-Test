@@ -1,6 +1,16 @@
 import styled from "styled-components";
+import { userStore } from "../UserStore";
 
 function CheckChallenges() {
+
+    const {chlallengeList} = userStore();
+
+    console.log(chlallengeList)
+
+    const onClick = (id) => {
+        window.location.href = `http://localhost:5173/challenge/${id}`
+    } 
+
     return (
         <Wrapper>
             <ChallengeWrapper>
@@ -8,18 +18,12 @@ function CheckChallenges() {
                 <IconWrapper>
                     <Subtitle>진행중</Subtitle>
                     <Icons>
-                        <Icon>
-                            <Image src="\public\img\ADsP.jpg" alt="img" />
-                            <Name>ADsP</Name>
-                        </Icon>
-                        <Icon>
-                            <Image src="\public\img\ADsP.jpg" alt="img" />
-                            <Name>ADsP</Name>
-                        </Icon>
-                        <Icon>
-                            <Image src="\public\img\ADsP.jpg" alt="img" />
-                            <Name>ADsP</Name>
-                        </Icon>
+                        {chlallengeList.data.map((challenge) => (
+                            <Icon key={challenge.challengeId} onClick={() => onClick(challenge.challengeId)}>
+                                <Image src={challenge.thumnail} alt={challenge.challengeName} />
+                                <Name>{challenge.challengeName}</Name>
+                            </Icon>
+                        ))}
                     </Icons>
                 </IconWrapper>
             </ChallengeWrapper>
