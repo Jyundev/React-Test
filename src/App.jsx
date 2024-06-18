@@ -3,10 +3,7 @@ import Home from "./routes/Home"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Layout from "./components/Layout"
 import Login from "./routes/Login"
-import { auth } from "./filebase"
-import { useEffect, useState } from "react"
 import Join from "./routes/Join"
-import LoadingScreen from "./components/LoadingScreen"
 import styled, { createGlobalStyle } from "styled-components"
 import reset from "styled-reset"
 import Profile from "./routes/Profile"
@@ -114,18 +111,11 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  const [isLoading, setLoading] = useState(true);
-  const init = async() => {
-    await auth.authStateReady();
-    setLoading(false);
-  }
-  
-  useEffect(() => {init(), []})
 
   return (
     <Wrapper>
       <GlobalStyles />
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      <RouterProvider router={router} />
     </Wrapper>
   )
 }
