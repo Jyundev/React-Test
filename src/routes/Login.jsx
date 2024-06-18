@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import GithubButton from "../components/GithubButton";
 
 function LoginTest() {
     const navigate = useNavigate();
@@ -50,7 +49,6 @@ function LoginTest() {
                 Don&apos;t have an account? {/* '를 &apos; 로 대체합니다. */}
                 <Link to="/join">Create one &rarr;</Link>
             </Switcher>
-            <GithubButton />
         </Wrapper>
     );
 }

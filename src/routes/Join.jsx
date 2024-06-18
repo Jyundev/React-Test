@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import GithubButton from "../components/GithubButton";
 import { JoinApi } from "../components/UserApi";
 import axios from "axios";
 
@@ -64,8 +63,6 @@ export default function Join() {
                 Already have an account? 
                 <Link to="/login">Log in &rarr;</Link>
             </Switcher>
-            <GithubButton />
-
         </Wrapper>
     )
 }
