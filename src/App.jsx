@@ -10,7 +10,6 @@ import Profile from "./routes/Profile"
 import Challenge from "./routes/Challenge"
 import ScrollToTop from "./components/ScrollToTop"
 import CheckInterest from "./routes/CheckInterest"
-import Test from "./routes/Test"
 import JoinChallenge from "./routes/JoinChallenge"
 import Search from "./routes/Search"
 import ChangeUserInfo from "./routes/ChangeUserInfo"
@@ -93,10 +92,6 @@ const router = createBrowserRouter([
   {
     path: "/join",
     element: <Join />
-  },
-  {
-    path: "test",
-    element: <Test />
   },
   {
     path: "/error",
