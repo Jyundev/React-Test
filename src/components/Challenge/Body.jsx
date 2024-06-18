@@ -123,7 +123,7 @@ function Body() {
                     </StepSubWrapper>
                 </StepWrapper>
                 {modal && 
-                    <Modal test={test} onClose={ModalClose} />
+                    <Modal test={test} onClose={ModalClose} challengeId={challengeId} />
                 }
                 <Subject>
                     <ToDoList>

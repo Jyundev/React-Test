@@ -1,41 +1,111 @@
-// Head.js
 import styled from "styled-components";
 import { userStore } from "../UserStore";
 import { useNavigate } from "react-router-dom";
 import { AuthApi } from "../UserApi";
+import { access_key, region, s3_bucket, secret_access_key, upload_path } from "../../config/S3";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { useCallback, useEffect, useState } from "react";
+
+const S3_BUCKET = s3_bucket;
+const REGION = region;
+const ACCESS_KEY = access_key;
+const SECRET_ACCESS_KEY = secret_access_key;
+const UPLOAD_PATH = upload_path;
+
+const s3 = new S3Client({
+    region: REGION,
+    credentials: {
+        accessKeyId: ACCESS_KEY,
+        secretAccessKey: SECRET_ACCESS_KEY,
+    },
+});
 
 function Head() {
 
     const token = localStorage.getItem('token');
-
+    const userId = localStorage.getItem('userId'); 
     const { userInfo, initUserData } = userStore();
     const navigate = useNavigate();
+    
+    const [profileImgUrl, setProfileImgUrl] = useState(userInfo.data.profileImage);
+
+    const handleFileInput = (e) => {
+        uploadFile(e.target.files[0]);
+    };
+
+    const uploadFile = useCallback(async (file) => {
+
+        const filePath = `${UPLOAD_PATH}${file.name}-${userId}`;
+        const params = {
+            Bucket: S3_BUCKET,
+            Key: filePath,
+            Body: file,
+            ContentType: file.type,
+        };
+
+        try {
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+            
+            const url = `https://${S3_BUCKET}.s3.${REGION}.amazonaws.com/${filePath}`;
+            setProfileImgUrl(url);
+            console.log('File uploaded successfully:', url);
+            alert('File uploaded successfully');
+        } catch (err) {
+            console.error('Error uploading file:', err);
+            alert('Error uploading file');
+        } 
+    }, [userId]);
+
+    const sendProfileImgUrl = useCallback(async () => {
+        try {
+            const response = await AuthApi({token}).put(`/api/v1/user/${userId}`, {
+                profileImgUrl
+            });
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }, [token, userId, profileImgUrl]);
+
+    useEffect(() => {
+        if (profileImgUrl !== userInfo.data.profileImage) {
+            sendProfileImgUrl();
+        }
+    }, [profileImgUrl, sendProfileImgUrl, userInfo.data.profileImage]);
 
     const onEditClick = () => {
-        navigate('/changeuserinfo')
-    }
+        navigate('/changeuserinfo');
+    };
 
     const onDeleteClick = async () => {
-        const userId = localStorage.getItem('userId');
         const ok = confirm("정말로 아이디를 삭제하시겠습니까?");
         if (ok) {
             try {
-                await AuthApi({token}).delete(`/api/v1/user/delete/${userId}`, {
-                    userId,
-                })
+                await AuthApi({token}).delete(`/api/v1/user/delete/${userId}`);
                 localStorage.clear();
                 initUserData();
                 navigate('/login');
             } catch (e) {
-                console.log(e)
-                navigate('/error', {state: {error: e.message}})
+                console.log(e);
+                navigate('/error', {state: {error: e.message}});
             }
         }
-    }
+    };
 
     return (
         <Wrapper>
-            <Photo src={userInfo.data.profileImage} alt="profile photo" />
+            <input
+                type="file"
+                id="fileUpload"
+                style={{ display: 'none' }}
+                onChange={handleFileInput}
+            />
+            <Photo
+                src={profileImgUrl}
+                alt="profile photo"
+                onClick={() => document.getElementById('fileUpload').click()}
+            />
             <Name>{userInfo.data.nickname}</Name>
             <ButtonWrapper>
                 <EditButton onClick={onEditClick}>
@@ -46,7 +116,7 @@ function Head() {
                 </DeleteButton>
             </ButtonWrapper>
         </Wrapper>
-    )
+    );
 }
 
 export default Head;
@@ -72,6 +142,7 @@ const Photo = styled.img`
     height: 150px;
     box-shadow: 0 5px 20px;
     transition: transform 0.3s ease-in-out;
+    cursor: pointer; /* Add cursor pointer to indicate clickability */
     &:hover {
         transform: scale(1.08);
     }
@@ -120,4 +191,3 @@ const DeleteButton = styled.button`
         background-color: #ff5a54; 
     }
 `;
-

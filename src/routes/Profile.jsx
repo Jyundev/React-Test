@@ -6,6 +6,8 @@ import LoadingScreen from "../components/LoadingScreen";
 import { useEffect } from "react";
 import { userStore } from "../components/UserStore";
 import UserInfo from "../components/Profile/UserInfo";
+import Memo from "../components/Profile/Memo";
+import WrongAnswer from "../components/Profile/WrongAnswer";
 
 function Profile() {
     const { fetchUserDataLoading, fetchUserData, fetchChallengeList, fetchChalengeListLoading } = userStore();
@@ -22,6 +24,8 @@ function Profile() {
                     <Head />
                     <UserInfo />
                     <CheckChallenges />
+                    <Memo />
+                    <WrongAnswer />
                 </>
             }
         </Wrapper>

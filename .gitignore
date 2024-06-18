@@ -25,3 +25,7 @@ dist-ssr
 
 # 추가
 /src/filebase.js
+
+
+# Ignore config directory
+config/

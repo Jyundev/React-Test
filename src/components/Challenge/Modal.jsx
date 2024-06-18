@@ -1,56 +1,118 @@
 import styled from "styled-components";
 import PropTypes from 'prop-types';
-import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { AuthApi } from "../UserApi";
 
-function Modal({ test, onClose }) {
+function Modal({ test, onClose, challengeId }) {
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [selectedAnswers, setSelectedAnswers] = useState([]);
+    const [showResults, setShowResults] = useState(false);
 
-    const [selectedNum, setSelectedNum] = useState(1)
+    const handleAnswerClick = (index) => {
+        const newSelectedAnswers = [...selectedAnswers];
+        newSelectedAnswers[currentQuestionIndex] = index;
+        setSelectedAnswers(newSelectedAnswers);
+    };
 
-    console.log(test[0])
+    const handleNext = () => {
+        const nextIndex = currentQuestionIndex + 1;
+        if (nextIndex < test.length) {
+            setCurrentQuestionIndex(nextIndex);
+        } else {
+            setShowResults(true);
+        }
+    };
 
-    const handleNumClick = (e) =>{
-        setSelectedNum(e);
+    const handlePrevious = () => {
+        const prevIndex = currentQuestionIndex - 1;
+        if (prevIndex >= 0) {
+            setCurrentQuestionIndex(prevIndex);
+        }
+    };
+
+    const handleRestart = () => {
+        setCurrentQuestionIndex(0);
+        setSelectedAnswers([]);
+        setShowResults(false);
+    };
+
+    const saveAnswer = useCallback(
+        async(wrongQuestions) => {
+            const token = localStorage.getItem('token');
+            const userId = localStorage.getItem('userId');
+            try {
+                await AuthApi({token}).put(`/api/v1/user/challenge/challengePage/wrongQuestion/${userId}/${challengeId}`, {
+                    userId,
+                    wrongQuestions,
+                    challengeId,
+                })
+                console.log(wrongQuestions)
+            } catch (error) {
+                console.log(error)
+                console.log(Array.isArray(wrongQuestions));
+            }
+            
+        },
+        [challengeId],
+    )
+
+    useEffect(() => {
+        if (showResults) {
+            const wrongQuestions = test
+                .filter((q, index) => selectedAnswers[index] !== q.answer)
+                .map((q) => q.testId);
+            saveAnswer(wrongQuestions);
+        }
+    }, [showResults, saveAnswer, selectedAnswers, test]);
+
+    if (showResults) {
+        const correctAnswersCount = selectedAnswers.filter((answer, index) => answer === test[index].answer).length;
+        const wrongQuestions = test.filter((q, index) => selectedAnswers[index] !== q.answer);
+        
+        return (
+            <Wrapper onClick={onClose}>
+                <Container onClick={(e) => e.stopPropagation()}>
+                    <Title>Quiz 결과</Title>
+                    <Question>{test.length} 문제 중에 {correctAnswersCount} 문제 맞추셨어요!</Question>
+                    {wrongQuestions.length === 0 ? (
+                        <p>축하합니다!🚀</p>
+                    ) : (
+                        wrongQuestions.map((q, index) => (
+                            <ResultContainer key={q.testId}>
+                                <p>{q.num}. {q.question}</p>
+                                <p>Your answer: {q[`item${selectedAnswers[index] +1}`]}</p>
+                                <p style={{ color: 'red' }}>Correct answer: {q[`item${q.answer}`]}</p>
+                            </ResultContainer>
+                        ))
+                    )}
+                    <RestartButton onClick={handleRestart}>Restart Quiz</RestartButton>
+                </Container>
+            </Wrapper>
+        );
     }
 
+    const currentQuestion = test[currentQuestionIndex];
     return (
         <Wrapper onClick={onClose}>
-            <SubWrapper onClick={(e) => e.stopPropagation()}>
-                <FormWrapper>
-                    {test.map((test) => (
-                        <TestWrapper key={test.num}>
-                            <Question>{test.num}. {test.question}</Question>
-                            <ItemSelect>
-                                <ItemWrapper>
-                                    <Item type="checkbox" id={`${test.num}-item1`} name={test.num} value={1} />
-                                    <Label htmlFor={`${test.num}-item1`}>{test.item1}</Label>
-                                </ItemWrapper>
-                                <ItemWrapper>
-                                    <Item type="checkbox" id={`${test.num}-item2`} name={test.num} value={2} />
-                                    <Label htmlFor={`${test.num}-item2`}>{test.item2}</Label>
-                                </ItemWrapper>
-                                <ItemWrapper>
-                                    <Item type="checkbox" id={`${test.num}-item3`} name={test.num} value={3} />
-                                    <Label htmlFor={`${test.num}-item3`}>{test.item3}</Label>
-                                </ItemWrapper>
-                                <ItemWrapper>
-                                    <Item type="checkbox" id={`${test.num}-item4`} name={test.num} value={4} />
-                                    <Label htmlFor={`${test.num}-item4`}>{test.item4}</Label>
-                                </ItemWrapper>
-                            </ItemSelect>
-                        </TestWrapper>
-                    ))}
-                    
-                </FormWrapper>
-                <ButtonWrapper>
-                    {test.map((btn) => (
-                        <Button key={btn.num} onClick={() => handleNumClick(btn)}>
-                            {btn.num}
+            <Container onClick={(e) => e.stopPropagation()}>
+                <Title>Quiz</Title>
+                <Question>{currentQuestion.num}. {currentQuestion.question}</Question>
+                <QuestionContainer>
+                    {['item1', 'item2', 'item3', 'item4'].map((item, index) => (
+                        <Button 
+                            key={item} 
+                            onClick={() => handleAnswerClick(index)}
+                            style={{ backgroundColor: selectedAnswers[currentQuestionIndex] === index ? '#7ee383' : '#4CAF50' }}
+                        >
+                            {currentQuestion[item]}
                         </Button>
                     ))}
-                    <ResultButton>결과 보기</ResultButton>
-                </ButtonWrapper>
-            </SubWrapper>
+                </QuestionContainer>
+                <div>
+                    <NavButton onClick={handlePrevious} disabled={currentQuestionIndex === 0}>Previous</NavButton>
+                    <NavButton onClick={handleNext} disabled={!selectedAnswers[currentQuestionIndex] && selectedAnswers[currentQuestionIndex] !== 0}>Next</NavButton>
+                </div>
+            </Container>
         </Wrapper>
     );
 }
@@ -59,7 +121,8 @@ export default Modal;
 
 Modal.propTypes = {
     test: PropTypes.array.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    challengeId: PropTypes.string.isRequired
 };
 
 const Wrapper = styled.div`
@@ -73,7 +136,7 @@ const Wrapper = styled.div`
     background-color: #ffffff1c;
 `;
 
-const SubWrapper = styled.div`
+const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,61 +151,58 @@ const SubWrapper = styled.div`
     padding: 30px;
     box-shadow: 0 0 10px lightyellow;
     margin-top: 50px;
+    border-radius: 15px;
 `;
 
-const FormWrapper = styled.form`
+const Title = styled.h1`
+    font-size: 30px;
+    font-weight: 600;
 `;
 
-const TestWrapper = styled.div`
+const Question = styled.h2`
+    font-size: 18px;
+`;
+
+const QuestionContainer = styled.div`
+    margin: 20px 0;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-`;
-
-const Question = styled.h2``;
-
-const ItemSelect = styled.div``;
-
-const ItemWrapper = styled.div`
-    display: flex;
-    align-items: center;
     gap: 10px;
-    margin: 5px 0;
-`;
-
-const Item = styled.input``;
-
-const Label = styled.label``;
-
-const ButtonWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
 `;
 
 const Button = styled.button`
-    border: none;
-    background-color: #06a7e1;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 15px;
+    background-color: #4CAF50;
     color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+`;
+
+const NavButton = styled(Button)`
+    background-color: #008CBA;
 
     &:hover {
-        background-color: #32b9f8; 
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
-        transform: translateY(-2px); 
+        background-color: #007BB5;
     }
 
-    &:active {
-        background-color: #004b6e; /* 클릭 시 배경색 변경 */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 클릭 시 그림자 원래대로 */
-        transform: translateY(0); /* 클릭 시 원래 위치로 */
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
     }
 `;
 
-const ResultButton = styled.button``;
+const ResultContainer = styled.div`
+    text-align: center;
+`;
+
+const RestartButton = styled(Button)`
+    background-color: #f44336;
+
+    &:hover {
+        background-color: #e53935;
+    }
+`;
+
