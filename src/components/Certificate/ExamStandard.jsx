@@ -8,16 +8,18 @@ function ExamStandard({ certificateId }) {
         certificateId: PropTypes.string.isRequired,
     };
 
+    const EXAMSTANDARD = import.meta.env.VITE_CERIFICATE_EXAMSTANDARD;
+
     const [examStandard, setExamStandard] = useState();
 
     const fetchData = useCallback(async () => {
         try {
-            const res = await axios.get(`http://52.78.44.47/api/v1/certificate/examstandard/${certificateId}`);
+            const res = await axios.get(`${EXAMSTANDARD}${certificateId}`);
             setExamStandard(res.data.data)
         } catch (error) {
             console.error('Error fetching eligibility:', error);
         }
-    }, [certificateId]);
+    }, [certificateId, EXAMSTANDARD]);
 
     useEffect(() => {
         fetchData();

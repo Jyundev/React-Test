@@ -11,14 +11,16 @@ function JoinHead() {
 
     const { challengeId } = useParams();
 
+    const DETAIL = import.meta.env.VITE_CHALLENGE_DETAIL;
+
     const Challenge = useCallback(async () => {
         try {
-            const { data } = await axios.get(`http://52.78.44.47/api/v1/challenge/detail/${challengeId}`);
+            const { data } = await axios.get(`${DETAIL}${challengeId}`);
             setRowData(data.data);
         } catch (error) {
             console.error("Failed to fetch challenges", error);
         }
-    }, [challengeId])
+    }, [challengeId, DETAIL])
 
     useEffect(() => {
         Challenge();

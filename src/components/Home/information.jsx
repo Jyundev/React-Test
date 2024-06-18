@@ -9,13 +9,15 @@ function Information() {
 
     const [calandarData, setCalandarData] = useState();
 
+    const CALANDAR = import.meta.env.VITE_CERTIFICATE_CALANDAR
+
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://52.78.44.47/api/v1/certificate/calandar');
+            const response = await axios.get(CALANDAR);
             setCalandarData(response.data.data)
         }
         fetchData();
-    }, []);
+    }, [CALANDAR]);
 
     const [detail, setDetail] = useState();
     const [select, setSelected] = useState(false);

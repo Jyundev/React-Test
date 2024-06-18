@@ -22,7 +22,8 @@ function CheckInterest() {
         try {
             setLoading(true);
             const  {gender, age, job, interest, qualifiedCertificate } = data;
-            await AuthApi({token}).post('/api/v1/user/info/' + userId, {
+            const INFO = import.meta.env.VITE_USER_INFO
+            await AuthApi({token}).post(INFO + userId, {
                 age,
                 gender,
                 job,

@@ -2,15 +2,14 @@ import styled from "styled-components";
 import { userStore } from "../UserStore";
 import { useNavigate } from "react-router-dom";
 import { AuthApi } from "../UserApi";
-import { access_key, region, s3_bucket, secret_access_key, upload_path } from "../../config/S3";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { useCallback, useEffect, useState } from "react";
 
-const S3_BUCKET = s3_bucket;
-const REGION = region;
-const ACCESS_KEY = access_key;
-const SECRET_ACCESS_KEY = secret_access_key;
-const UPLOAD_PATH = upload_path;
+const S3_BUCKET = import.meta.env.VITE_S3_BUCKET;
+const REGION = import.meta.env.VITE_REGION;
+const ACCESS_KEY = import.meta.env.VITE_ACCESS_KEY;
+const SECRET_ACCESS_KEY = import.meta.env.VITE_SECRET_ACCESS_KEY;
+const UPLOAD_PATH = import.meta.env.VITE_UPLOAD_PATH;
 
 const s3 = new S3Client({
     region: REGION,
@@ -35,7 +34,7 @@ function Head() {
 
     const uploadFile = useCallback(async (file) => {
 
-        const filePath = `${UPLOAD_PATH}${file.name}-${userId}`;
+        const filePath = `${UPLOAD_PATH}${encodeURIComponent(file.name)}-${userId}`;
         const params = {
             Bucket: S3_BUCKET,
             Key: filePath,
@@ -79,10 +78,11 @@ function Head() {
     };
 
     const onDeleteClick = async () => {
+        const DELETE = import.meta.env.VITE_USER_DELETE
         const ok = confirm("정말로 아이디를 삭제하시겠습니까?");
         if (ok) {
             try {
-                await AuthApi({token}).delete(`/api/v1/user/delete/${userId}`);
+                await AuthApi({token}).delete(`${DELETE}${userId}`);
                 localStorage.clear();
                 initUserData();
                 navigate('/login');

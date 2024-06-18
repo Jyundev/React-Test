@@ -67,14 +67,17 @@ function Body() {
         setMemo(e.target.value);
     }
 
+    const UPDATE = import.meta.env.VITE_CHALLENGE_UPDATE;
+    const MEMO = import.meta.env.VITE_CHALLENGE_MEMO;
+
     const submit = async () => {
         try {
             await Promise.all([
-                AuthApi({token}).post(`api/v1/user/challenge/update/${challengeId}/${userId}`, {
+                AuthApi({token}).post(`${UPDATE}${challengeId}/${userId}`, {
                     step,
                     day
                 }),
-                AuthApi({token}).post(`/api/v1/user/challenge/challengeMemo/${challengeId}/${userId}`, {
+                AuthApi({token}).post(`${MEMO}${challengeId}/${userId}`, {
                     step,
                     day,
                     memo

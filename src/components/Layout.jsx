@@ -15,7 +15,8 @@ function Layout() {
         if(ok) {
             try {
                 const token = localStorage.getItem('token')
-                await AuthApi({token}).post("http://52.78.44.47/api/v1/logout");
+                const LOGOUT = import.meta.env.VITE_USER_LOGOUT
+                await AuthApi({token}).post(LOGOUT);
                 localStorage.clear();
                 initUserData();
                 navigate("/login");

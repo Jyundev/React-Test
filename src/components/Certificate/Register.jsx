@@ -9,18 +9,20 @@ function Register({certificateId}) {
         certificateId: PropTypes.string.isRequired
     }
 
+    const REGISTER = import.meta.env.VITE_CERIFICATE_REGITSER;
+
     const numberId = Number(certificateId)
 
     const [register, setRegister] = useState([])
 
     const fetchData = useCallback(async () => {
         try {
-            const res = await axios.get(`http://52.78.44.47/api/v1/certificate/register/all`);
+            const res = await axios.get(`${REGISTER}`);
             setRegister(res.data.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-    }, []);
+    }, [REGISTER]);
 
     useEffect(() => {
         fetchData();

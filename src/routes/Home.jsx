@@ -4,7 +4,6 @@ import Recommend from "../components/Home/recommend";
 import { userStore } from "../components/UserStore";
 import { useEffect } from "react";
 import LoadingScreen from "../components/LoadingScreen";
-import HotRecommend from "../components/Home/hotRecommend";
 
 function Home() {
 

@@ -17,7 +17,8 @@ function LoginTest() {
         try {
             setLoading(true);
             const { username, password } = data;
-            const response = await axios.post("http://52.78.44.47/api/v1/auth/authenticate", {
+            const AUTHENTICATE = import.meta.env.VITE_AUTHENTICATE
+            const response = await axios.post(AUTHENTICATE, {
                 username,
                 password
             })

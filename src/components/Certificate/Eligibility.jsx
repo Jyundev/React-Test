@@ -8,16 +8,18 @@ function Eligibility({ certificateId }) {
         certificateId: PropTypes.string.isRequired,
     };
 
+    const ELIGIBILITY = import.meta.env.VITE_CERIFICATE_ELIGIBILITY
+
     const [eligibility, setEligibility] = useState();
 
     const fetchData = useCallback(async () => {
         try {
-            const res = await axios.get(`http://52.78.44.47/api/v1/certificate/eligibility/${certificateId}`);
+            const res = await axios.get(`${ELIGIBILITY}${certificateId}`);
             setEligibility(res.data.data);
         } catch (error) {
             console.error('Error fetching eligibility:', error);
         }
-    }, [certificateId]);
+    }, [certificateId, ELIGIBILITY]);
 
     useEffect(() => {
         fetchData();

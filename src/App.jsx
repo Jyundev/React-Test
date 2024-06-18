@@ -18,7 +18,6 @@ import JoinChallenge from "./routes/JoinChallenge"
 import Search from "./routes/Search"
 import ChangeUserInfo from "./routes/ChangeUserInfo"
 import ErrorPage from "./routes/ErrorPage"
-import PaginationTest from "./routes/PaginationTest"
 import Certificate from "./routes/Certificate"
 
 const router = createBrowserRouter([
@@ -101,10 +100,6 @@ const router = createBrowserRouter([
   {
     path: "test",
     element: <Test />
-  },
-  {
-    path: "pagination",
-    element: <PaginationTest />
   },
   {
     path: "/error",

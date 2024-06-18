@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -7,19 +7,21 @@ function HotRecommend() {
 
     const [RowData, setRowData] = useState([])
 
-    const Challenge = async() => {
+    const HOT = import.meta.env.VITE_CHALLENGE_HOT
+
+    const Challenge = useCallback(async() => {
         try {
-            const data = await axios.get('http://52.78.44.47/api/v1/challenge/hot');
+            const data = await axios.get(HOT);
             console.log(data.data);
             setRowData(data.data);
         } catch (e) {
             console.error(e);
         }
-    }
+    }, [HOT])
 
     useEffect(() => {
         Challenge();
-    }, [])
+    }, [Challenge])
 
     const rowRef = useRef(null);
 

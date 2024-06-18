@@ -20,13 +20,15 @@ export default function Join() {
         try {
             setLoading(true);
             const { nickname, email, password } = data;
-            await JoinApi.post("/api/v1/public/join", {
+            const JOIN = import.meta.env.VITE_USER_JOIN
+            await JoinApi.post(JOIN, {
                 nickname,
                 email,
                 password
             });
             const username = email
-            const response = await axios.post("http://52.78.44.47/api/v1/auth/authenticate", {
+            const AUTHENTICATE = import.meta.env.VITE_AUTHENTICATE
+            const response = await axios.post(AUTHENTICATE, {
                 username,
                 password
             });

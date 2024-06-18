@@ -19,7 +19,8 @@ function Certificate() {
 
     const fetchData = useCallback(async() => {
         try {
-            const response = await axios.get(`http://52.78.44.47/api/v1/certificate/${certificateId}`)
+            const CETIFICATE = import.meta.env.VITE_CERIFICATE
+            const response = await axios.get(`${CETIFICATE}${certificateId}`)
             setCertificate(response.data.data);
             setLoading(false);
         } catch (error) {

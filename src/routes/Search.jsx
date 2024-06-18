@@ -12,7 +12,8 @@ function Search() {
     
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://52.78.44.47/api/v1/certificate/all');
+            const ALL = import.meta.env.VITE_CERIFICATE_ALL
+            const response = await axios.get(ALL);
             setCertificateData(response.data.data);
             setFilteredData(response.data.data); 
         } catch (error) {

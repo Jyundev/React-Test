@@ -4,11 +4,8 @@ import { userStore } from "../components/UserStore";
 import LoadingScreen from "../components/LoadingScreen";
 import JoinBody from "../components/Challenge/JoinBody";
 import JoinHead from "../components/Challenge/JoinHead";
-import { useParams } from "react-router-dom";
 
 function JoinChallenge() {
-
-    const {challengeId} = useParams();
 
     const { fetchUserDataLoading, fetchUserData  } = userStore();
 

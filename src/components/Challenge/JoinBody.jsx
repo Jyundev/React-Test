@@ -11,14 +11,16 @@ function JoinBody() {
 
     const { challengeId } = useParams();
 
+    const DETAIL = import.meta.env.VITE_CHALLENGE_DETAIL;
+
     const Challenge = useCallback(async () => {
         try {
-            const { data } = await axios.get(`http://52.78.44.47/api/v1/challenge/detail/${challengeId}`);
+            const { data } = await axios.get(`${DETAIL}${challengeId}`);
             setRowData(data.data);
         } catch (e) {
             console.error("Failed to fetch challenges", e);
         }
-    }, [challengeId])
+    }, [challengeId, DETAIL])
 
     useEffect(() => {
         Challenge();
@@ -34,9 +36,11 @@ function JoinBody() {
 
     const token = localStorage.getItem('token')
 
+    const UPDATE = import.meta.env.VITE_CHALLENGE_UPDATE;
+
     const onClick = async () => {
         try {
-            await AuthApi({ token }).post(`/api/v1/user/challenge/update/${challengeId}/${userId}`, {
+            await AuthApi({ token }).post(`${UPDATE}${challengeId}/${userId}`, {
                 userId,
                 challengeId
             });

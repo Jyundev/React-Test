@@ -25,7 +25,8 @@ function ChangeUserInfo() {
         try {
             setLoading(true);
             const  {gender, age, job, interest, qualifiedCertificate } = data;
-            await AuthApi({token}).put('/api/v1/user/' + userId, {
+            const USER = import.meta.env.VITE_USER
+            await AuthApi({token}).put(USER + userId, {
                 age,
                 gender,
                 job,
