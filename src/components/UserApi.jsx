@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const AuthApi = ({token}) => axios.create({
-    baseURL: 'http://52.78.44.47',
+    baseURL: 'https://ddajait.shop',
     headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
@@ -9,7 +9,7 @@ export const AuthApi = ({token}) => axios.create({
 });
 
 export const JoinApi = axios.create({
-    baseURL: 'http://52.78.44.47',
+    baseURL: 'https://ddajait.shop',
     headers: {
         'Content-Type': 'application/json',
     },

@@ -88,6 +88,8 @@ function Body() {
         }
     };
 
+    console.log(toDo)
+
     return (
         <Wrapper>
             <StepBar>
@@ -129,7 +131,7 @@ function Body() {
                     <ToDoList>
                         <ToDoTitle>오늘의 숙제 📖: {toDo.day} 일차</ToDoTitle>
                         <ToDoSubject>
-                            {toDo?.sectionList ? toDo.sectionList[0].map((section, idx) => (<span key={idx}>{section}</span>)) : null}
+                            {toDo?.chapter ? toDo.chapter.map((chapter, idx) => (<span key={idx}>{chapter}</span>)) : null}
                         </ToDoSubject>
                     </ToDoList>
                     <Memo>
