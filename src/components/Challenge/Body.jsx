@@ -17,7 +17,7 @@ function Body() {
     const userId = localStorage.getItem('userId')
 
     const basicView = challengeInfo.steps.find(step => step.complete === false) ? challengeInfo.steps.find(step => step.complete === false) : challengeInfo.steps[challengeInfo.steps.length - 1];
-
+    console.log(basicView)
     const basicTest = basicView.days.find(day => day.test != 0)
 
     const incompleteDay = basicView.days.find(day => day.complete === false);

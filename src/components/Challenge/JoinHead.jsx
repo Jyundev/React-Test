@@ -37,7 +37,7 @@ function JoinHead() {
                 <SubTitle>
                     <div>기간: {RowData.startDay} - {RowData.endDay}</div>
                     <div>시험일: {RowData.testDay}</div>
-                    <div>함께 하는 이들: {}명</div>
+                    <div>함께 하는 이들: {RowData.totalUser}명</div>
                 </SubTitle>
             </Title>
         </Wrapper>

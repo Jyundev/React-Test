@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { userStore } from "../UserStore";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
@@ -7,7 +7,9 @@ import { AuthApi } from "../UserApi";
 
 function JoinBody() {
 
-    const [RowData, setRowData] = useState([]);
+    const navigate = useNavigate();
+
+    const [RowData, setRowData] = useState(null);  // Initialized as null to differentiate from an empty array
 
     const { challengeId } = useParams();
 
@@ -16,11 +18,12 @@ function JoinBody() {
     const Challenge = useCallback(async () => {
         try {
             const { data } = await axios.get(`${DETAIL}${challengeId}`);
+            console.log("Fetched challenge data:", data);
             setRowData(data.data);
         } catch (e) {
             console.error("Failed to fetch challenges", e);
         }
-    }, [challengeId, DETAIL])
+    }, [challengeId, DETAIL]);
 
     useEffect(() => {
         Challenge();
@@ -28,13 +31,13 @@ function JoinBody() {
 
     const { userInfo } = userStore();
 
-    const userNickname = userInfo.data.nickname
+    const userNickname = userInfo?.data?.nickname || 'Guest';  // Added safe navigation and default value
 
     const userId = localStorage.getItem('userId');
     
-    const challenge = RowData.challengeName;
+    const challenge = RowData?.challengeName || '';  // Added safe navigation and default value
 
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
     const UPDATE = import.meta.env.VITE_CHALLENGE_UPDATE;
 
@@ -44,13 +47,16 @@ function JoinBody() {
                 userId,
                 challengeId
             });
-            window.location.href = `http://ddjait-react-cicd.s3-website.ap-northeast-2.amazonaws.com/challenge/${challengeId}`
-            // navigate(`/challenge/${challengeId}`);
+            // window.location.href = `http://localhost:5173/challenge/${challengeId}`;
+            navigate(`/challenge/${challengeId}`)
         } catch (error) {
             console.error('Error updating challenge:', error);
         }
     };
-    
+
+    if (!RowData) {
+        return <Wrapper>Loading...</Wrapper>;  // Render a loading state or spinner while data is being fetched
+    }
 
     return (
         <Wrapper>
@@ -77,6 +83,7 @@ const Wrapper = styled.div`
     background: -webkit-linear-gradient(to right, #29323c, #485563); 
     background: linear-gradient(to right, #29323c, #485563); 
 `;
+
 const Button = styled.button`
     margin-top: 100px;
     margin-bottom: 50px;

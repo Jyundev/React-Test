@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import { userStore } from "../UserStore";
+import { useNavigate } from "react-router-dom";
 
 function CheckChallenges() {
 
     const {chlallengeList} = userStore();
 
-    console.log(chlallengeList)
+    const navigate = useNavigate();
 
     const onClick = (id) => {
-        window.location.href = `http://ddjait-react-cicd.s3-website.ap-northeast-2.amazonaws.com/challenge/${id}`
+        // window.location.href = `http://ddjait-react-cicd.s3-website.ap-northeast-2.amazonaws.com/challenge/${id}`
+        navigate(`/challenge/${id}`);
     } 
 
     return (

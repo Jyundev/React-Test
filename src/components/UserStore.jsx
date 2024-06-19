@@ -14,8 +14,8 @@ export const userStore = create((set) => ({
     fetchJoinChallengeDataLoading: true,
     
     fetchUserData: async () => {
+        set({fetchUserDataLoading: false})
         try {
-            set({fetchUserDataLoading: false})
             const AUTH = import.meta.env.VITE_AUTH
             const token = localStorage.getItem('token');
             const response = await AuthApi({token}).get(AUTH);
