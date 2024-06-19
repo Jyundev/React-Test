@@ -4,16 +4,15 @@ import Recommend from "../components/Home/recommend";
 import { userStore } from "../components/UserStore";
 import { useEffect } from "react";
 import LoadingScreen from "../components/LoadingScreen";
+import HotRecommend from "../components/Home/hotRecommend";
 
 function Home() {
 
-  const { fetchUserDataLoading, fetchUserData, userInfo } = userStore();
+  const { fetchUserDataLoading, fetchUserData } = userStore();
 
     useEffect(() => {
         fetchUserData();
     }, [fetchUserData]);
-
-    console.log(userInfo);
 
 
   return (
@@ -22,6 +21,7 @@ function Home() {
         <>
             <Information />
             <Recommend />
+            <HotRecommend />
         </>
     }
       

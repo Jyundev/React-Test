@@ -12,8 +12,6 @@ function Body() {
 
     const { challengeInfo } = userStore();
 
-    console.log(challengeInfo)
-
     const { challengeId } = useParams();
 
     const userId = localStorage.getItem('userId')
@@ -89,7 +87,6 @@ function Body() {
             navigate('/error', {state: {error: e.message}})
         }
     };
-    
 
     return (
         <Wrapper>
@@ -126,12 +123,14 @@ function Body() {
                     </StepSubWrapper>
                 </StepWrapper>
                 {modal && 
-                    <Modal test={test} onClose={ModalClose} challengeId={challengeId} />
+                    <Modal test={test} onClose={ModalClose} challengeId={challengeId} step={step} />
                 }
                 <Subject>
                     <ToDoList>
                         <ToDoTitle>오늘의 숙제 📖: {toDo.day} 일차</ToDoTitle>
-                        <ToDoSubject>{toDo.subject}</ToDoSubject>
+                        <ToDoSubject>
+                            {toDo?.sectionList ? toDo.sectionList[0].map((section, idx) => (<span key={idx}>{section}</span>)) : null}
+                        </ToDoSubject>
                     </ToDoList>
                     <Memo>
                         <MemoTitle>메모장</MemoTitle>
@@ -156,7 +155,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 60px;
-    height: 1000px;
+    padding-bottom: 100px;
     background: #485563; 
     background: -webkit-linear-gradient(to right, #29323c, #485563); 
     background: linear-gradient(to right, #29323c, #485563); 
@@ -217,7 +216,6 @@ const Main = styled.div`
     justify-content: space-around;
     align-items: center;
     width: 70%;
-    height: 600px;
     overflow-y: auto;
     &::-webkit-scrollbar {
         display: none;
@@ -322,18 +320,19 @@ const ToDoTitle = styled.h1`
     margin-bottom: 20px;
 `;
 
-const ToDoSubject = styled.p`
-    font-size: 35px;
+const ToDoSubject = styled.div`
+    font-size: 20px;
     color: #ffffffc2;
     font-weight: 600;
     background: #73C8A9;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #373B44, #73C8A9);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #373B44, #73C8A9);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     width: 80%;
-    padding: 10px;
+    padding: 30px;
+    gap: 15px;
     border-radius: 7px;
 `;
 

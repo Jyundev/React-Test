@@ -52,9 +52,8 @@ function Recommend() {
                                     <SubTitle>{data.challengeName}</SubTitle>
                                 </RecommentdTitle>
                                 <Detail>
-                                <Dday>D{Math.floor((new Date() - new Date(data.startDay))/(1000 * 60 * 60 * 24))}</Dday>
+                                    <Dday>D{Math.floor((new Date() - new Date(data.startDay))/(1000 * 60 * 60 * 24))}</Dday>
                                     <TestDate>{data.startDay} - {data.endDay}</TestDate>
-                                    
                                 </Detail>
                         </Subject>
                         </RecommendWrapper>

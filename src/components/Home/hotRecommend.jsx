@@ -12,8 +12,7 @@ function HotRecommend() {
     const Challenge = useCallback(async() => {
         try {
             const data = await axios.get(HOT);
-            console.log(data.data);
-            setRowData(data.data);
+            setRowData(data.data.data);
         } catch (e) {
             console.error(e);
         }
@@ -53,6 +52,8 @@ function HotRecommend() {
                                     <SubTitle>{data.challengeName}</SubTitle>
                                 </RecommentdTitle>
                                 <Detail>
+                                    <Dday>D{Math.floor((new Date() - new Date(data.startDay))/(1000 * 60 * 60 * 24))}</Dday>
+                                    <TestDate>{data.startDay} - {data.endDay}</TestDate>
                                 </Detail>
                         </Subject>
                         </RecommendWrapper>
@@ -166,4 +167,11 @@ const SubTitle = styled.h2`
 const Detail = styled.span`
     padding: 10px 5px;
     font-size: 14px;
+`;
+
+const TestDate = styled.div``;
+
+const Dday = styled.span`
+    color: red;
+    font-weight: 600;
 `;

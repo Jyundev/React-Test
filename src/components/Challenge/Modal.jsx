@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from "react";
 import { AuthApi } from "../UserApi";
 
-function Modal({ test, onClose, challengeId }) {
+function Modal({ test, onClose, challengeId, step }) {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [showResults, setShowResults] = useState(false);
@@ -41,10 +41,11 @@ function Modal({ test, onClose, challengeId }) {
             const token = localStorage.getItem('token');
             const userId = localStorage.getItem('userId');
             try {
-                await AuthApi({token}).put(`/api/v1/user/challenge/challengePage/wrongQuestion/${userId}/${challengeId}`, {
+                await AuthApi({token}).put(`/api/v1/user/challenge/challengePage/wrongQuestion/${userId}/${challengeId}/${step}`, {
                     userId,
                     wrongQuestions,
                     challengeId,
+                    step
                 })
                 console.log(wrongQuestions)
             } catch (error) {
@@ -53,7 +54,7 @@ function Modal({ test, onClose, challengeId }) {
             }
             
         },
-        [challengeId],
+        [challengeId, step],
     )
 
     useEffect(() => {
@@ -122,7 +123,8 @@ export default Modal;
 Modal.propTypes = {
     test: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
-    challengeId: PropTypes.string.isRequired
+    challengeId: PropTypes.string.isRequired,
+    step: PropTypes.number.isRequired
 };
 
 const Wrapper = styled.div`
