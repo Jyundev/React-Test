@@ -1,13 +1,11 @@
 import styled from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { userStore } from "../UserStore";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthApi } from "../UserApi";
 
 function JoinBody() {
-
-    const navigate = useNavigate();
 
     const [RowData, setRowData] = useState(null);  // Initialized as null to differentiate from an empty array
 
@@ -47,8 +45,7 @@ function JoinBody() {
                 userId,
                 challengeId
             });
-            // window.location.href = `http://localhost:5173/challenge/${challengeId}`;
-            navigate(`/challenge/${challengeId}`)
+            window.location.href = `http://ddjait-react-cicd.s3-website.ap-northeast-2.amazonaws.com/${challengeId}`;
         } catch (error) {
             console.error('Error updating challenge:', error);
         }
