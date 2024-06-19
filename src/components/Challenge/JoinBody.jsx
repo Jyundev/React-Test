@@ -44,7 +44,7 @@ function JoinBody() {
                 userId,
                 challengeId
             });
-            window.location.href = `http://localhost:5173/challenge/${challengeId}`
+            window.location.href = `http://ddjait-react-cicd.s3-website.ap-northeast-2.amazonaws.com/challenge/${challengeId}`
             // navigate(`/challenge/${challengeId}`);
         } catch (error) {
             console.error('Error updating challenge:', error);
