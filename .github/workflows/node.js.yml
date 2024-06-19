@@ -38,6 +38,7 @@ jobs:
         VITE_USER_INFO: ${{ secrets.VITE_USER_INFO }}
         VITE_USER_DELETE: ${{ secrets.VITE_USER_DELETE }}
         VITE_USER_LOGOUT: ${{ secrets.VITE_USER_LOGOUT }}
+        VITE_USER_IMAGE: ${{ secrets.VITE_USER_IMAGE }}
         VITE_CERIFICATE: ${{ secrets.VITE_CERIFICATE }}
         VITE_CERIFICATE_ALL: ${{ secrets.VITE_CERIFICATE_ALL }}
         VITE_CERIFICATE_ELIGIBILITY: ${{ secrets.VITE_CERIFICATE_ELIGIBILITY }}

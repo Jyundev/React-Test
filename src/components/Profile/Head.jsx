@@ -25,8 +25,13 @@ function Head() {
     const userId = localStorage.getItem('userId'); 
     const { userInfo, initUserData } = userStore();
     const navigate = useNavigate();
+
+    const jsonObject = JSON.parse(userInfo.data.profileImage);
+    const imgUrl = jsonObject.profileImgUrl
     
-    const [profileImgUrl, setProfileImgUrl] = useState(userInfo.data.profileImage);
+    const [profileImgUrl, setProfileImgUrl] = useState(imgUrl);
+
+    console.log(profileImgUrl)
 
     const handleFileInput = (e) => {
         uploadFile(e.target.files[0]);
@@ -34,12 +39,13 @@ function Head() {
 
     const uploadFile = useCallback(async (file) => {
 
-        const filePath = `${UPLOAD_PATH}${encodeURIComponent(file.name)}-${userId}`;
+        const filePath = `${UPLOAD_PATH}${userId}`;
         const params = {
             Bucket: S3_BUCKET,
             Key: filePath,
             Body: file,
             ContentType: file.type,
+            ACL: 'public-read'
         };
 
         try {
@@ -58,19 +64,17 @@ function Head() {
 
     const sendProfileImgUrl = useCallback(async () => {
         try {
-            const response = await AuthApi({token}).put(`/api/v1/user/${userId}`, {
+            const IMAGE = import.meta.env.VITE_USER_IMAGE
+            await AuthApi({token}).put(`${IMAGE}${userId}`, {
                 profileImgUrl
             });
-            console.log(response);
         } catch (error) {
             console.log(error);
         }
     }, [token, userId, profileImgUrl]);
 
     useEffect(() => {
-        if (profileImgUrl !== userInfo.data.profileImage) {
-            sendProfileImgUrl();
-        }
+        sendProfileImgUrl();
     }, [profileImgUrl, sendProfileImgUrl, userInfo.data.profileImage]);
 
     const onEditClick = () => {
