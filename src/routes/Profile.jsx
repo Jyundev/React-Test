@@ -10,12 +10,14 @@ import Memo from "../components/Profile/Memo";
 import WrongAnswer from "../components/Profile/WrongAnswer";
 
 function Profile() {
-    const { fetchUserDataLoading, fetchUserData, fetchChallengeList, fetchChalengeListLoading } = userStore();
+    const { fetchUserDataLoading, fetchUserData, fetchChallengeList, fetchChalengeListLoading, userInfo } = userStore();
 
     useEffect(() => {
         fetchUserData();
         fetchChallengeList();
     }, [fetchUserData, fetchChallengeList]);
+
+    if (!userInfo) return (<div>loading...</div>)
     
     return (
         <Wrapper>
@@ -36,5 +38,5 @@ export default Profile;
 
 const Wrapper = styled.div`
     width: 100%;
-    height: 4000px;
+    margin-bottom: 100px;
 `;

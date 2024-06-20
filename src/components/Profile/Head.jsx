@@ -26,12 +26,7 @@ function Head() {
     const { userInfo, initUserData } = userStore();
     const navigate = useNavigate();
 
-    const jsonObject = JSON.parse(userInfo.data.profileImage);
-    const imgUrl = jsonObject.profileImgUrl
-    
-    const [profileImgUrl, setProfileImgUrl] = useState(imgUrl);
-
-    console.log(profileImgUrl)
+    const [profileImage, setProfileImgUrl] = useState(userInfo.data.profileImage);
 
     const handleFileInput = (e) => {
         uploadFile(e.target.files[0]);
@@ -39,19 +34,19 @@ function Head() {
 
     const uploadFile = useCallback(async (file) => {
 
-        const filePath = `${UPLOAD_PATH}${userId}`;
+        const timestamp = new Date().getTime();
+        const filePath = `${UPLOAD_PATH}${userId}?${timestamp}`;
         const params = {
             Bucket: S3_BUCKET,
             Key: filePath,
             Body: file,
             ContentType: file.type,
             ACL: 'public-read'
-        };
+        }
 
         try {
             const command = new PutObjectCommand(params);
             await s3.send(command);
-            
             const url = `https://${S3_BUCKET}.s3.${REGION}.amazonaws.com/${filePath}`;
             setProfileImgUrl(url);
             console.log('File uploaded successfully:', url);
@@ -66,16 +61,16 @@ function Head() {
         try {
             const IMAGE = import.meta.env.VITE_USER_IMAGE
             await AuthApi({token}).put(`${IMAGE}${userId}`, {
-                profileImgUrl
+                profileImage
             });
         } catch (error) {
             console.log(error);
         }
-    }, [token, userId, profileImgUrl]);
+    }, [token, userId, profileImage]);
 
     useEffect(() => {
         sendProfileImgUrl();
-    }, [profileImgUrl, sendProfileImgUrl, userInfo.data.profileImage]);
+    }, [profileImage, sendProfileImgUrl,]);
 
     const onEditClick = () => {
         navigate('/changeuserinfo');
@@ -97,6 +92,8 @@ function Head() {
         }
     };
 
+    console.log(profileImage)
+
     return (
         <Wrapper>
             <input
@@ -106,7 +103,7 @@ function Head() {
                 onChange={handleFileInput}
             />
             <Photo
-                src={profileImgUrl}
+                src={profileImage}
                 alt="profile photo"
                 onClick={() => document.getElementById('fileUpload').click()}
             />
