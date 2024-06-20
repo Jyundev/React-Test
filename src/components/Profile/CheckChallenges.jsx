@@ -5,6 +5,8 @@ function CheckChallenges() {
 
     const {challengeList} = userStore();
 
+    console.log(challengeList)
+
     const onClick = (id) => {
         window.location.href = `http://ddjait-react-cicd.s3-website.ap-northeast-2.amazonaws.com/challenge/${id}`
     } 
@@ -18,8 +20,8 @@ function CheckChallenges() {
                     <Icons>
                         {challengeList.data.map((challenge) => (
                             <Icon key={challenge.challengeId} onClick={() => onClick(challenge.challengeId)}>
-                                <Image src={challenge.thumbnail} alt={challenge.challengeName} />
                                 <Name>{challenge.challengeName}</Name>
+                                <Progress value={challenge.progress/100}/>
                             </Icon>
                         ))}
                     </Icons>
@@ -84,22 +86,24 @@ const Icons = styled.div`
     padding: 20px;
 `;
 
-const Icon = styled.div``;
-
-const Image = styled.img`
-    border-radius: 100%;
-    width: 70px;
-    height: 70px;
-    box-shadow: 5px 5px 10px grey;
-    transition: transform 0.3s ease-in-out;
-    cursor: pointer;
-    &:hover {
-        transform: scale(1.08);
-    }
+const Icon = styled.div`
+    background-color: #fadfdf; 
+    border-radius: 30px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 `;
 
 const Name = styled.h3`
     display: flex;
     justify-content: center;
-    padding: 10px;
+    font-weight: 600;
+    color: #ef6c82;
+`;
+
+const Progress = styled.progress`
+    width: 80%;
 `;

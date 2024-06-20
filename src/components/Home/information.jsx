@@ -28,8 +28,6 @@ function Information() {
     }
     
     const customDayCellContent = (arg) => {
-        // arg.date는 현재 날짜 객체를 나타냅니다.
-        // 이를 적절한 형식으로 변환하여 반환합니다.
         return arg.date.getDate().toString(); // 일자만 표시
     };
 
@@ -41,19 +39,24 @@ function Information() {
                     initialView='dayGridMonth'
                     events={calandarData}
                     eventClick={handleDateClick}
-                    height="auto"
                     locale='ko'
                     dayCellContent={customDayCellContent}
                     fixedWeekCount={false}
+                    height='100%'
                 />
             </CalendarWrapper>
             <DetailWrapper>
-                {!select ? <Title>일정을 선택해주세요</Title> : 
-                    <div>
-                        <Title>{detail.title}</Title>
-                        <Title>{detail.extendedProps[0].round}</Title>
-                        <Title>{detail.extendedProps[0].type}</Title>
-                    </div>
+                {!select ? <BeforeSelect>일정을 선택해주세요🎈</BeforeSelect> : 
+                    <>
+                        <Title>✅ 접수 정보</Title>
+                        <SubTitleWrapper>
+                            <Round>{detail.extendedProps[0].round}</Round>
+                            <SubTitle>{detail.title}</SubTitle>
+                        </SubTitleWrapper>
+                        <Overview>{detail.extendedProps[0].overView}</Overview>
+                        <Detail>{"🕗시험 날짜: "}{detail.extendedProps[0].testDay}</Detail>
+                        <Detail>{"✒️시험 형식: "}{detail.extendedProps[0].type}</Detail>
+                    </>
                 }
             </DetailWrapper>
         </Wrapper>
@@ -65,7 +68,7 @@ export default Information
 const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 80vw;
     justify-content: center;
     gap: 60px;
     margin-top: 20px;
@@ -77,6 +80,7 @@ const Wrapper = styled.div`
 
 const CalendarWrapper = styled.div`
     width: 80vh;
+    height: 80vh;
     border-radius: 30px;
     box-shadow: 3px 4px 15px grey;
     padding: 30px;
@@ -113,11 +117,60 @@ const DetailWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     border: 1px solid black;
     width: 60vh;
+    border: 2px solid lightgrey;
+    border-radius: 15px;
+    padding: 40px 0;
 `;
 
-const Title = styled.div``;
+const BeforeSelect = styled.div`
+    display: flex;
+    height: 100%;
+    align-items: center;
+    font-size: 30px;
+    font-size: 600;
+`;
+
+const Title = styled.div`
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 40px;
+`;
+
+const SubTitleWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+`;
+
+const Round = styled.div`
+    font-size: 17px;
+    width: 80%
+`;
+
+const SubTitle = styled.div`
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+`;
+
+const Overview = styled.div`
+    width: 80%;
+    padding: 15px;
+    background-color: #def8de;
+    border-radius: 7px;
+    line-height: 20px;
+    text-indent: 10px;
+    margin-bottom: 20px;
+`;
+
+const Detail = styled.div`
+    width: 70%;
+    margin-bottom: 10px;
+`;
 
 

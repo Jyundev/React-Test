@@ -51,7 +51,9 @@ function Search() {
             <SearchResult>
                 {filteredData.map(item => (
                     <Certificate key={item.certificate_id} onClick={() => onClick(item.certificate_id)}>
-                        {item.certificateFullName}
+                        <Img src={item.thumbnail} alt="img" />
+                        <CertificateTitle>{item.certificateFullName}</CertificateTitle>
+                        <CertificateDetail>🚀Click!</CertificateDetail>
                     </Certificate>
                 ))}
             </SearchResult>
@@ -68,6 +70,7 @@ const Wrapper = styled.div`
     align-items: center;
     gap: 40px;
     padding: 40px;
+    width: 100%;
 `;
 
 const Title = styled.h1`
@@ -94,16 +97,50 @@ const SearchBar = styled.input`
 
 const SearchResult = styled.div`
     display: flex;
+    width: 83%;
     flex-wrap: wrap;
     gap: 50px;
-    border: 1px solid grey;
     padding: 20px;
+    @media (max-width: 768px)  {
+        width: 89%;
+    }
 `;
 
 const Certificate = styled.div`
-    border: 1px solid black;
-    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 250px;
-    height: 250px;
+    height: 220px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    background-color: #eef5ff;
     cursor: pointer;
+    &:hover {
+        box-shadow: 0px 0px 20px lightpink;
+    }
+`;
+
+const Img = styled.img`
+    width: 90%;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 0 8px lightcyan;
+`;
+
+const CertificateTitle = styled.h1`
+    width: 80%;
+    font-size: 20px;
+    font-weight: 600; 
+`;
+
+const CertificateDetail = styled.span`
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
+    margin-top: 8px;
+    font-weight: 600;
+    color: grey;
 `;
