@@ -3,7 +3,7 @@ import { userStore } from "../UserStore";
 
 function CheckChallenges() {
 
-    const {chlallengeList} = userStore();
+    const {challengeList} = userStore();
 
     const onClick = (id) => {
         window.location.href = `http://ddjait-react-cicd.s3-website.ap-northeast-2.amazonaws.com/challenge/${id}`
@@ -16,7 +16,7 @@ function CheckChallenges() {
                 <IconWrapper>
                     <Subtitle>진행중</Subtitle>
                     <Icons>
-                        {chlallengeList.data.map((challenge) => (
+                        {challengeList.data.map((challenge) => (
                             <Icon key={challenge.challengeId} onClick={() => onClick(challenge.challengeId)}>
                                 <Image src={challenge.thumbnail} alt={challenge.challengeName} />
                                 <Name>{challenge.challengeName}</Name>

@@ -6,7 +6,7 @@ import axios from "axios";
 export const userStore = create((set) => ({
     userInfo: null,
     challengeInfo: null,
-    chlallengeList: null,
+    challengeList: null,
     joinChallengeData: null,
     fetchUserDataLoading: true,
     fetchChallengeDataLoading: true,
@@ -42,7 +42,7 @@ export const userStore = create((set) => ({
             const token = localStorage.getItem('token');
             const userId = localStorage.getItem('userId')
             const fetchData = await AuthApi({token}).get(`/api/v1/user/challenge/${userId}`)
-            set({chlallengeList: fetchData.data, fetchChalengeListLoading: false})
+            set({challengeList: fetchData.data, fetchChalengeListLoading: false})
         } catch (error) {
             console.log(error);
             set({fetchChalengeListLoading: false})
