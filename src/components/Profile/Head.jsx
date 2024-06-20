@@ -35,7 +35,7 @@ function Head() {
     const uploadFile = useCallback(async (file) => {
 
         const timestamp = new Date().getTime();
-        const filePath = `${UPLOAD_PATH}${userId}?${timestamp}`;
+        const filePath = `${UPLOAD_PATH}${userId}/${timestamp}`;
         const params = {
             Bucket: S3_BUCKET,
             Key: filePath,
@@ -48,7 +48,7 @@ function Head() {
             const command = new PutObjectCommand(params);
             await s3.send(command);
             const url = `https://${S3_BUCKET}.s3.${REGION}.amazonaws.com/${filePath}`;
-            setProfileImgUrl(`https://d26qduhz3ubom8.cloudfront.net/${filePath}`);
+            setProfileImgUrl(url);
             console.log('File uploaded successfully:', url);
             alert('File uploaded successfully');
         } catch (err) {
