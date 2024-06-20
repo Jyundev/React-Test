@@ -48,7 +48,7 @@ function Head() {
             const command = new PutObjectCommand(params);
             await s3.send(command);
             const url = `https://${S3_BUCKET}.s3.${REGION}.amazonaws.com/${filePath}`;
-            setProfileImgUrl(url);
+            setProfileImgUrl(`https://d26qduhz3ubom8.cloudfront.net/${filePath}`);
             console.log('File uploaded successfully:', url);
             alert('File uploaded successfully');
         } catch (err) {
@@ -91,8 +91,6 @@ function Head() {
             }
         }
     };
-
-    console.log(profileImage)
 
     return (
         <Wrapper>
