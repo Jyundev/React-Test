@@ -7,7 +7,7 @@ import { userStore } from '../components/UserStore';
 
 function ChangeUserInfo() {
 
-    const { userInfo } = userStore();
+    const { userInfo, initUserData } = userStore();
 
     const userId = localStorage.getItem('userId');
 
@@ -38,6 +38,22 @@ function ChangeUserInfo() {
             alert(e.response ? e.response.data.message : "An error occurred. Please try again.")
         } finally {
             setLoading(false);
+        }
+    };
+
+    const onDeleteClick = async () => {
+        const DELETE = import.meta.env.VITE_USER_DELETE
+        const ok = confirm("정말로 아이디를 삭제하시겠습니까?");
+        if (ok) {
+            try {
+                await AuthApi({token}).delete(`${DELETE}${userId}`);
+                localStorage.clear();
+                initUserData();
+                navigate('/login');
+            } catch (e) {
+                console.log(e);
+                navigate('/error', {state: {error: e.message}});
+            }
         }
     };
 
@@ -123,6 +139,10 @@ function ChangeUserInfo() {
                     </CheckList>
                 </Check>
                 <SubmitButton type="submit" value={isLoading ? "Loading..." : "저장"} />
+                <Delete>
+                    <DeleteSpan>만약 탈퇴하고 싶으시다면 저를 눌러주세요...🐯</DeleteSpan>
+                    <DeleteButton onClick={onDeleteClick}>😶‍🌫️</DeleteButton>
+                </Delete>
             </Form>
         </Wrapper>
     );
@@ -140,6 +160,7 @@ const Wrapper = styled.div`
     padding: 50px 0px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 100px;
 `;
 
 const Title = styled.h1`
@@ -264,5 +285,36 @@ const SubmitButton = styled.input`
     &:hover {
         background-color: #4dcf4d;
     }
-`
+`;
+
+const Delete = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    align-items: center;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+`;
+
+const DeleteSpan = styled.span`
+    font-size: 13px;
+    font-weight: 600;
+`;
+
+const DeleteButton = styled.button`
+    display: flex;
+    background-color: white;
+    width: 25%;
+    border: none;
+    margin-top: 10px;
+    font-size: 40px;
+    transition: transform 2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.05);
+        text-shadow: 0 0 10px #ff5a54; 
+    }
+`;
+
 

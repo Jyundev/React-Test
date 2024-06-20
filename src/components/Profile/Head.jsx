@@ -23,7 +23,7 @@ function Head() {
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId'); 
-    const { userInfo, initUserData } = userStore();
+    const { userInfo } = userStore();
     const navigate = useNavigate();
 
     const [profileImage, setProfileImgUrl] = useState(userInfo.data.profileImage);
@@ -76,22 +76,6 @@ function Head() {
         navigate('/changeuserinfo');
     };
 
-    const onDeleteClick = async () => {
-        const DELETE = import.meta.env.VITE_USER_DELETE
-        const ok = confirm("정말로 아이디를 삭제하시겠습니까?");
-        if (ok) {
-            try {
-                await AuthApi({token}).delete(`${DELETE}${userId}`);
-                localStorage.clear();
-                initUserData();
-                navigate('/login');
-            } catch (e) {
-                console.log(e);
-                navigate('/error', {state: {error: e.message}});
-            }
-        }
-    };
-
     return (
         <Wrapper>
             <input
@@ -108,11 +92,8 @@ function Head() {
             <Name>{userInfo.data.nickname}</Name>
             <ButtonWrapper>
                 <EditButton onClick={onEditClick}>
-                    수정
+                    프로필 수정
                 </EditButton>
-                <DeleteButton onClick={onDeleteClick}>
-                    탈퇴
-                </DeleteButton>
             </ButtonWrapper>
         </Wrapper>
     );
@@ -163,7 +144,7 @@ const EditButton = styled.button`
     font-size: 20px;
     font-weight: 600;
     margin-top: 10px;
-    background-color: white;
+    background-color: #affbaf;
     border: none;
     border-radius: 5px;
     color: black;
@@ -175,18 +156,3 @@ const EditButton = styled.button`
     }
 `;
 
-const DeleteButton = styled.button`
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 10px;
-    background-color: white; 
-    border: none;
-    border-radius: 5px;
-    color: black;
-    padding: 7px;
-    box-shadow: 5px 5px 10px grey;
-    cursor: pointer;
-    &:hover {
-        background-color: #ff5a54; 
-    }
-`;

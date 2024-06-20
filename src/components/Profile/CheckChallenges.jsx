@@ -83,18 +83,22 @@ const Icons = styled.div`
     gap: 35px;
     justify-content: center;
     align-items: center;
-    padding: 20px;
 `;
 
 const Icon = styled.div`
     background-color: #fadfdf; 
     border-radius: 30px;
-    height: 50px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.6s ease-in-out;
+    &:hover {
+        transform: scale(1.13);
+        box-shadow: 0 0 10px lightyellow;
+    }
 `;
 
 const Name = styled.h3`
@@ -102,8 +106,10 @@ const Name = styled.h3`
     justify-content: center;
     font-weight: 600;
     color: #ef6c82;
+    margin: 0 20px;
 `;
 
 const Progress = styled.progress`
     width: 80%;
+    height: 20px;
 `;
