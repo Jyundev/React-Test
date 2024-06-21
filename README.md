@@ -1,8 +1,26 @@
-# React + Vite
+# 🚀 DDaja-it -frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+따자잇(DDaja-it)은 it 업계 취업을 준비하며 it 관련 자격증 취득을 준비하고 있는 분들에게 관련 정보를 제공함과 동시에 자격증 취득을 위한 챌린지 프로그램을 제공합니다.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔆사용 프레임워크
+
+React + Vite
+
+
+## 🛒 사용 npm 라이브러리
+
+nodejs의 npm(node package manage)에서 사용한 라이브러리 목록입니다.
+
+-react-router-dom
+-react-hook-form
+-styled-components
+-prop-types
+-styled-reset
+-zustand
+-axios
+-aws-sdk
+-fullcalendar
+-react-table
+-react-icons
+
