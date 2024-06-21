@@ -8,7 +8,7 @@ function CheckChallenges() {
     console.log(challengeList)
 
     const onClick = (id) => {
-        window.location.href = `https://ddjait-react-cicd.s3-website.ap-northeast-2.amazonaws.com/challenge/${id}`
+        window.location.href = `https://d26qduhz3ubom8.cloudfront.net/challenge/${id}`
     } 
     
     return (
