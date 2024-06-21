@@ -1,17 +1,14 @@
 // useStore.js
 import { create } from "zustand";
 import { AuthApi } from "./UserApi";
-import axios from "axios";
 
 export const userStore = create((set) => ({
     userInfo: null,
     challengeInfo: null,
     challengeList: null,
-    joinChallengeData: null,
     fetchUserDataLoading: true,
     fetchChallengeDataLoading: true,
     fetchChalengeListLoading: true,
-    fetchJoinChallengeDataLoading: true,
     
     fetchUserData: async () => {
         set({fetchUserDataLoading: false})
@@ -41,19 +38,12 @@ export const userStore = create((set) => ({
         try {
             const token = localStorage.getItem('token');
             const userId = localStorage.getItem('userId')
-            const fetchData = await AuthApi({token}).get(`/api/v1/user/challenge/${userId}`)
+            const VIEW = import.meta.env.VITE_CHALLENEGE_VIEW
+            const fetchData = await AuthApi({token}).get(`${VIEW}${userId}`)
             set({challengeList: fetchData.data, fetchChalengeListLoading: false})
         } catch (error) {
             console.log(error);
             set({fetchChalengeListLoading: false})
-        }
-    },
-    fetchJoinChallengeData: async(challengeId) => {
-        try {
-            const fetchData = await axios.get(`http://52.78.44.47/api/v1/challenge/detail/${challengeId}`);
-            set({joinChallengeData: fetchData, fetchJoinChallengeDataLoading: false})
-        } catch (error) {
-            console.log(error)
         }
     },
     initUserData: () => {

@@ -51,6 +51,7 @@ jobs:
         VITE_CHALLENGE_DETAIL: ${{ secrets.VITE_CHALLENGE_DETAIL }}
         VITE_CHALLENGE_HOT: ${{ secrets.VITE_CHALLENGE_HOT }}
         VITE_CHALLENGE_RECENT: ${{ secrets.VITE_CHALLENGE_RECENT }}
+        VITE_CHALLENEGE_VIEW: ${{ secrets.VITE_CHALLENEGE_VIEW }}
 
     - uses: awact/s3-action@master
       with:
