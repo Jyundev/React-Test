@@ -4,8 +4,11 @@ import interactionPlugin from "@fullcalendar/interaction"
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Information() {
+
+    const navigate = useNavigate();
 
     const [calandarData, setCalandarData] = useState();
 
@@ -31,6 +34,10 @@ function Information() {
         return arg.date.getDate().toString(); // 일자만 표시
     };
 
+    const onClick = () => {
+        navigate(`/certificate/${detail.extendedProps.certificateId}`);
+    }
+
     return (
         <Wrapper>
             <CalendarWrapper>
@@ -54,8 +61,10 @@ function Information() {
                             <SubTitle>{detail.title}</SubTitle>
                         </SubTitleWrapper>
                         <Overview>{detail.extendedProps[0].overView}</Overview>
-                        <Detail>{"🕗시험 날짜: "}{detail.extendedProps[0].testDay}</Detail>
-                        <Detail>{"✒️시험 형식: "}{detail.extendedProps[0].type}</Detail>
+                        <Detail>{"🕗 시험 날짜: "}{detail.extendedProps[0].testDay}</Detail>
+                        <Detail>{"✒️ 시험 형식: "}{detail.extendedProps[0].type}</Detail>
+                        <Detail>{"🆗 시험 자격: "}{detail.extendedProps[0].standards[0].qualification}</Detail>
+                        <Button onClick={onClick}>상세 정보</Button>
                     </>
                 }
             </DetailWrapper>
@@ -103,10 +112,12 @@ const CalendarWrapper = styled.div`
         cursor: pointer;
         border: none;
         transition: background-color 0.3s, color 0.3s;
+        text-align: center;
+        background-color: lightgreen;
     }
 
     .fc-event:hover {
-    background-color: #91d1fb; /* 호버 시 배경색 변경 */
+    background-color: #44c944; /* 호버 시 배경색 변경 */
     font-weight: bold; /* 호버 시 텍스트 굵게 */
     }
 
@@ -177,6 +188,22 @@ const Overview = styled.div`
 const Detail = styled.div`
     width: 70%;
     margin-bottom: 10px;
+`;
+
+const Button = styled.button`
+    margin-top: 20px;
+    padding: 13px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #000000bb;
+    background-color: #fbe9cf;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px grey;
+    &:hover {
+        background-color: #fbd49f;
+    }
+
 `;
 
 
