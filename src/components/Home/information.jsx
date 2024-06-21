@@ -79,12 +79,15 @@ const Wrapper = styled.div`
 `;
 
 const CalendarWrapper = styled.div`
-    width: 80vh;
+    width: 40vw;
     height: 80vh;
     border-radius: 30px;
     box-shadow: 3px 4px 15px grey;
     padding: 30px;
     background-color: #ffffff62;
+    @media (max-width: 768px) {
+        width: 80vw;
+    }
 
     .fc-day-sun a {
     color: #ff6868;
@@ -119,22 +122,25 @@ const DetailWrapper = styled.div`
     align-items: center;
     justify-content: flex-start;
     border: 1px solid black;
-    width: 60vh;
+    width: 30vw;
     border: 2px solid lightgrey;
     border-radius: 15px;
     padding: 40px 0;
+    @media (max-width: 768px) {
+        width: 80vw;
+    }
 `;
 
 const BeforeSelect = styled.div`
     display: flex;
     height: 100%;
     align-items: center;
-    font-size: 30px;
+    font-size: 20px;
     font-size: 600;
 `;
 
 const Title = styled.div`
-    font-size: 35px;
+    font-size: 25px;
     font-weight: 600;
     margin-bottom: 40px;
 `;
@@ -149,11 +155,11 @@ const SubTitleWrapper = styled.div`
 
 const Round = styled.div`
     font-size: 17px;
-    width: 80%
+    margin-bottom: 6px;
 `;
 
 const SubTitle = styled.div`
-    font-size: 30px;
+    font-size: 23px;
     font-weight: 600;
     margin-bottom: 20px;
 `;
