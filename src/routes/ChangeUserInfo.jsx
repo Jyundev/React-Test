@@ -46,10 +46,12 @@ function ChangeUserInfo() {
         const ok = confirm("정말로 아이디를 삭제하시겠습니까?");
         if (ok) {
             try {
-                await AuthApi({token}).delete(`${DELETE}${userId}`);
+                const res = await AuthApi({token}).delete(`${DELETE}${userId}`);
                 localStorage.clear();
                 initUserData();
-                navigate('/login');
+                if (res.status === 200) {
+                    navigate('/login');
+                }
             } catch (e) {
                 console.log(e);
                 navigate('/error', {state: {error: e.message}});
@@ -139,11 +141,11 @@ function ChangeUserInfo() {
                     </CheckList>
                 </Check>
                 <SubmitButton type="submit" value={isLoading ? "Loading..." : "저장"} />
+            </Form>
                 <Delete>
                     <DeleteSpan>만약 탈퇴하고 싶으시다면 저를 눌러주세요...🐯</DeleteSpan>
                     <DeleteButton onClick={onDeleteClick}>😶‍🌫️</DeleteButton>
                 </Delete>
-            </Form>
         </Wrapper>
     );
 }
