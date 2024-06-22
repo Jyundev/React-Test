@@ -71,7 +71,7 @@ function Body() {
     const submit = async () => {
         try {
             await Promise.all([
-                AuthApi({token}).post(`${UPDATE}${challengeId}/${userId}`, {
+                AuthApi({token}).put(`${UPDATE}${userId}/${challengeId}`, {
                     step,
                     day
                 }),

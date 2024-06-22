@@ -59,7 +59,7 @@ const IconWrapper = styled.div`
 `;
 
 const ChallengeWrapper = styled.div`
-    width: 70vw;
+    width: 60vw;
     margin-top: 70px;
     padding: 40px;
     background: #C9D6FF; 

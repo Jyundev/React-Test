@@ -118,12 +118,15 @@ function Memo() {
     return (
         <Wrapper>
             <SelectWrapper>
-                <select onChange={selectChallengeId} defaultValue={'default'}>
-                    <option value="default" disabled>챌린지 번호를 고르세요</option>
-                    {challengeList.data.map((challenge) => (
-                        <option key={challenge.challengeId} value={challenge.challengeId}>{challenge.challengeName}</option>
-                    ))}
-                </select>
+                <TitleWrapper>
+                    <Title>나의 메모</Title>
+                    <select onChange={selectChallengeId} defaultValue={'default'}>
+                        <option value="default" disabled>챌린지를 고르세요</option>
+                        {challengeList.data.map((challenge) => (
+                            <option key={challenge.challengeId} value={challenge.challengeId}>{challenge.challengeName}</option>
+                        ))}
+                    </select>
+                </TitleWrapper>
             </SelectWrapper>
             {challengeId !== null && stepData ? (
                 <>
@@ -169,7 +172,25 @@ const Wrapper = styled.div`
 `;
 
 const SelectWrapper = styled.div`
-    margin-bottom: 20px;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+`;
+
+const TitleWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    width: 100%;
+    margin-left: 50px;
+    gap: 50px;
+`;
+
+const Title = styled.h1`
+    font-size: 30px;
+    font-weight: 600;
 `;
 
 const PaginationWrapper = styled.div`

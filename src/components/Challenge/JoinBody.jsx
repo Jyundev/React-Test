@@ -41,11 +41,15 @@ function JoinBody() {
 
     const onClick = async () => {
         try {
-            await AuthApi({ token }).post(`${UPDATE}${challengeId}/${userId}`, {
+            const res = await AuthApi({ token }).put(`${UPDATE}${userId}/${challengeId}`, {
                 userId,
                 challengeId
             });
-            window.location.href = `https://d26qduhz3ubom8.cloudfront.net/challenge/${challengeId}`;
+            if(res.status === 200) {
+                window.location.href = `https://d26qduhz3ubom8.cloudfront.net/challenge/${challengeId}`;
+            } else {
+                alert('네트워크 통신에 실패했습니다.')
+            }
         } catch (error) {
             console.error('Error updating challenge:', error);
         }
@@ -57,7 +61,7 @@ function JoinBody() {
 
     return (
         <Wrapper>
-            <Button onClick={() => onClick()}>도전!</Button>
+            <Button onClick={onClick}>도전!</Button>
             <Title>
                 <UserName>{userNickname}</UserName> 님, 어디 계세요!
             </Title>
