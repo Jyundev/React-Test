@@ -52,8 +52,6 @@ function CerfiticateRow() {
                                     <RecommentdTitle >
                                         <SubTitle>{data.certificateFullName}</SubTitle>
                                     </RecommentdTitle>
-                                    <Detail>
-                                    </Detail>
                                 </SubjectDetail>
                         </Subject>
                         </RecommendWrapper>
@@ -87,7 +85,7 @@ const Title = styled.h1`
 `;
 
 const Icon = styled.p`
-    color: tomato;
+    color: #5689ff;
 `;
 
 const Slide = styled.div`
@@ -176,15 +174,11 @@ const RecommentdTitle = styled.div`
     padding: 10px;
     gap: 5px;
     align-items: baseline;
+    align-items: center;
+    justify-content: center;
 `;
 
 const SubTitle = styled.h2`
     font-size: 23px;
     font-weight: 600;
-`;
-
-const Detail = styled.div`
-    padding: 10px 5px;
-    font-size: 17px;
-    margin-left: 15px;
 `;

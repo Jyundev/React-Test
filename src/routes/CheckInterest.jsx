@@ -27,7 +27,7 @@ function CheckInterest() {
                 interest,
                 qualifiedCertificate
             });
-            window.location.reload(`https://d26qduhz3ubom8.cloudfront.net/`);
+            window.location.href(`https://d26qduhz3ubom8.cloudfront.net/`);
         } catch (e) {
             alert(e.response ? e.response.data.message : "An error occurred. Please try again.")
         } finally {
@@ -219,7 +219,7 @@ const Label = styled.label`
 const InputWrapper = styled.div`
     cursor: pointer;
     color: white;
-    font-weight: 600;
+    font-weight: 300;
     font-size: 15px;
     border-radius: 60px;
     text-align: center;

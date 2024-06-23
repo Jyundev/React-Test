@@ -60,8 +60,8 @@ export default function Join() {
             </Form>
             {error !== "" ? <Error>{error}</Error> : null}
             <Switcher>
-                Already have an account? 
-                <Link to="/login">Log in &rarr;</Link>
+                계정이 있으신가요? 
+                <Link to="/login">로그인 &rarr;</Link>
             </Switcher>
         </Wrapper>
     )

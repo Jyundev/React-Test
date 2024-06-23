@@ -56,7 +56,8 @@ function Recommend() {
                                     </RecommentdTitle>
                                     <Detail>
                                         <Dday>D{Math.floor((new Date() - new Date(data.startDay))/(1000 * 60 * 60 * 24))}</Dday>
-                                        <TestDate>{data.startDay} - {data.endDay}</TestDate>
+                                        <TestDate>{'시작일: '}{data.startDay}</TestDate>
+                                        <TestDate>{'마지막일: '}{data.endDay}</TestDate>
                                     </Detail>
                                 </SubjectDetail>
                         </Subject>
@@ -191,6 +192,9 @@ const Detail = styled.div`
     padding: 10px 5px;
     font-size: 17px;
     margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 `;
 
 const TestDate = styled.div``;
@@ -198,4 +202,5 @@ const TestDate = styled.div``;
 const Dday = styled.span`
     color: red;
     font-weight: 600;
+    font-size: 20px;
 `;

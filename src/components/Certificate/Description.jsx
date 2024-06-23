@@ -10,10 +10,7 @@ function Description({certificate}) {
     return (
         <DescriptionWrapper>
             <DescriptionTitle>🔎 {certificate.certificateName} 란?</DescriptionTitle>
-            <DescriptionSubWrapper>
-                <DescriptionImg src={certificate.thumbnail} alt='certificate image' />
-                <Overview>{certificate.overview}</Overview>
-            </DescriptionSubWrapper>
+            <Overview>{certificate.overview}</Overview>
         </DescriptionWrapper>
     )
 }
@@ -24,20 +21,13 @@ const DescriptionWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 80%;
+    gap: 40px;
 `;
 
 const DescriptionTitle = styled.h1`
     font-size: 28px;
     font-weight: 600;
 `;
-
-const DescriptionSubWrapper = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 4fr;
-    align-items: center;
-`;
-
-const DescriptionImg = styled.img``;
 
 const Overview = styled.span`
     font-size: 19px;

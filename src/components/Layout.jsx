@@ -49,7 +49,7 @@ function Layout() {
             <Nav $isNavFixed={isNavFixed}>
                 <Logo>
                     <StyledLink to="/">
-                        <LogoImg src='../../public/img/Ketut susilo.png' alt="logo" />
+                        <LogoImg src='public\img\Ketut Susilo.png' alt="logo" />
                     </StyledLink>
                 </Logo>
                 {!token ? 

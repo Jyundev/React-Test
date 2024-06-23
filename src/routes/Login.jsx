@@ -46,8 +46,8 @@ function LoginTest() {
             </Form>
             {error !== "" ? <Error>{error}</Error> : null}
             <Switcher>
-                Don&apos;t have an account? {/* '를 &apos; 로 대체합니다. */}
-                <Link to="/join">Create one &rarr;</Link>
+                아직 계정이 없으신가요? {/* '를 &apos; 로 대체합니다. */}
+                <Link to="/join">회원 가입 &rarr;</Link>
             </Switcher>
         </Wrapper>
     );
