@@ -106,7 +106,7 @@ function CheckInterest() {
                         ))}
                     </CheckList>
                 </Check>
-                <input type="submit" value={isLoading ? "Loading..." : "저장"} />
+                <SubmitButton type="submit" value={isLoading ? "Loading..." : "저장"} />
             </Form>
         </Wrapper>
     );
@@ -235,3 +235,18 @@ const Input = styled.input`
     }
 `;
 
+const SubmitButton = styled.input`
+    margin-top: 30px;
+    border: 3px solid green;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #26bd26;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        background-color: #4dcf4d;
+    }
+`;

@@ -102,12 +102,8 @@ const SearchResult = styled.div`
     flex-wrap: wrap;
     gap: 50px;
     padding: 20px;
-    @media (max-width: 768px)  {
-        width: 89%;
-    }
     @media (max-width: 600px)  {
         width: 100%;
-        border: 1px solid gray;
     }
 `;
 
@@ -138,4 +134,8 @@ const Img = styled.img`
     border-radius: 10px;
     margin: 10px;
     box-shadow: 0 0 8px lightcyan;
+    @media (max-width: 700px)  {
+        width: 150px;
+        height: 150px;
+    }
 `;

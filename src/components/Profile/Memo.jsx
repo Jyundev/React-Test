@@ -52,6 +52,7 @@ function Memo() {
             setNodes([]);
         }
     }, [stepData]);
+    console.log(nodes)
 
     const pagination = usePagination(
         { nodes },
@@ -90,30 +91,54 @@ function Memo() {
     const ROW_PROPS = {
         onClick: handleExpand,
     };
+    const ExpandRow = styled.tr`
+    display: flex;
+    grid-column: 1 / -1;
+    `;
+
+    const ExpandCell = styled.td`
+    flex: 1;
+    `;
+
+    const ExpandContainer = styled.div`
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    `;
+
+    const ExpandList = styled.ul`
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    `;
+
+    const ExpandListItem = styled.li`
+    margin-bottom: 5px;
+    `;
 
     const ROW_OPTIONS = {
         renderAfterRow: (item) => (
             <>
                 {expandedIds.includes(item.key) && (
-                    <tr style={{ display: "flex", gridColumn: "1 / -1" }} key={`expand-${item.key}`}>
-                        <td style={{ flex: "1" }}>
-                            <ul
-                                style={{
-                                    margin: "0",
-                                    padding: "0",
-                                    backgroundColor: "#e0e0e0",
-                                }}
-                            >
-                                <li>
-                                    <strong>Memo:</strong> {JSON.stringify(item.memo)}
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
+                    <ExpandRow key={`expand-${item.key}`}>
+                        <ExpandCell>
+                            <ExpandContainer>
+                                <ExpandList>
+                                    <ExpandListItem>
+                                        <strong>Memo:</strong> {JSON.stringify(item.memo)}
+                                    </ExpandListItem>
+                                </ExpandList>
+                            </ExpandContainer>
+                        </ExpandCell>
+                    </ExpandRow>
                 )}
             </>
         ),
     };
+
 
     return (
         <Wrapper>

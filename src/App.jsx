@@ -19,15 +19,36 @@ import Certificate from "./routes/Certificate"
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProtectedRoute>
+    element: <>
               <ScrollToTop />
               <Layout />
-            </ProtectedRoute>,
+            </>,
     children: [
       {
         path: "",
         element: <Home />
       },
+      {
+        path: "search",
+        element: <Search />
+      },
+      {
+        path: "/login",
+        element: <Login />
+      },
+      {
+        path: "/join",
+        element: <Join />
+      },
+    ]
+  },
+  {
+    path: "/",
+    element: <ProtectedRoute>
+              <ScrollToTop />
+              <Layout />
+            </ProtectedRoute>,
+    children: [
       {
         path: "profile",
         element: <Profile />
@@ -35,10 +56,6 @@ const router = createBrowserRouter([
       {
         path: "checkinterest",
         element: <CheckInterest />
-      },
-      {
-        path: "search",
-        element: <Search />
       },
       {
         path: "changeuserinfo",
@@ -84,14 +101,6 @@ const router = createBrowserRouter([
         element: <Certificate />
       },
     ]
-  },
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "/join",
-    element: <Join />
   },
   {
     path: "/error",

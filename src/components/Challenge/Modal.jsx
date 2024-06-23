@@ -41,13 +41,13 @@ function Modal({ test, onClose, challengeId, step }) {
             const token = localStorage.getItem('token');
             const userId = localStorage.getItem('userId');
             try {
-                await AuthApi({token}).put(`/api/v1/user/challenge/challengePage/wrongQuestion/${userId}/${challengeId}/${step}`, {
+                const res = await AuthApi({token}).put(`/api/v1/user/challenge/challengePage/wrongQuestion/${userId}/${challengeId}/${step}`, {
                     userId,
                     wrongQuestions,
                     challengeId,
                     step
                 })
-                console.log(wrongQuestions)
+                console.log(res)
             } catch (error) {
                 console.log(error)
                 console.log(Array.isArray(wrongQuestions));

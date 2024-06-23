@@ -59,7 +59,7 @@ function Layout() {
                                     로그인
                                 </MenuItem>
                             </StyledLink>
-                            <StyledLink to="/profile">
+                            <StyledLink to="/join">
                                 <MenuItem>
                                     회원가입
                                 </MenuItem>
