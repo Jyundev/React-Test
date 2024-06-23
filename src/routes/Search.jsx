@@ -91,6 +91,9 @@ const SearchBar = styled.input`
         transform: scale(1.08);
         outline: none;
     }
+    @media (max-width: 768px)  {
+        width: 300px;
+    }
 `;
 
 const SearchResult = styled.div`
@@ -101,6 +104,10 @@ const SearchResult = styled.div`
     padding: 20px;
     @media (max-width: 768px)  {
         width: 89%;
+    }
+    @media (max-width: 600px)  {
+        width: 100%;
+        border: 1px solid gray;
     }
 `;
 
@@ -117,6 +124,10 @@ const Certificate = styled.div`
     cursor: pointer;
     &:hover {
         box-shadow: 0px 0px 20px #ffff88;
+    }
+    @media (max-width: 700px)  {
+        width: 150px;
+        height: 150px;
     }
 `;
 

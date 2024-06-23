@@ -62,7 +62,7 @@ const Title = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center; 
-    font-weight: 600;
+    font-weight: 500;
     color: #fffffff8;
     gap: 70px;
 `;
@@ -75,7 +75,7 @@ const SubTitle = styled.div`
     display: flex;
     flex-direction: column;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 200;
     gap: 8px;
     color: #fffffff8;
 `;

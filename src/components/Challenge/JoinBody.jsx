@@ -50,7 +50,7 @@ function JoinBody() {
             }
         } catch (error) {
             console.error('Error updating challenge:', error);
-            alert(error.message)
+            alert(`${error.response?.data?.message || error.message}`)
         }
     };
 
@@ -62,7 +62,7 @@ function JoinBody() {
         <Wrapper>
             <Button onClick={onClick}>도전!</Button>
             <Title>
-                <UserName>{userNickname}</UserName> 님, 어디 계세요!
+                <UserName>{userNickname}</UserName> <TitleSpan>님, 어디 계세요!</TitleSpan>
             </Title>
             <Subtitle>
                 <ChallengeName>{challenge}</ChallengeName> 챌린지 하러 가셔야죠 🚀
@@ -103,18 +103,22 @@ const Button = styled.button`
     }
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
     font-size: 35px;
-    font-weight: 600;
+    font-weight: 500;
     color: white;
     display: flex;
     flex-direction: row;
     align-items: end;
 `;
 
+const TitleSpan = styled.div`
+    padding-bottom: 8px;
+`;
+
 const Subtitle = styled.h1`
     font-size: 35px;
-    font-weight: 600;
+    font-weight: 500;
     color: white;
     margin-bottom: 100px;
     display: flex;
@@ -124,10 +128,12 @@ const Subtitle = styled.h1`
 
 const UserName = styled.h1`
     font-size: 70px;
-    font-weight: 600;
+    font-weight: 400;
     color: pink;
     text-shadow: 0px 0px 8px lightyellow;
     margin-right: 10px;
+    display: flex; 
+    align-items: end;
     &:hover {
         text-shadow: 0px 0px 20px lightyellow;
     }
