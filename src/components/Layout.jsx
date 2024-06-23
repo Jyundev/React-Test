@@ -46,7 +46,7 @@ function Layout() {
             <Nav $isNavFixed={isNavFixed}>
                 <Logo>
                     <StyledLink to="/">
-                        🚀 따자IT
+                        <LogoImg src='../../public/img/Ketut susilo.png' alt="logo" />
                     </StyledLink>
                 </Logo>
                 <Menu>
@@ -94,11 +94,12 @@ const Nav = styled.div`
 `;
 
 const Logo = styled.div`
-    font-size: 25px;
-    font-weight: 600;
-    align-items: center;
-    padding: 0 20px;
-    margin-left: 10px;
+    display: flex;
+    margin-left: 20px;
+`;
+
+const LogoImg = styled.img`
+    height: 50px;
 `;
 
 const Menu = styled.div`

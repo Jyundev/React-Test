@@ -98,7 +98,7 @@ function ChangeUserInfo() {
                                         type="radio"
                                         value={data}
                                         id={data}  
-                                        defaultChecked={userInfo.data.job}
+                                        defaultChecked={userInfo.data.job === data}
                                         {...register('job', {required: true})}
                                     />
                                     <Label htmlFor={data}>{data}</Label>

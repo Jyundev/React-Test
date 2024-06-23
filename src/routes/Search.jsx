@@ -52,8 +52,6 @@ function Search() {
                 {filteredData.map(item => (
                     <Certificate key={item.certificate_id} onClick={() => onClick(item.certificate_id)}>
                         <Img src={item.thumbnail} alt="img" />
-                        <CertificateTitle>{item.certificateFullName}</CertificateTitle>
-                        <CertificateDetail>🚀Click!</CertificateDetail>
                     </Certificate>
                 ))}
             </SearchResult>
@@ -111,7 +109,7 @@ const Certificate = styled.div`
     flex-direction: column;
     align-items: center;
     width: 250px;
-    height: 220px;
+    height: 200px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     background-color: #eef5ff;
@@ -122,25 +120,10 @@ const Certificate = styled.div`
 `;
 
 const Img = styled.img`
-    width: 90%;
+    width: 220px;
+    height: 220px;
     background-color: white;
     border-radius: 10px;
     margin: 10px;
     box-shadow: 0 0 8px lightcyan;
-`;
-
-const CertificateTitle = styled.h1`
-    width: 80%;
-    font-size: 20px;
-    font-weight: 600; 
-`;
-
-const CertificateDetail = styled.span`
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 30px;
-    margin-top: 8px;
-    font-weight: 600;
-    color: grey;
 `;

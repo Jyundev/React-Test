@@ -2,15 +2,12 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { AuthApi } from '../components/UserApi';
-import { useNavigate } from 'react-router-dom';
 
 function CheckInterest() {
 
     const userId = localStorage.getItem('userId');
 
     const token = localStorage.getItem('token');
-
-    const navigate = useNavigate();
 
     const [isLoading, setLoading] = useState(false);
 
@@ -30,7 +27,7 @@ function CheckInterest() {
                 interest,
                 qualifiedCertificate
             });
-            navigate('/');
+            window.location.reload(`https://d26qduhz3ubom8.cloudfront.net/`);
         } catch (e) {
             alert(e.response ? e.response.data.message : "An error occurred. Please try again.")
         } finally {

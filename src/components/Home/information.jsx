@@ -113,7 +113,7 @@ const CalendarWrapper = styled.div`
         border: none;
         transition: background-color 0.3s, color 0.3s;
         text-align: center;
-        background-color: lightgreen;
+        background-color: #9DFFC4;
     }
 
     .fc-event:hover {
@@ -124,6 +124,7 @@ const CalendarWrapper = styled.div`
     /* 이벤트 제목에 대한 스타일 */
     .fc-event-title {
         font-weight: 600;
+        color: black;
     }
 `;
 
@@ -131,7 +132,7 @@ const DetailWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     border: 1px solid black;
     width: 30vw;
     border: 2px solid lightgrey;

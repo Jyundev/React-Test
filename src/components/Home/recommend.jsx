@@ -48,13 +48,15 @@ function Recommend() {
                         <RecommendWrapper key={data.challengeId} onClick={() => navigate(`/joinchallenge/${data.challengeId}`)}>
                             <Subject>
                                 <Img src={data.thumbnail} alt="img" />
-                                <RecommentdTitle >
-                                    <SubTitle>{data.challengeName}</SubTitle>
-                                </RecommentdTitle>
-                                <Detail>
-                                    <Dday>D{Math.floor((new Date() - new Date(data.startDay))/(1000 * 60 * 60 * 24))}</Dday>
-                                    <TestDate>{data.startDay} - {data.endDay}</TestDate>
-                                </Detail>
+                                <SubjectDetail>
+                                    <RecommentdTitle >
+                                        <SubTitle>{data.challengeName}</SubTitle>
+                                    </RecommentdTitle>
+                                    <Detail>
+                                        <Dday>D{Math.floor((new Date() - new Date(data.startDay))/(1000 * 60 * 60 * 24))}</Dday>
+                                        <TestDate>{data.startDay} - {data.endDay}</TestDate>
+                                    </Detail>
+                                </SubjectDetail>
                         </Subject>
                         </RecommendWrapper>
                     ))}
@@ -141,14 +143,24 @@ const RecommendWrapper = styled.div`
 const Subject = styled.div`
     display: flex;
     flex-direction: column;
-    width: 250px;
+    width: 200px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    background-color: white;
 `;
 
 const Img = styled.img`
-    margin-bottom: 10px;
+    border-radius: 10px;
+`;
+
+const SubjectDetail = styled.div`
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffffd5;
+    width: 200px;
+    height: 200px;
 `;
 
 const RecommentdTitle = styled.div`
