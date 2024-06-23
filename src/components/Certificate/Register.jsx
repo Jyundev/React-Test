@@ -52,7 +52,7 @@ function Register({certificateId}) {
                         <Tr key={index}>
                             <Td>{item.round}</Td>
                             <Td>{item.type}</Td>
-                            <Td>{`${item.receptionStart} - ${item.receptionEnd}`}</Td>
+                            <Td>{`${item.receptionStart} ~ ${item.receptionEnd}`}</Td>
                             <Td>{item.testDay}</Td>
                             <Td>{item.resultDay}</Td>
                         </Tr>
@@ -68,7 +68,7 @@ export default Register
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
 `;
 

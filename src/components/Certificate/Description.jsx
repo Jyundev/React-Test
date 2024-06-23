@@ -20,7 +20,7 @@ export default Description
 const DescriptionWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 70%;
     gap: 40px;
 `;
 

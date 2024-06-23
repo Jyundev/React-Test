@@ -48,7 +48,7 @@ export default Eligibility;
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 70%;
 `;
 
 const Title = styled.h1`

@@ -72,14 +72,22 @@ const TitleWrapper = styled.div`
     background: #9CECFB;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    width: 100%;
+    width: 100vw;
     height: 200px;
+    @media (max-width: 500px) {
+        flex-direction: column;
+        justify-content: center;
+    }
 `;
 
 const Title = styled.h1`
     font-size: 70px;
     font-weight: 600;
     margin-left: 100px;
+    @media (max-width: 500px) {
+        margin-left: 0px;
+        margin-bottom: 20px;
+    }
 `;
 
 const SubTitle = styled.h2`
