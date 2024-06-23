@@ -43,7 +43,7 @@ const Title = styled.h1`
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    font-weight: 900;
+    font-weight: 400;
     font-size: 35px;
     color: #00008b8d;
     text-shadow: 0 0 10px white;
@@ -70,7 +70,7 @@ const ChallengeWrapper = styled.div`
 
 const Subtitle = styled.div`
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 200;
     color: white;
     text-shadow: 0 0 14px darkblue;
     width: 100%;

@@ -5,6 +5,7 @@ import { userStore } from "../components/UserStore";
 import { useEffect } from "react";
 import LoadingScreen from "../components/LoadingScreen";
 import HotRecommend from "../components/Home/hotRecommend";
+import CerfiticateRow from "../components/Home/certificate";
 
 function Home() {
 
@@ -20,6 +21,7 @@ function Home() {
     {fetchUserDataLoading ? <LoadingScreen /> : 
         <>
             <Information />
+            <CerfiticateRow />
             <Recommend />
             <HotRecommend />
         </>
@@ -37,4 +39,5 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 60px;
+  margin-bottom: 100px;
 `;

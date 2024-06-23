@@ -2,22 +2,21 @@ import styled from "styled-components";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaFire } from "react-icons/fa6";
+import { PiCertificateFill } from "react-icons/pi";
 
-function HotRecommend() {
+function CerfiticateRow() {
 
     const [RowData, setRowData] = useState([])
 
-    const HOT = import.meta.env.VITE_CHALLENGE_HOT
-
     const Challenge = useCallback(async() => {
         try {
-            const data = await axios.get(HOT);
-            setRowData(data.data.data);
+            const ALL = import.meta.env.VITE_CERIFICATE_ALL
+            const response = await axios.get(ALL);
+            setRowData(response.data.data);
         } catch (e) {
             console.error(e);
         }
-    }, [HOT])
+    }, [])
 
     useEffect(() => {
         Challenge();
@@ -37,30 +36,26 @@ function HotRecommend() {
         }
     }
 
-    console.log(RowData)
-
     const navigate = useNavigate();
 
     return (
         <Wrapper>
-            <Title><Icon><FaFire /></Icon>참여자가 많은 <Red>HOT</Red> 챌린지</Title>
+            <Title><Icon><PiCertificateFill /></Icon>IT 자격증 보러가기 </Title>
             <Slide>
                 <LeftButton onClick={onLeftClick}>{'<'}</LeftButton>
                 <Row ref={rowRef}>
                     {RowData.map((data) => (
-                        <RecommendWrapper key={data.challengeId} onClick={() => navigate(`/joinchallenge/${data.challengeId}`)}>
+                        <RecommendWrapper key={data.certificate_id} onClick={() => navigate(`/certificate/${data.certificate_id}`)}>
                             <Subject>
-                                    <Img src={data.thumbnail} alt="img" />
-                                    <SubjectDetail>
-                                        <RecommentdTitle >
-                                            <SubTitle>{data.challengeName}</SubTitle>
-                                        </RecommentdTitle>
-                                        <Detail>
-                                            <Dday>D{Math.floor((new Date() - new Date(data.startDay))/(1000 * 60 * 60 * 24))}</Dday>
-                                            <TestDate>{data.startDay} - {data.endDay}</TestDate>
-                                        </Detail>
-                                    </SubjectDetail>
-                            </Subject>
+                                <Img src={data.thumbnail} alt="img" />
+                                <SubjectDetail>
+                                    <RecommentdTitle >
+                                        <SubTitle>{data.certificateFullName}</SubTitle>
+                                    </RecommentdTitle>
+                                    <Detail>
+                                    </Detail>
+                                </SubjectDetail>
+                        </Subject>
                         </RecommendWrapper>
                     ))}
                 </Row>
@@ -70,7 +65,7 @@ function HotRecommend() {
     )
 }
 
-export default HotRecommend
+export default CerfiticateRow
 
 const Wrapper = styled.div`
     display: flex;
@@ -81,22 +76,19 @@ const Wrapper = styled.div`
 
 const Title = styled.h1`
     align-self: flex-start;
-    margin-left: 20px;
     margin-bottom: 10px; 
     font-weight: 900;
     font-size: 25px;
     display: flex;
     flex-direction: row;
     gap: 10px;
+    align-items: center;
+    margin-left: 10px;
 `;
 
-const Icon = styled.div`
-    color: red;
+const Icon = styled.p`
+    color: tomato;
 `;
-
-const Red = styled.p`
-    color: red;
-`
 
 const Slide = styled.div`
     display: flex;
@@ -159,13 +151,12 @@ const Subject = styled.div`
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: 200px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 `;
 
 const Img = styled.img`
-    margin-bottom: 10px;
+    border-radius: 10px;
 `;
 
 const SubjectDetail = styled.div`
@@ -192,15 +183,8 @@ const SubTitle = styled.h2`
     font-weight: 600;
 `;
 
-const Detail = styled.span`
+const Detail = styled.div`
     padding: 10px 5px;
     font-size: 17px;
     margin-left: 15px;
-`;
-
-const TestDate = styled.div``;
-
-const Dday = styled.span`
-    color: red;
-    font-weight: 600;
 `;

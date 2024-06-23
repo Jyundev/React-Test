@@ -7,6 +7,8 @@ import { userStore } from './UserStore';
 
 function Layout() {
 
+    const token = localStorage.getItem('token')
+
     const {initUserData} = userStore();
     const navigate = useNavigate();
     const [isNavFixed, setIsNavFixed] = useState(false);
@@ -43,27 +45,48 @@ function Layout() {
     }, [isNavFixed]);
     return (
         <Wrapper>
+            {}
             <Nav $isNavFixed={isNavFixed}>
                 <Logo>
                     <StyledLink to="/">
                         <LogoImg src='../../public/img/Ketut susilo.png' alt="logo" />
                     </StyledLink>
                 </Logo>
-                <Menu>
-                    <MenuItem onClick={onLogout}>
-                        로그아웃
-                    </MenuItem>
-                    <StyledLink to="/profile">
-                        <MenuItem>
-                            내 정보
+                {!token ? 
+                        <Menu>
+                            <StyledLink to="/login">
+                                <MenuItem>
+                                    로그인
+                                </MenuItem>
+                            </StyledLink>
+                            <StyledLink to="/profile">
+                                <MenuItem>
+                                    회원가입
+                                </MenuItem>
+                            </StyledLink>
+                            <StyledLink to="/search">
+                                <MenuItem>
+                                    <FaSearch />
+                                </MenuItem>
+                            </StyledLink>
+                        </Menu>
+                    :
+                    <Menu>
+                        <MenuItem onClick={onLogout}>
+                            로그아웃
                         </MenuItem>
-                    </StyledLink>
-                    <StyledLink to="/search">
-                        <MenuItem>
-                            <FaSearch />
-                        </MenuItem>
-                    </StyledLink>
-                </Menu>
+                        <StyledLink to="/profile">
+                            <MenuItem>
+                                내 정보
+                            </MenuItem>
+                        </StyledLink>
+                        <StyledLink to="/search">
+                            <MenuItem>
+                                <FaSearch />
+                            </MenuItem>
+                        </StyledLink>
+                    </Menu>
+                }
             </Nav>
             <Outlet />
         </Wrapper>
@@ -111,8 +134,8 @@ const Menu = styled.div`
 `;
 
 const MenuItem = styled.div`
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 300;
     cursor: pointer;
 `;
 

@@ -74,10 +74,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/certificate",
-    element: <ProtectedRoute>
+    element: <>
               <ScrollToTop />
               <Layout />
-            </ProtectedRoute>,
+            </>,
     children: [
       {
         path: ":certificateId",
@@ -125,7 +125,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     background-color: white;
     color: black;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: "Jua", sans-serif;
   }
 `;
 

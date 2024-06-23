@@ -5,6 +5,11 @@ import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { FaInfoCircle } from "react-icons/fa";
+import { CiCalendar } from "react-icons/ci";
+import { PiNotePencilThin } from "react-icons/pi";
+import { PiStudentLight } from "react-icons/pi";
+import { FaExclamationCircle } from "react-icons/fa";
 
 function Information() {
 
@@ -47,24 +52,32 @@ function Information() {
                     events={calandarData}
                     eventClick={handleDateClick}
                     locale='ko'
+                    buttonText={{
+                        today: '오늘'
+                    }}
                     dayCellContent={customDayCellContent}
                     fixedWeekCount={false}
                     height='100%'
                 />
             </CalendarWrapper>
             <DetailWrapper>
-                {!select ? <BeforeSelect>일정을 선택해주세요🎈</BeforeSelect> : 
+                {!select ? 
+                            <BeforeSelectWrapper>
+                                <BeforeSelect>자격증 접수일을 누르면 </BeforeSelect>
+                                <BeforeSelect>자세한 정보를 알 수 있어요<BeforeSelectIcon><FaExclamationCircle /></BeforeSelectIcon></BeforeSelect>
+                            </BeforeSelectWrapper>
+                : 
                     <>
-                        <Title>✅ 접수 정보</Title>
+                        <Title><TitleIcon><FaInfoCircle /></TitleIcon> 자격증 시험 접수 정보</Title>
                         <SubTitleWrapper>
                             <Round>{detail.extendedProps[0].round}</Round>
                             <SubTitle>{detail.title}</SubTitle>
                         </SubTitleWrapper>
                         <Overview>{detail.extendedProps[0].overView}</Overview>
-                        <Detail>{"🕗 시험 날짜: "}{detail.extendedProps[0].testDay}</Detail>
-                        <Detail>{"✒️ 시험 형식: "}{detail.extendedProps[0].type}</Detail>
-                        <Detail>{"🆗 시험 자격: "}{detail.extendedProps[0].standards[0].qualification}</Detail>
-                        <Button onClick={onClick}>상세 정보</Button>
+                        <Detail><DetailIcon><CiCalendar /></DetailIcon>{"시험 날짜 : "}{detail.extendedProps[0].testDay}</Detail>
+                        <Detail><DetailIcon><PiNotePencilThin /></DetailIcon>{"시험 형식 : "}{detail.extendedProps[0].type}</Detail>
+                        <Detail><DetailIcon><PiStudentLight /></DetailIcon>{"시험 자격 : "}{detail.extendedProps[0].standards[0].qualification}</Detail>
+                        <Button onClick={onClick}>더보기</Button>
                     </>
                 }
             </DetailWrapper>
@@ -91,9 +104,9 @@ const CalendarWrapper = styled.div`
     width: 40vw;
     height: 80vh;
     border-radius: 30px;
-    box-shadow: 3px 4px 15px grey;
+    border: 2px solid grey;
     padding: 30px;
-    background-color: #ffffff62;
+    border: 2px solid lightgrey;
     @media (max-width: 768px) {
         width: 80vw;
     }
@@ -113,19 +126,64 @@ const CalendarWrapper = styled.div`
         border: none;
         transition: background-color 0.3s, color 0.3s;
         text-align: center;
-        background-color: #9DFFC4;
+        background-color: #95c8ff;
     }
 
     .fc-event:hover {
-    background-color: #44c944; /* 호버 시 배경색 변경 */
-    font-weight: bold; /* 호버 시 텍스트 굵게 */
+    background-color: #ffceda; /* 호버 시 배경색 변경 */
     }
 
     /* 이벤트 제목에 대한 스타일 */
     .fc-event-title {
-        font-weight: 600;
+        font-weight: 200;
         color: black;
+        margin: 2px 0;
     }
+.fc-button {
+    background-color: white; /* 버튼 배경색 */
+    color: #5c5c5c; /* 버튼 텍스트 색상 */
+    border: none; /* 버튼 테두리 제거 */
+    padding: 10px 20px; /* 버튼 패딩 */
+    border-radius: 4px; /* 버튼 테두리 둥글게 */
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.fc-button:hover {
+    color: #088ad6; /* 호버 시 버튼 배경색 */
+    background-color: white;
+}
+
+.fc-button:disabled {
+    background-color: white; /* 비활성화된 버튼 배경색 */
+    color: #5c5c5c;
+}
+.fc-button-group {
+}
+
+.fc-button {
+}
+@media (max-width: 768px) {
+    .fc-toolbar {
+        display: flex;
+        align-items: center;
+    }
+    .fc-toolbar-title {
+        font-size: 30px; 
+    }
+    .fc-button {
+        font-size: 24px;
+    }
+}
+@media (max-width: 500px) {
+    
+    .fc-toolbar-title {
+        font-size: 24px; 
+    }
+    .fc-button {
+        font-size: 17px;
+    }
+}
 `;
 
 const DetailWrapper = styled.div`
@@ -143,19 +201,40 @@ const DetailWrapper = styled.div`
     }
 `;
 
+const BeforeSelectWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+`;
+
 const BeforeSelect = styled.div`
     display: flex;
     height: 100%;
     align-items: center;
     font-size: 20px;
     font-size: 600;
+    text-align: center;
+`;
+
+const BeforeSelectIcon = styled.p`
+    margin-left: 5px;
+    color: tomato;
 `;
 
 const Title = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     font-size: 25px;
     font-weight: 600;
     margin-bottom: 40px;
 `;
+
+const TitleIcon = styled.div`
+    font-size: 20px;
+`
 
 const SubTitleWrapper = styled.div`
     display: flex;
@@ -179,7 +258,7 @@ const SubTitle = styled.div`
 const Overview = styled.div`
     width: 80%;
     padding: 15px;
-    background-color: #def8de;
+    background-color: #e2edff;
     border-radius: 7px;
     line-height: 20px;
     text-indent: 10px;
@@ -187,24 +266,38 @@ const Overview = styled.div`
 `;
 
 const Detail = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 70%;
     margin-bottom: 10px;
+    gap: 10px;
 `;
+
+const DetailIcon = styled.div`
+    font-size: 18px;
+`
+
+const DetailTypeIcon = styled.div`
+    font-size: 15px;
+    margin-left: 2px;
+`
 
 const Button = styled.button`
     margin-top: 20px;
-    padding: 13px;
-    font-size: 17px;
+    padding: 10px;
+    font-size: 16px;
     font-weight: 600;
-    color: #000000bb;
-    background-color: #fbe9cf;
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0 0 10px grey;
+    color: #ffffff;
+    background-color: #282828;
+    border: 1px solid gray;
+    border-radius: 10px;
     &:hover {
-        background-color: #fbd49f;
+        background-color: #3b3b3b;
+
     }
 
 `;
+
 
 

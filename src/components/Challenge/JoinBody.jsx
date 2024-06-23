@@ -79,7 +79,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 30px;
-    height: auto;
+    height: 80vh;
     background: #485563; 
     background: -webkit-linear-gradient(to right, #29323c, #485563); 
     background: linear-gradient(to right, #29323c, #485563); 

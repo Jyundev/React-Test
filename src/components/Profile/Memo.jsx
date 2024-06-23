@@ -190,7 +190,7 @@ const TitleWrapper = styled.div`
 
 const Title = styled.h1`
     font-size: 30px;
-    font-weight: 600;
+    font-weight: 400;
 `;
 
 const PaginationWrapper = styled.div`

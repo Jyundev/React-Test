@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AiFillAlert } from "react-icons/ai";
+
 
 function Recommend() {
 
@@ -40,7 +42,7 @@ function Recommend() {
 
     return (
         <Wrapper>
-            <Title>🔥늦기 전에 도전하세요!</Title>
+            <Title><Icon><AiFillAlert /></Icon> 자격증 시험일이 얼마 남지 않았어요!</Title>
             <Slide>
                 <LeftButton onClick={onLeftClick}>{'<'}</LeftButton>
                 <Row ref={rowRef}>
@@ -79,8 +81,17 @@ const Wrapper = styled.div`
 const Title = styled.h1`
     align-self: flex-start;
     margin-bottom: 10px; 
+    margin-left: 20px;
     font-weight: 900;
     font-size: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+`;
+
+const Icon = styled.div`
+    color: red;
 `;
 
 const Slide = styled.div`

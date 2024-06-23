@@ -120,6 +120,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
+    margin-bottom: 100px;
     width: 70vw;
     padding: 50px 0px;
     border-radius: 10px;

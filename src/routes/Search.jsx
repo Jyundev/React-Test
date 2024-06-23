@@ -66,9 +66,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
     padding: 40px;
     width: 100%;
+    margin-bottom: 100px;
 `;
 
 const Title = styled.h1`
@@ -78,13 +79,12 @@ const Title = styled.h1`
 
 const SearchBar = styled.input`
     margin: 20px;
-    width: 400px;
-    height: 47px;
+    width: 500px;
+    height: 45px;
     font-size: 15px;
     border-radius: 20px;
     padding-left: 15px;
-    border: 3px solid lightgreen;
-    box-shadow: 0 5px 10px grey;
+    border: 1px solid gray;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
     &:focus {
@@ -108,14 +108,15 @@ const Certificate = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 250px;
-    height: 200px;
+    justify-content: center;
+    width: 220px;
+    height: 220px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     background-color: #eef5ff;
     cursor: pointer;
     &:hover {
-        box-shadow: 0px 0px 20px lightpink;
+        box-shadow: 0px 0px 20px #ffff88;
     }
 `;
 
