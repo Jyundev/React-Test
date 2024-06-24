@@ -49,9 +49,9 @@ export default JoinHead
 const Wrapper = styled.div`
     width: 100%;
     height: 350px;
-    background: #c0392b;
-    background: -webkit-linear-gradient(to right, #8e44ad, #c0392b);
-    background: linear-gradient(to right, #8e44ad, #c0392b);
+    background: #6c4eff;
+    /* background: -webkit-linear-gradient(to right, #8e44ad, #c0392b);
+    background: linear-gradient(to right, #8e44ad, #c0392b); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +63,7 @@ const Title = styled.div`
     justify-content: center;
     align-items: center; 
     font-weight: 500;
-    color: #fffffff8;
+    color: #f3f3f3f8;
     gap: 70px;
 `;
 

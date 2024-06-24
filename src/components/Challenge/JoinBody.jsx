@@ -36,6 +36,8 @@ function JoinBody() {
     
     const challenge = RowData?.challengeName || '';  // Added safe navigation and default value
 
+    const thumbnail = RowData?.thumbnail || '';
+
     const token = localStorage.getItem('token');
 
     const UPDATE = import.meta.env.VITE_CHALLENGE_UPDATE;
@@ -62,13 +64,15 @@ function JoinBody() {
 
     return (
         <Wrapper>
-            <Button onClick={onClick}>도전!</Button>
+            <Img src={thumbnail} alt='thumbnail' />
+            <Button onClick={onClick}>챌린지 신청하기</Button>
             <Title>
-                <UserName>{userNickname}</UserName> <TitleSpan>님, 어디 계세요!</TitleSpan>
+                <UserName>{userNickname}</UserName> <TitleSpan>님, 준비되셨나요?</TitleSpan>
             </Title>
             <Subtitle>
-                <ChallengeName>{challenge}</ChallengeName> 챌린지 하러 가셔야죠 🚀
+                <ChallengeName>{challenge}</ChallengeName>, 따자잇!
             </Subtitle>
+            {/* <Subtitle>따자잇!!</Subtitle> */}
         </Wrapper>
     );
 }
@@ -79,71 +83,73 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-    height: 80vh;
-    background: #485563; 
-    background: -webkit-linear-gradient(to right, #29323c, #485563); 
-    background: linear-gradient(to right, #29323c, #485563); 
+    gap: 20px;
+    background-color: white;
+    margin-bottom: 100px;
+`;
+
+const Img = styled.img`
+    width: 300px;
+    margin-top: 100px;
+    margin-bottom: 20px;
 `;
 
 const Button = styled.button`
-    margin-top: 100px;
     margin-bottom: 50px;
     width: 200px;
-    height: 70px;
-    background-color: #35e735;
+    height: 60px;
+    background-color: #3d3d3d;
     box-shadow: 0px 0px 30px lightyellow;
     border: 4px solid white;
     border-radius: 10px;
     color: white;
-    font-size: 40px;
+    font-size: 20px;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.5s ease-in-out;
     &:hover {
-        transform: scale(1.5)
+        transform: scale(1.2)
     }
 `;
 
 const Title = styled.div`
-    font-size: 35px;
+    font-size: 40px;
     font-weight: 500;
-    color: white;
+    color: black;
     display: flex;
     flex-direction: row;
     align-items: end;
 `;
 
 const TitleSpan = styled.div`
-    padding-bottom: 8px;
+    padding-bottom: 3px;
 `;
 
 const Subtitle = styled.h1`
-    font-size: 35px;
+    font-size: 50px;
     font-weight: 500;
-    color: white;
-    margin-bottom: 100px;
+    color: black;
     display: flex;
     flex-direction: row;
     align-items: end;
+    margin-top: 20px;
 `;
 
 const UserName = styled.div`
-    font-size: 70px;
+    font-size: 60px;
     font-weight: 400;
-    color: pink;
+    color: #ff216b;
     text-shadow: 0px 0px 8px lightyellow;
     margin-right: 10px;
     display: flex; 
     align-items: end;
     &:hover {
-        text-shadow: 0px 0px 20px lightyellow;
+        text-shadow: 0px 0px 20px #ffe484;
     }
 `;
 
 const ChallengeName = styled.div`
-    font-size: 45px;
+    font-size: 60px;
     font-weight: 600;
-    color: #ec6060;
-    margin-right: 15px;
+    color: #644be4;
 `;

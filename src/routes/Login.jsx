@@ -38,11 +38,11 @@ function LoginTest() {
     
     return (
         <Wrapper>
-            <Title>🚀 Log in 🚀</Title>
+            <Title>로그인</Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Input {...register("username", {required: true})} placeholder="Email" type="email" />
                 <Input {...register("password", {required: true})} placeholder="Password" type="password" />
-                <Input type="submit" value={isLoading ? "Loading..." : "Login"} />
+                <Input type="submit" value={isLoading ? "Loading..." : "LOGIN"} />
             </Form>
             {error !== "" ? <Error>{error}</Error> : null}
             <Switcher>

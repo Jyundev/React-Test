@@ -85,6 +85,7 @@ const SearchBar = styled.input`
     border-radius: 20px;
     padding-left: 15px;
     border: 1px solid gray;
+    font-family: "Jua", sans-serif;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
     &:focus {

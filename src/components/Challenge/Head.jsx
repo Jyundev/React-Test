@@ -43,13 +43,11 @@ export default Head
 const Wrapper = styled.div`
     width: 100%;
     height: 350px;
-    background: #c0392b;
-    background: -webkit-linear-gradient(to right, #8e44ad, #c0392b);
-    background: linear-gradient(to right, #8e44ad, #c0392b);
+    background: #6c4eff;
     display: grid;
     grid-template-columns: 4fr 3fr;
 
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
         display: flex;
         flex-direction: column;
         gap: 50px;
@@ -62,7 +60,6 @@ const Title = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end; 
-    font-weight: 600;
     gap: 45px;
     color: #fffffff8;
     @media (max-width: 768px) {
@@ -135,6 +132,15 @@ const StatusTitleBottom = styled.div`
 `;
 
 const Progress = styled.progress`
-    width: 300px;
-    height: 23px;
+    width: 240px;
+    height: 20px;
+    appearance: none; 
+    &::-webkit-progress-bar {
+        background-color: #f0f0f0; 
+        border-radius: 50px;
+    }
+    &::-webkit-progress-value {
+        background-color: #9cf371; 
+        border-radius: 50px;
+    }
 `;

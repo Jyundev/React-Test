@@ -51,17 +51,17 @@ export default function Join() {
 
     return (
         <Wrapper>
-            <Title>🚀 Join 🚀</Title>
+            <Title>회원 가입</Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Input {...register("nickname", { required: true })} placeholder="Name" type="text" />
                 <Input {...register("email", { required: true })} placeholder="Email" type="email" />
                 <Input {...register("password", { required: true })} placeholder="Password" type="password" />
-                <Input type="submit" value={isLoading ? "Loading..." : "Create Account"} />
+                <Input type="submit" value={isLoading ? "Loading..." : "계정 생성"} />
             </Form>
             {error !== "" ? <Error>{error}</Error> : null}
             <Switcher>
                 계정이 있으신가요? 
-                <Link to="/login">로그인 &rarr;</Link>
+                <Link to="/login"> 로그인 &rarr;</Link>
             </Switcher>
         </Wrapper>
     )

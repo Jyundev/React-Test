@@ -5,6 +5,8 @@ import { userStore } from "../UserStore";
 import { AuthApi } from "../UserApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoIosLock } from "react-icons/io";
+import { IoFootstepsOutline } from "react-icons/io5";
+import { IoFootsteps } from "react-icons/io5";
 
 function Body() {
 
@@ -71,7 +73,7 @@ function Body() {
     const submit = async () => {
         try {
             await Promise.all([
-                AuthApi({token}).post(`${UPDATE}${userId}/${challengeId}`, {
+                AuthApi({token}).post(`${UPDATE}${challengeId}/${userId}`, {
                     step,
                     day
                 }),
@@ -95,7 +97,7 @@ function Body() {
             <StepBar>
                 {challengeInfo.steps.map((step) => (
                     <Step key={step.step} onClick={() => ChangeStep(step)}>
-                        {!step.complete ? `${step.step} 단계 🔥` : "완료 🚀"}
+                        {!step.complete ? `${step.step} 단계` : "완료"}
                     </Step>
                 ))}
             </StepBar>
@@ -109,18 +111,18 @@ function Body() {
                         {!Clicked ? basicView.days.map((day) => (
                             <DayButton key={day.day} onClick={() => ChangeTodo(day)}>
                                 <Day>{!day.complete ? day.day + ' 일차' : null} </Day>
-                                <DayComplete>{!day.complete ? "😶" : "완료😎"}</DayComplete>
+                                <DayComplete>{!day.complete ? <IoFootstepsOutline /> : <p>완료<IoFootsteps /></p> }</DayComplete>
                             </DayButton>
                         )) :
                             clickedStep.map((day) => (
                                 <DayButton key={day.day} onClick={() => ChangeTodo(day)} >
                                     <Day>{!day.complete ? day.day + ' 일차'  : null}</Day>
-                                    <DayComplete>{!day.complete ? "😶" : "완료😎"}</DayComplete>
+                                    <DayComplete>{!day.complete ? <IoFootstepsOutline /> : <p>완료<IoFootsteps /></p>}</DayComplete>
                                 </DayButton>
                             )) 
                         }
                         <FinalTest onClick={ModalOpen}>
-                            {toDo.test != 0 ? '중간 점검!' : <IoIosLock size={30}/>}
+                            {toDo.test != 0 ? '랜덤문제' : <IoIosLock size={30}/>}
                         </FinalTest>
                     </StepSubWrapper>
                 </StepWrapper>
@@ -129,7 +131,7 @@ function Body() {
                 }
                 <Subject>
                     <ToDoList>
-                        <ToDoTitle>오늘의 숙제 📖: {toDo.day} 일차</ToDoTitle>
+                        <ToDoTitle>데일리 과제 : {toDo.day} 일차</ToDoTitle>
                         <ToDoSubject>
                             {toDo?.chapter ? toDo.chapter.map((chapter, idx) => (<span key={idx}>{chapter}</span>)) : null}
                         </ToDoSubject>
@@ -156,16 +158,14 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    justify-content: center;
     padding-bottom: 100px;
-    background: #485563; 
-    background: -webkit-linear-gradient(to right, #29323c, #485563); 
-    background: linear-gradient(to right, #29323c, #485563); 
+    background-color: white;    
 `;
 
 const StepBar = styled.div`
     display: flex;
-    width: 100%;
+    width: 80%;
     flex-direction: row;
     justify-content: center;
     gap: 60px;
@@ -179,7 +179,7 @@ const StepBar = styled.div`
 
 const Step = styled.button`
     border: none;
-    background-color: #06a7e1;
+    background-color: #6e6e6e;
     border-radius: 40px;
     width: 160px;
     height: 50px;
@@ -190,8 +190,8 @@ const Step = styled.button`
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 
     &:hover {
-        background-color: #32b9f8; 
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
+        background-color: #7132f9; 
+        /* box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);  */
         transform: translateY(-2px); 
     }
 
@@ -238,8 +238,8 @@ const StepSubWrapper = styled.div`
     width: 70%;
     padding: 20px;
     gap: 30px;
-    border: 4px solid #bb64e0;
-    background-color: #e5b5fa4c;
+    border: 3px solid #6483e0;
+    background-color: #f1f6ff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
 `;
@@ -247,7 +247,7 @@ const StepSubWrapper = styled.div`
 const StepTitle = styled.h1`
     font-size: 28px;
     font-weight: 600;
-    color: white;
+    color: black;
 `;
 
 const DayButton = styled.button`
@@ -257,15 +257,15 @@ const DayButton = styled.button`
     justify-content: center;
     border-radius: 30px;
     border: none;
-    background-color: #b303ff;
-    border: 4px solid #c674e9;
+    background-color: #cbc7ff;
+    border: 3px solid #6792ff;
     box-shadow: 0 0 20px  rgba(0, 0, 0, 0.2);
-    color: lightyellow;
+    color: #363636;
     height: 60px;
     width: 80%;
     cursor: pointer;
     &:hover {
-        box-shadow: 0 0px 25px lightpink; /* 호버 시 그림자 변경 */
+        box-shadow: 0 0px 25px #f7ffb2; /* 호버 시 그림자 변경 */
         transform: translateY(-2px); /* 호버 시 살짝 위로 이동 */
     }
 `;
@@ -273,7 +273,6 @@ const DayButton = styled.button`
 const Day = styled.h2`
     font-size: 15px;
     font-weight: 600;
-    color: lightyellow;
 `
 
 const DayComplete = styled.p`
@@ -282,17 +281,17 @@ font-weight: 600;
 `
 
 const FinalTest = styled.button`
-    border: 3px solid green;
+    border: 3px solid #05b198;
     width: 100px;
     height: 40px;
     font-size: 15px;
     font-weight: 600;
-    background-color: #26bd26;
+    background-color: #d1ffca;
     border-radius: 10px;
-    color: white;
+    color: #4f4f4f;
     cursor: pointer;
     &:hover {
-        background-color: #4dcf4d;
+        background-color: #fff9d9;
     }
 `;
 
@@ -307,7 +306,7 @@ const Subject = styled.div`
 `;
 
 const ToDoList = styled.div`
-    width: 70%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -316,19 +315,19 @@ const ToDoList = styled.div`
 `;
 
 const ToDoTitle = styled.h1`
-    font-size: 25px;
+    font-size: 35px;
     font-weight: 600;
-    color: beige;
+    color: black;
     margin-bottom: 20px;
 `;
 
 const ToDoSubject = styled.div`
     font-size: 20px;
     color: #ffffffc2;
-    font-weight: 600;
-    background: #73C8A9;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #373B44, #73C8A9);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #373B44, #73C8A9);
+    font-weight: 300;
+    background: #545454;  /* fallback for old browsers */
+    /* background: -webkit-linear-gradient(to right, #373B44, #73C8A9);  Chrome 10-25, Safari 5.1-6 */
+    /* background: linear-gradient(to right, #373B44, #73C8A9); */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -339,7 +338,7 @@ const ToDoSubject = styled.div`
 `;
 
 const Memo = styled.div`
-    width: 70%;
+    width: 90%;
     height: 350px;
     display: flex;
     flex-direction: column;
@@ -349,24 +348,24 @@ const Memo = styled.div`
 `;
 
 const MemoTitle = styled.h1`
-    color: white;
-    font-size: 30px;
+    color: black;
+    font-size: 35px;
     font-weight: 600;
     padding: 20px;
 `;
 
 const MemoButton = styled.button`
-    border: 3px solid green;
+    /* border: 3px solid green; */
     width: 100px;
     height: 40px;
     font-size: 15px;
     font-weight: 600;
-    background-color: #26bd26;
+    background-color: #363636;
     border-radius: 5px;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
     &:hover {
-        background-color: #4dcf4d;
+        background-color: #4830ff;
     }
 `;
 
@@ -378,16 +377,19 @@ const Form = styled.form`
 `;
 
 const TextArea = styled.textarea`
+    font-family: "Jua", sans-serif;
+    font-size: 18px;
     resize: none;
     border: none;
     border-radius: 20px;
     height: 200px;
-    padding: 10px;
+    padding: 20px;
+    border: 2px solid gray;
     &:focus {
         border: 2px solid skyblue;
     }
     background-color: #ffffff45;
     &::placeholder {
-        color: white;
+        color: black;
     }
 `;

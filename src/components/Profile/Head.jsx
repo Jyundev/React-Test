@@ -116,8 +116,8 @@ const Wrapper = styled.div`
 
 const Photo = styled.img`
     border-radius: 100%;
-    border: 6px solid white;
-    background-color: grey;
+    border: 4px solid #5f5f5f;
+    background-color: #ffffff;
     width: 150px;
     height: 150px;
     box-shadow: 0 5px 20px;
@@ -141,18 +141,18 @@ const ButtonWrapper = styled.div`
 `;
 
 const EditButton = styled.button`
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     margin-top: 10px;
-    background-color: #affbaf;
+    background-color: #4e4e4e;
     border: none;
     border-radius: 5px;
-    color: black;
-    padding: 7px;
-    box-shadow: 5px 5px 10px grey;
+    color: #ececec;
+    padding: 10px;
+    /* box-shadow: 5px 5px 10px grey; */
     cursor: pointer;
     &:hover {
-        background-color: #4dcf4d;
+        background-color: #ff0173;
     }
 `;
 

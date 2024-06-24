@@ -45,7 +45,7 @@ const Title = styled.h1`
     margin-bottom: 20px;
     font-weight: 400;
     font-size: 35px;
-    color: #00008b8d;
+    color: #3b3b3b;
     text-shadow: 0 0 10px white;
 `;
 
@@ -62,17 +62,17 @@ const ChallengeWrapper = styled.div`
     width: 60vw;
     margin-top: 70px;
     padding: 40px;
-    background: #C9D6FF; 
-    background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF); 
-    background: linear-gradient(to right, #E2E2E2, #C9D6FF); 
+    background: #e0e8ff; 
+    /* background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF); 
+    background: linear-gradient(to right, #E2E2E2, #C9D6FF);  */
     border-radius: 10px;
 `;
 
 const Subtitle = styled.div`
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 200;
-    color: white;
-    text-shadow: 0 0 14px darkblue;
+    color: #626262;
+    text-shadow: 0 0 15px white;
     width: 100%;
     text-align: end;
 `;
@@ -86,7 +86,7 @@ const Icons = styled.div`
 `;
 
 const Icon = styled.div`
-    background-color: #fadfdf; 
+    /* background-color: #e7e7e7;  */
     border-radius: 30px;
     height: 60px;
     display: flex;
@@ -105,11 +105,21 @@ const Name = styled.h3`
     display: flex;
     justify-content: center;
     font-weight: 600;
-    color: #ef6c82;
+    color: #3c3c3c;
     margin: 0 20px;
 `;
 
 const Progress = styled.progress`
     width: 80%;
-    height: 20px;
+    height: 9px;
+    margin-top: 5px;
+    appearance: none; 
+    &::-webkit-progress-bar {
+        background-color: #f0f0f0; 
+        border-radius: 50px;
+    }
+    &::-webkit-progress-value {
+        background-color: #0048ff; 
+        border-radius: 50px;
+    }
 `;
