@@ -20,7 +20,6 @@ function ChangeUserInfo() {
     const {register, handleSubmit} = useForm();
 
     const onSubmit = async (data) => {
-        console.log(data); // 여기서 양식 데이터를 처리합니다.
         if (isLoading) return;
         try {
             setLoading(true);

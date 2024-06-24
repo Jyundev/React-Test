@@ -5,8 +5,6 @@ function CheckChallenges() {
 
     const {challengeList} = userStore();
 
-    console.log(challengeList)
-
     const onClick = (id) => {
         window.location.href = `https://d5ki68ixw55w9.cloudfront.net/challenge/${id}`
     } 

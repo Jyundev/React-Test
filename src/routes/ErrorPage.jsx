@@ -8,8 +8,6 @@ function ErrorPage() {
     const { state } = location;
     const error = state?.error;
 
-    console.log(error)
-
     return (
         <Wrapper>
             <Title>에러가 발생했어요😶</Title>

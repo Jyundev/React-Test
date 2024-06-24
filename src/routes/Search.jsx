@@ -21,8 +21,6 @@ function Search() {
         }
     };
 
-    console.log(certificateData)
-
     useEffect(() => {
         fetchData();
     }, []);
