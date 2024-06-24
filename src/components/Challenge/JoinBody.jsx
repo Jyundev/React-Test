@@ -47,7 +47,7 @@ function JoinBody() {
                 challengeId
             });
             if(res.status === 200) {
-                window.location.href = `https://d26qduhz3ubom8.cloudfront.net/challenge/${challengeId}`;
+                window.location.href = `https://d5ki68ixw55w9.cloudfront.net/challenge/${challengeId}`;
             }
             alert('성공!')
         } catch (error) {
@@ -128,7 +128,7 @@ const Subtitle = styled.h1`
     align-items: end;
 `;
 
-const UserName = styled.h1`
+const UserName = styled.div`
     font-size: 70px;
     font-weight: 400;
     color: pink;
@@ -141,7 +141,7 @@ const UserName = styled.h1`
     }
 `;
 
-const ChallengeName = styled.h1`
+const ChallengeName = styled.div`
     font-size: 45px;
     font-weight: 600;
     color: #ec6060;
