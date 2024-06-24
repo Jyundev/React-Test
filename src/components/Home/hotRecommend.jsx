@@ -37,8 +37,6 @@ function HotRecommend() {
         }
     }
 
-    console.log(RowData)
-
     const navigate = useNavigate();
 
     return (
