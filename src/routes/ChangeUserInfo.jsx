@@ -59,8 +59,8 @@ function ChangeUserInfo() {
     };
 
     const job = ["학생", "취준생", "직장인"];
-    const interest = ['정보보안', '네트워크', '운영체제'];
-    const qualifiedCertificate = ['정보처리기사', '리눅스마스터', 'ADsP', 'SQLd']
+    const interest = ['운영체제', '데이터베이스', '클라우드', '네트워크', '정보보안'];
+    const qualifiedCertificate = ['데이터분석준전문가', 'SQL 개발자', '빅데이터분석기사', '정보처리기사', '정보처리산업기사', '정보보안기사', '리눅스마스터 1급', '리눅스마스터 2급', '네트워크관리사 1급', '네트워크관리사 2급']
 
     return (
         <Wrapper>
