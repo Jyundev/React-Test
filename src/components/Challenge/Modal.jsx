@@ -103,7 +103,7 @@ function Modal({ test, onClose, challengeId, step }) {
                         <Button 
                             key={item} 
                             onClick={() => handleAnswerClick(index)}
-                            style={{ backgroundColor: selectedAnswers[currentQuestionIndex] === index ? '#7ee383' : '#4CAF50' }}
+                            style={{ backgroundColor: selectedAnswers[currentQuestionIndex] === index ? '#662aff' : '#3c6aff' }}
                         >
                             {currentQuestion[item]}
                         </Button>
@@ -135,7 +135,7 @@ const Wrapper = styled.div`
     position: fixed;
     border: 1px solid black;
     inset: 0px;
-    background-color: #ffffff1c;
+    background-color: #8888881c;
 `;
 
 const Container = styled.div`
@@ -144,10 +144,10 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     gap: 20px;
-    background: #606c88;  
-    background: -webkit-linear-gradient(to right, #3f4c6b, #606c88); 
-    background: linear-gradient(to right, #3f4c6b, #606c88); 
-    color: white;
+    background: #f2f2f2;  
+    /* background: -webkit-linear-gradient(to right, #3f4c6b, #606c88); 
+    background: linear-gradient(to right, #3f4c6b, #606c88);  */
+    color: #494949;
     width: 50%;
     height: auto;
     padding: 30px;
@@ -174,7 +174,7 @@ const QuestionContainer = styled.div`
 `;
 
 const Button = styled.button`
-    background-color: #4CAF50;
+    background-color: #275dff;
     color: white;
     padding: 10px 20px;
     margin: 5px;
@@ -184,10 +184,10 @@ const Button = styled.button`
 `;
 
 const NavButton = styled(Button)`
-    background-color: #008CBA;
+    background-color: #727272;
 
     &:hover {
-        background-color: #007BB5;
+        background-color: #098dcb;
     }
 
     &:disabled {
