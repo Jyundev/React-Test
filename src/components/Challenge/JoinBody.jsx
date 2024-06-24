@@ -4,6 +4,7 @@ import { userStore } from "../UserStore";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthApi } from "../UserApi";
+import { a } from "@table-library/react-table-library/index-a318de9b";
 
 function JoinBody() {
 
@@ -41,13 +42,14 @@ function JoinBody() {
 
     const onClick = async () => {
         try {
-            const res = await AuthApi({ token }).post(`${UPDATE}${userId}/${challengeId}`, {
+            const res = await AuthApi({ token }).post(`${UPDATE}${challengeId}/${userId}`, {
                 userId,
                 challengeId
             });
             if(res.status === 200) {
                 window.location.href = `https://d26qduhz3ubom8.cloudfront.net/challenge/${challengeId}`;
             }
+            alert('성공!')
         } catch (error) {
             console.error('Error updating challenge:', error);
             alert(`${error.response?.data?.message || error.message}`)
