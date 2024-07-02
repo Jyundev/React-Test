@@ -9,6 +9,8 @@ import UserInfo from "../components/Profile/UserInfo";
 import Memo from "../components/Profile/Memo";
 
 function Profile() {
+
+    // fetchUserData는 home에서 한 번 이뤄졌으니 여기서도 꼭 해야 하는지 다시 검토해볼 것.
     const { fetchUserDataLoading, fetchUserData, fetchChallengeList, fetchChalengeListLoading, userInfo } = userStore();
 
     useEffect(() => {

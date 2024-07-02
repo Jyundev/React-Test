@@ -17,6 +17,8 @@ import ErrorPage from "./routes/ErrorPage"
 import Certificate from "./routes/Certificate"
 
 const router = createBrowserRouter([
+  // 로그인 없이 접근할 수 있는 페이지
+  // ScrollToTop => useNavigate를 통해 이동시 이동 전 페이지의 스크롤 위치 그대로 다음 페이지로 이동하는 이슈 해결
   {
     path: "/",
     element: <>
@@ -42,6 +44,7 @@ const router = createBrowserRouter([
       },
     ]
   },
+  // 로그인이 필요한 페이지. ProtectedRoute를 통해 token 여부 검사.
   {
     path: "/",
     element: <ProtectedRoute>
@@ -63,6 +66,7 @@ const router = createBrowserRouter([
       },
     ]
   },
+  // challenge param
   {
     path: "/challenge",
     element: <ProtectedRoute>
@@ -76,6 +80,7 @@ const router = createBrowserRouter([
       },
     ]
   },
+  // challenge param
   {
     path: "/joinchallenge",
     element: <ProtectedRoute>
@@ -89,6 +94,7 @@ const router = createBrowserRouter([
       },
     ]
   },
+  // certificate param
   {
     path: "/certificate",
     element: <>

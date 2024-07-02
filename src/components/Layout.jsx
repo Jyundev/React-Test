@@ -9,13 +9,19 @@ function Layout() {
 
     const token = localStorage.getItem('token')
 
+    // 로그아웃시 zustand에서 모든 정보 초기화
+    // 같은 브라우저 상에서 로그아웃 후 다른 유저로 로그인시 이전 유저의 유저 정보가 나오는 이슈 해결을 위함.
     const {initUserData} = userStore();
+
     const navigate = useNavigate();
+
     const [isNavFixed, setIsNavFixed] = useState(false);
+
     const onLogout = async() => {
         const ok = confirm("정말로 로그아웃 하시겠습니까?");
         if(ok) {
             try {
+                // 추후 localStorage 미사용시 zustand로 기능 수정 필요.
                 const token = localStorage.getItem('token')
                 const LOGOUT = import.meta.env.VITE_USER_LOGOUT
                 await AuthApi({token}).post(LOGOUT);
@@ -28,6 +34,8 @@ function Layout() {
             
         }
     }
+
+    // 스크롤 시 네비바 상단에 고정되도록.
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 0 && !isNavFixed) {
@@ -43,6 +51,7 @@ function Layout() {
         };
 
     }, [isNavFixed]);
+
     return (
         <Wrapper>
             {}

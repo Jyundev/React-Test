@@ -6,6 +6,7 @@ function Table({certificate}) {
     Table.propTypes = {
         certificate: PropTypes.object.isRequired,
     };
+    
     return (
         <TableWrapper>
             <tbody>

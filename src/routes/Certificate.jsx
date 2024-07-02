@@ -14,9 +14,9 @@ function Certificate() {
     const { certificateId } = useParams();
 
     const [certificate, setCertificate] = useState();
-
     const [loading, setLoading] = useState(true);
 
+    // param 값으로 받아온 certificateId를 통해 자격증 정보 받아옴.
     const fetchData = useCallback(async() => {
         try {
             const CETIFICATE = import.meta.env.VITE_CERIFICATE
@@ -35,6 +35,8 @@ function Certificate() {
 
     if (loading) return <LoadingScreen />;
 
+    // props를 통하여 각 컴포넌트 마다 데이터 전달.
+    // 뒤로가기, 새로고침 등을 시도하였을 때 데이터가 증발하지는 않는지 검증이 필요할 것으로 보임.
     return (
         <Wrapper>
             {loading ? <LoadingScreen /> : (

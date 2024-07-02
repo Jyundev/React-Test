@@ -10,7 +10,7 @@ export default function Join() {
 
     const navigate = useNavigate();
     const [isLoading, setLoading] = useState(false);
-    const { register, handleSubmit } = useForm(); // useForm에 제네릭으로 FormData 지정
+    const { register, handleSubmit } = useForm();
     const [error, setError] = useState("");
 
     const onSubmit = async (data) => {
@@ -31,10 +31,14 @@ export default function Join() {
                 username,
                 password
             });
+            // 회원가입과 동시에 로그인 되도록 처리
+            // 추후 localStorage가 아니라 zustand에 token과 userId 정보를 저장하도록 바꿔야 함. 
+            // localStorage 사용시 브라우저가 종료되고 나서도 정보가 그대로 남아 있는 이슈 발생.
             if (response.status === 200) {
                 localStorage.clear();
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('userId', response.headers.user_id);
+                //관심사 수집 페이지로 이동
                 navigate("/checkinterest");
             } else {
                 alert(response ? response.data.message : "Login failed. Please try again.")

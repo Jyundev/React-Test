@@ -7,16 +7,17 @@ import axios from 'axios';
 
 function JoinHead() {
 
-    const [RowData, setRowData] = useState([]);
+    const [challengeDetailData, setChallengeDetailData] = useState([]);
 
     const { challengeId } = useParams();
 
     const DETAIL = import.meta.env.VITE_CHALLENGE_DETAIL;
 
+    // JoinChallgenge.jsx에서 데이터를 불러온 다음 props를 통해 전달하는 방식 고려해볼 것.
     const Challenge = useCallback(async () => {
         try {
             const { data } = await axios.get(`${DETAIL}${challengeId}`);
-            setRowData(data.data);
+            setChallengeDetailData(data.data);
         } catch (error) {
             console.error("Failed to fetch challenges", error);
         }
@@ -26,18 +27,16 @@ function JoinHead() {
         Challenge();
     }, [Challenge]);
 
-    console.log(RowData)
-
     return (
         <Wrapper>
             <Title>
                 <MainTitle>
-                    {RowData.challengeName} 챌린지
+                    {challengeDetailData.challengeName} 챌린지
                 </MainTitle>
                 <SubTitle>
-                    <div>기간: {RowData.startDay} - {RowData.endDay}</div>
-                    <div>시험일: {RowData.testDay}</div>
-                    <div>함께 하는 이들: {RowData.totalUser}명</div>
+                    <div>기간: {challengeDetailData.startDay} - {challengeDetailData.endDay}</div>
+                    <div>시험일: {challengeDetailData.testDay}</div>
+                    <div>함께 하는 이들: {challengeDetailData.totalUser}명</div>
                 </SubTitle>
             </Title>
         </Wrapper>
@@ -50,8 +49,6 @@ const Wrapper = styled.div`
     width: 100%;
     height: 350px;
     background: #6c4eff;
-    /* background: -webkit-linear-gradient(to right, #8e44ad, #c0392b);
-    background: linear-gradient(to right, #8e44ad, #c0392b); */
     display: flex;
     justify-content: center;
     align-items: center;

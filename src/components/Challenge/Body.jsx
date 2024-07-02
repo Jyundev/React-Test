@@ -18,6 +18,7 @@ function Body() {
 
     const userId = localStorage.getItem('userId')
 
+    // 처음 페이지 접근시 유저가 다음으로 진행해야 할 챌린지부터 화면에 띄워질 수 있도록.
     const basicView = challengeInfo.steps.find(step => step.complete === false) ? challengeInfo.steps.find(step => step.complete === false) : challengeInfo.steps[challengeInfo.steps.length - 1];
     
     const basicTest = basicView.days.find(day => day.test != 0)
@@ -89,8 +90,6 @@ function Body() {
             navigate('/error', {state: {error: e.message}})
         }
     };
-
-    console.log(toDo)
 
     return (
         <Wrapper>

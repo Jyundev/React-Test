@@ -38,7 +38,7 @@ function Memo() {
         if (stepData) {
             const updatedNodes = stepData.flatMap((step) =>
                 step.days.filter((day) => day.complete).map((day, index) => ({
-                    key: `${step.step}-${index}`, // Unique key for each item
+                    key: `${step.step}-${index}`, 
                     step: step.step,
                     partName: step.partName,
                     day: day.day || index + 1,
@@ -52,14 +52,13 @@ function Memo() {
             setNodes([]);
         }
     }, [stepData]);
-    console.log(nodes)
 
     const pagination = usePagination(
         { nodes },
         {
             state: {
                 page: 0,
-                size: 5, // Adjust the size as needed
+                size: 5,
             },
             onChange: onPaginationChange,
         }

@@ -5,6 +5,8 @@ function CheckChallenges() {
 
     const {challengeList} = userStore();
 
+    // useNavigate로 다시 한 번 시도해볼 것.
+    // useLocation 활용해보기.
     const onClick = (id) => {
         window.location.href = `https://d5ki68ixw55w9.cloudfront.net/challenge/${id}`
     } 

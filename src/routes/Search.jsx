@@ -26,6 +26,7 @@ function Search() {
     }, []);
 
     const handleChange = (e) => {
+        // 대소문자 구분 없이 검색되도록
         const filtered = certificateData.filter(item =>
             Object.values(item).some(val => 
                 String(val).toLowerCase().includes(e.target.value.toLowerCase())

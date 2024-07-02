@@ -7,8 +7,9 @@ import styled from "styled-components";
 function LoginTest() {
     const navigate = useNavigate();
     const [isLoading, setLoading] = useState(false);
-    const { register, handleSubmit } = useForm();
     const [error, setError] = useState("");
+
+    const { register, handleSubmit } = useForm();
 
     const onSubmit = async (data) => {
         setError("");
@@ -21,6 +22,8 @@ function LoginTest() {
                 username,
                 password
             })
+            // 추후 localStorage가 아니라 zustand에 token과 userId 정보를 저장하도록 바꿔야 함. 
+            // localStorage 사용시 브라우저가 종료되고 나서도 정보가 그대로 남아 있는 이슈 발생.
             if (response.status === 200) {
                 localStorage.clear();
                 localStorage.setItem('token', response.data.token);

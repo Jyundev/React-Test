@@ -11,6 +11,7 @@ function Register({certificateId}) {
 
     const REGISTER = import.meta.env.VITE_CERIFICATE_REGITSER;
 
+    // props로 넘어온 certificateId가 string이어서 하단의 filteredData에서 certificateId 비교 작업을 위한 filter 작동이 안 되는 이슈 해결.
     const numberId = Number(certificateId)
 
     const [register, setRegister] = useState([])

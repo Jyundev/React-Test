@@ -32,6 +32,10 @@ function Head() {
         uploadFile(e.target.files[0]);
     };
 
+    // 같은 filePath로 업로드할 시 업로드 후 같은 s3 버킷의 url 주소로 새로 업로드된 s3의 이미지 파일을 가져오지 못하고 이전 이미지를 가져오는 이슈 발생.
+    // s3 버킷의 효율적인 활용을 위해 같은 filePath로 덮어 쓰려 했지만 위의 이슈 발생으로 실패.
+    // 업로드 시간을 파일명에 포험시키고 따로 저장하여 이슈 해결.
+    // 추후 이전 파일을 삭제 후 새로운 파일을 업로드하는 식으로 변경해볼 것 => timestamp 사용은 그대로 하는 것이 더욱 안정적일 것으로 예상됨.
     const uploadFile = useCallback(async (file) => {
 
         const timestamp = new Date().getTime();

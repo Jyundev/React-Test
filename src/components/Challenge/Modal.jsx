@@ -144,8 +144,6 @@ const Container = styled.div`
     align-items: center;
     gap: 20px;
     background: #f2f2f2;  
-    /* background: -webkit-linear-gradient(to right, #3f4c6b, #606c88); 
-    background: linear-gradient(to right, #3f4c6b, #606c88);  */
     color: #494949;
     width: 50%;
     height: auto;

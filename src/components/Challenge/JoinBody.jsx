@@ -7,7 +7,7 @@ import { AuthApi } from "../UserApi";
 
 function JoinBody() {
 
-    const [RowData, setRowData] = useState(null);  // Initialized as null to differentiate from an empty array
+    const [challengeDetailData, setChallengeDetailData] = useState(null);  
 
     const { challengeId } = useParams();
 
@@ -16,7 +16,7 @@ function JoinBody() {
     const Challenge = useCallback(async () => {
         try {
             const { data } = await axios.get(`${DETAIL}${challengeId}`);
-            setRowData(data.data);
+            setChallengeDetailData(data.data);
         } catch (e) {
             console.error("Failed to fetch challenges", e);
         }
@@ -28,13 +28,13 @@ function JoinBody() {
 
     const { userInfo } = userStore();
 
-    const userNickname = userInfo?.data?.nickname || 'Guest';  // Added safe navigation and default value
+    const userNickname = userInfo?.data?.nickname || '';  
 
     const userId = localStorage.getItem('userId');
     
-    const challenge = RowData?.challengeName || '';  // Added safe navigation and default value
+    const challenge = challengeDetailData?.challengeName || ''; 
 
-    const thumbnail = RowData?.thumbnail || '';
+    const thumbnail = challengeDetailData?.thumbnail || '';
 
     const token = localStorage.getItem('token');
 
@@ -47,6 +47,10 @@ function JoinBody() {
                 challengeId
             });
             if(res.status === 200) {
+                // useNavigate 이용시 api에 새로 업데이트 되는 유저의 해당 챌린지 정보가 적용되지 않은 채 페이지가 넘어가며 첼린지 데이터를 인식 못하는 이슈 발생.
+                // useNavigate로 이동시 zustand가 작동하지 않는 것으로 보임.
+                // window.location.href를 통해 페이지에 새로 접근하는 방식으로 이슈를 임시적으로 해결.
+                // 추후 해당 코드에서 zustand를 통해 challenge 데이터를 업데이트 하고 이동하는 방식을 시도해볼 것.
                 window.location.href = `https://d5ki68ixw55w9.cloudfront.net/challenge/${challengeId}`;
             }
         } catch (error) {
@@ -55,8 +59,9 @@ function JoinBody() {
         }
     };
 
-    if (!RowData) {
-        return <Wrapper>Loading...</Wrapper>;  // Render a loading state or spinner while data is being fetched
+    // JoinChallgenge.jsx에서 데이터를 불러온 다음 props를 통해 전달하는 방식 고려해볼 것.
+    if (!challengeDetailData) {
+        return <Wrapper>Loading...</Wrapper>;
     }
 
     return (
