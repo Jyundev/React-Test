@@ -10,8 +10,10 @@
 ## React + Vite
 
 이번 따자잇(DDaja-it) 프로젝트에서는 프론트엔드 프레임워크로 react를 선정하였습니다. 
-*React(18.2.0)
-*Node.js(20.12.2)
+
+* React(18.2.0)
+
+* Node.js(20.12.2)
 
 
 <br/>
@@ -51,4 +53,7 @@ nodejs의 npm(node package manage)에서 사용한 라이브러리 목록입니�
 * react-icons
 
 # 🌏 CI/CD
-Git Action을 통해 S3 버킷에 정적 웹 호스팅을 했습니다. node.js의 npm을 통해 리액트 파일을 빌드하고, 빌드한 파일을 S3 버킷에 업로드합니다. S3 버킷 업로드를 위한 변수들과 리액트 코드 안의 백엔드단의 Api 경로 등은 Git Secret을 통해 환경 변수 처리하였습니다. 
+Git Action을 통해 S3 버킷에 정적 웹 호스팅을 했습니다. 
+* node.js의 npm을 통해 리액트 파일을 빌드하고,
+* 빌드한 파일을 S3 버킷에 업로드합니다.
+* S3 버킷 업로드를 위한 변수들과 리액트 코드 안의 백엔드단의 Api 경로 등은 Git Secret을 통해 환경 변수 처리하였습니다. 
