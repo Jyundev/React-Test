@@ -60,8 +60,8 @@ jobs:
         SOURCE_DIR: './dist'
         AWS_REGION: 'ap-northeast-2'
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_CICD }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_CICD }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_CICD }}
 
     - name: CloudFront 캐시 무력화 설정
       uses: chetan/invalidate-cloudfront-action@v2
