@@ -174,8 +174,6 @@ const RecommentdTitle = styled.div`
     padding: 10px;
     gap: 5px;
     align-items: baseline;
-    align-items: center;
-    justify-content: center;
 `;
 
 const SubTitle = styled.h2`

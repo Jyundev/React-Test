@@ -15,7 +15,6 @@ import Search from "./routes/Search"
 import ChangeUserInfo from "./routes/ChangeUserInfo"
 import ErrorPage from "./routes/ErrorPage"
 import Certificate from "./routes/Certificate"
-import Test from "./routes/Test"
 
 const router = createBrowserRouter([
   // 로그인 없이 접근할 수 있는 페이지
