@@ -48,15 +48,17 @@ function Head() {
             ContentType: file.type,
             ACL: 'public-read'
         }
+        
+        const url = `https://${S3_BUCKET}.s3.${REGION}.amazonaws.com/${filePath}`;
 
         try {
             const command = new PutObjectCommand(params);
             await s3.send(command);
-            const url = `https://${S3_BUCKET}.s3.${REGION}.amazonaws.com/${filePath}`;
             setProfileImgUrl(url);
             console.log('File uploaded successfully:', url);
             alert('File uploaded successfully');
         } catch (err) {
+            console.log('Error URL: ', url)
             console.error('Error uploading file:', err);
             alert('Error uploading file');
         } 
