@@ -53,7 +53,7 @@ function CerfiticateRow() {
                                         <SubTitle>{data.certificateFullName}</SubTitle>
                                     </RecommentdTitle>
                                 </SubjectDetail>
-                        </Subject>
+                            </Subject>
                         </RecommendWrapper>
                     ))}
                 </Row>
@@ -158,7 +158,8 @@ const Img = styled.img`
 `;
 
 const SubjectDetail = styled.div`
-    position: fixed;
+    position: absolute;
+    opacity: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -166,6 +167,9 @@ const SubjectDetail = styled.div`
     background-color: #ffffffd5;
     width: 200px;
     height: 200px;
+    &:hover {
+        opacity: 1;
+    }
 `;
 
 const RecommentdTitle = styled.div`
