@@ -51,7 +51,7 @@ function JoinBody() {
                 // useNavigate로 이동시 zustand가 작동하지 않는 것으로 보임.
                 // window.location.href를 통해 페이지에 새로 접근하는 방식으로 이슈를 임시적으로 해결.
                 // 추후 해당 코드에서 zustand를 통해 challenge 데이터를 업데이트 하고 이동하는 방식을 시도해볼 것.
-                window.location.href = `https://d5ki68ixw55w9.cloudfront.net/challenge/${challengeId}`;
+                window.location.href = `https:/ddajait.com/challenge/${challengeId}`;
             }
         } catch (error) {
             console.error('Error updating challenge:', error);

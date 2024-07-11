@@ -30,7 +30,7 @@ function CheckInterest() {
             // useNavigate를 이용하면 home의 zustand가 작동하지 않는 것으로 추정됨.
             // 임시대책으로 window.location.href를 통해 페이지에 다시 접근하여 zustand를 새롭게 작동시킴.
             // 여기서 zustand를 동작시키고 useNavigate를 통해 home으로 이동할 수 있는지 시도해볼 것.
-            window.location.href = `https://d5ki68ixw55w9.cloudfront.net/`;
+            window.location.href = `https://ddajait.com/`;
         } catch (e) {
             alert(e.response ? e.response.data.message : "An error occurred. Please try again.")
         } finally {

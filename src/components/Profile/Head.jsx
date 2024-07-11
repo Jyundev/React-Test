@@ -29,6 +29,7 @@ function Head() {
     const [profileImage, setProfileImgUrl] = useState(userInfo.data.profileImage);
 
     const handleFileInput = (e) => {
+        // 파일 규격 제한 걸기
         uploadFile(e.target.files[0]);
     };
 
