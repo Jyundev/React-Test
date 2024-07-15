@@ -1,4 +1,3 @@
-// Profile.js
 import styled from "styled-components";
 import CheckChallenges from "../components/Profile/CheckChallenges";
 import Head from "../components/Profile/Head";
