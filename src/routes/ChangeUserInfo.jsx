@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { AuthApi } from '../components/UserApi';
 import { useNavigate } from 'react-router-dom';
@@ -9,21 +8,52 @@ function ChangeUserInfo() {
 
     const { userInfo, initUserData } = userStore();
 
-    const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     const navigate = useNavigate();
 
     const [isLoading, setLoading] = useState(false);
 
-    const {register, handleSubmit} = useForm();
+    const [age, setAge] = useState(userInfo.data.age);
+    const [gender, setGender] = useState(userInfo.data.gender);
+    const [job, setJob] = useState(userInfo.data.job);
+    const [interest, setInterest] = useState(userInfo.data.interest);
+    const [qualifiedCertificate, setQualifiedCertificate] = useState(userInfo.data.qualifiedCertificate);
 
-    const onSubmit = async (data) => {
+    const onChange = (e) => {
+        const { target: { name, value, checked } } = e;
+        if (name === "age") {
+            setAge(value);
+        } else if (name === 'gender') {
+            setGender(value);
+        } else if (name === 'job') {
+            setJob(value);
+        } else if (name === 'interest') {
+            setInterest((prev) => {
+                if (checked) {
+                    return [...prev, value];
+                } else {
+                    return prev.filter((item) => item !== value)
+                }
+            });
+        } else if (name === 'qualifiedCertificate') {
+            setQualifiedCertificate((prev) => {
+                if (checked) {
+                    return [...prev, value];
+                } else {
+                    return prev.filter((item) => item !== value) 
+                }
+            });
+        }
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
         if (isLoading) return;
         try {
             setLoading(true);
-            const  {gender, age, job, interest, qualifiedCertificate } = data;
             const USER = import.meta.env.VITE_USER
             await AuthApi({token}).put(USER + userId, {
                 age,
@@ -46,7 +76,7 @@ function ChangeUserInfo() {
         if (ok) {
             try {
                 const res = await AuthApi({token}).delete(`${DELETE}${userId}`);
-                localStorage.clear();
+                sessionStorage.clear();
                 initUserData();
                 if (res.status === 200) {
                     navigate('/login');
@@ -58,31 +88,38 @@ function ChangeUserInfo() {
         }
     };
 
-    const job = ["학생", "취준생", "직장인"];
-    const interest = ['운영체제', '데이터베이스', '클라우드', '네트워크', '정보보안'];
-    const qualifiedCertificate = ['데이터분석준전문가', 'SQL 개발자', '빅데이터분석기사', '정보처리기사', '정보처리산업기사', '정보보안기사', '리눅스마스터 1급', '리눅스마스터 2급', '네트워크관리사 1급', '네트워크관리사 2급']
+    const selectJob = ["학생", "취준생", "직장인"];
+    const selectInterest = ['운영체제', '데이터베이스', '클라우드', '네트워크', '정보보안'];
+    const selectQualifiedCertificate = ['데이터분석준전문가', 'SQL 개발자', '빅데이터분석기사', '정보처리기사', '정보처리산업기사', '정보보안기사', '리눅스마스터 1급', '리눅스마스터 2급', '네트워크관리사 1급', '네트워크관리사 2급']
 
     return (
         <Wrapper>
             <Title>입력해주세요😎</Title>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={onSubmit}>
                 <Check>
                     <Subtitle>나이</Subtitle>
                     <Age>
                         <AgeInput 
-                                type='number' 
-                                min={0} 
-                                max={120} 
-                                placeholder='나이' 
-                                defaultValue={userInfo.data.age ? userInfo.data.age : '나이'}
-                                {...register('age', {required: true})} 
+                            type='number' 
+                            name='age'
+                            min={0} 
+                            max={120} 
+                            placeholder='나이' 
+                            required={true} 
+                            onChange={onChange}
+                            defaultValue={userInfo.data.age ? userInfo.data.age : '나이'}
                         />
                         <label>세</label>
                     </Age>
                 </Check>
                 <Check>
                     <Subtitle>성별</Subtitle>
-                    <Select {...register('gender', {required: true})} defaultValue={userInfo.data.gender ? userInfo.data.gender : '성별'}>
+                    <Select 
+                        defaultValue={userInfo.data.gender ? userInfo.data.gender : '성별'} 
+                        required={true} 
+                        onChange={onChange} 
+                        name='gender' 
+                    >
                         <option value='' disabled>성별</option>
                         <option value='남자'>남</option>
                         <option value='여자'>여</option>
@@ -91,14 +128,16 @@ function ChangeUserInfo() {
                 <Check>
                     <Subtitle>직업</Subtitle>
                     <CheckList >
-                        {job.map((data) => (
+                        {selectJob.map((data) => (
                                 <InputWrapper  key={data}>
                                     <Input
                                         type="radio"
+                                        name='job'
                                         value={data}
-                                        id={data}  
+                                        id={data}
+                                        required={true} 
                                         defaultChecked={userInfo.data.job === data}
-                                        {...register('job', {required: true})}
+                                        onChange={onChange}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
                                 </InputWrapper>
@@ -108,14 +147,15 @@ function ChangeUserInfo() {
                 <Check>
                     <Subtitle>관심분야</Subtitle>
                     <CheckList >
-                        {interest.map((data) => (
+                        {selectInterest.map((data) => (
                                 <InputWrapper  key={data}>
                                     <Input
                                         type="checkbox"
+                                        name='interest'
                                         value={data}
                                         id={data}
+                                        onChange={onChange}
                                         defaultChecked={userInfo.data.interest.includes(data)}
-                                        {...register('interest', {required: true})}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
                                 </InputWrapper>
@@ -125,14 +165,15 @@ function ChangeUserInfo() {
                 <Check>
                     <Subtitle>취득 자격증</Subtitle>
                     <CheckList >
-                        {qualifiedCertificate.map((data) => (
+                        {selectQualifiedCertificate.map((data) => (
                                 <InputWrapper  key={data}>
                                     <Input
                                         type="checkbox"
+                                        name='qualifiedCertificate'
                                         value={data}
                                         id={data}
+                                        onChange={onChange}
                                         defaultChecked = {userInfo.data.qualifiedCertificate.includes(data)}
-                                        {...register('qualifiedCertificate', {required: false})}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
                                 </InputWrapper>

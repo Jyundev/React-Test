@@ -21,13 +21,11 @@ function LoginTest() {
             const response = await axios.post(AUTHENTICATE, {
                 username,
                 password
-            })
-            // 추후 localStorage가 아니라 zustand에 token과 userId 정보를 저장하도록 바꿔야 함. 
-            // localStorage 사용시 브라우저가 종료되고 나서도 정보가 그대로 남아 있는 이슈 발생.
+            }) 
             if (response.status === 200) {
-                localStorage.clear();
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('userId', response.headers.user_id);
+                sessionStorage.clear();
+                sessionStorage.setItem('token', response.data.token);
+                sessionStorage.setItem('userId', response.headers.user_id);
                 navigate("/");
             } else {
                 setError("Login failed. Please try again.");

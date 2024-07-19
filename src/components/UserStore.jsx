@@ -1,4 +1,3 @@
-// useStore.js
 import { create } from "zustand";
 import { AuthApi } from "./UserApi";
 
@@ -14,7 +13,7 @@ export const userStore = create((set) => ({
         set({fetchUserDataLoading: false})
         try {
             const AUTH = import.meta.env.VITE_AUTH
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             const response = await AuthApi({token}).get(AUTH);
             set({ userInfo: response.data, fetchUserDataLoading: false });
         } catch (error) {
@@ -25,7 +24,7 @@ export const userStore = create((set) => ({
     fetchChallengeData: async({ challengeId, userId }) => {
         try {
             set({fetchChallengeDataLoading: true})
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             const CHALLENGE = import.meta.env.VITE_CHALLENEGE
             const fetchData = await AuthApi({token}).get(`${CHALLENGE}${challengeId}/${userId}`);
             set({ challengeInfo: fetchData.data, fetchChallengeDataLoading: false })
@@ -36,8 +35,8 @@ export const userStore = create((set) => ({
     },
     fetchChallengeList: async() => {
         try {
-            const token = localStorage.getItem('token');
-            const userId = localStorage.getItem('userId')
+            const token = sessionStorage.getItem('token');
+            const userId = sessionStorage.getItem('userId')
             const VIEW = import.meta.env.VITE_CHALLENEGE_VIEW
             const fetchData = await AuthApi({token}).get(`${VIEW}${userId}`)
             set({challengeList: fetchData.data, fetchChalengeListLoading: false})

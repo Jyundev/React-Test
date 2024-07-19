@@ -1,23 +1,56 @@
 import styled from 'styled-components';
-import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { AuthApi } from '../components/UserApi';
+import { useNavigate } from 'react-router-dom';
 
 function CheckInterest() {
 
-    const userId = localStorage.getItem('userId');
+    const navigate = useNavigate();
 
-    const token = localStorage.getItem('token');
+    const userId = sessionStorage.getItem('userId');
+
+    const token = sessionStorage.getItem('token');
 
     const [isLoading, setLoading] = useState(false);
 
-    const {register, handleSubmit} = useForm();
+    const [age, setAge] = useState(0);
+    const [gender, setGender] = useState('');
+    const [job, setJob] = useState('');
+    const [interest, setInterest] = useState([]);
+    const [qualifiedCertificate, setQualifiedCertificate] = useState([]);
 
-    const onSubmit = async (data) => {
+    const onChange = (e) => {
+        const { target: { name, value, checked } } = e;
+        if (name === "age") {
+            setAge(value);
+        } else if (name === 'gender') {
+            setGender(value);
+        } else if (name === 'job') {
+            setJob(value);
+        } else if (name === 'interest') {
+            setInterest((prev) => {
+                if (checked) {
+                    return [...prev, value];
+                } else {
+                    return prev.filter((item) => item !== value)
+                }
+            });
+        } else if (name === 'qualifiedCertificate') {
+            setQualifiedCertificate((prev) => {
+                if (checked) {
+                    return [...prev, value];
+                } else {
+                    return prev.filter((item) => item !== value) 
+                }
+            });
+        }
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
         if (isLoading) return;
         try {
             setLoading(true);
-            const  {gender, age, job, interest, qualifiedCertificate } = data;
             const INFO = import.meta.env.VITE_USER_INFO
             await AuthApi({token}).post(INFO + userId, {
                 age,
@@ -26,11 +59,7 @@ function CheckInterest() {
                 interest,
                 qualifiedCertificate
             });
-            // useNavigate 사용시 업데이트된 유저 정보 관련 api를 인식하지 못하고 에러 발생.
-            // useNavigate를 이용하면 home의 zustand가 작동하지 않는 것으로 추정됨.
-            // 임시대책으로 window.location.href를 통해 페이지에 다시 접근하여 zustand를 새롭게 작동시킴.
-            // 여기서 zustand를 동작시키고 useNavigate를 통해 home으로 이동할 수 있는지 시도해볼 것.
-            window.location.href = `https://ddajait.com/`;
+            navigate('/');
         } catch (e) {
             alert(e.response ? e.response.data.message : "An error occurred. Please try again.")
         } finally {
@@ -39,25 +68,38 @@ function CheckInterest() {
     };
 
     // 넣어 놓은 항목 대로 선택지가 형성됨.
-    const job = ["학생", "취준생", "직장인"];
-    const interest = ['운영체제', '데이터베이스', '클라우드', '네트워크', '정보보안'];
-    const qualifiedCertificate = ['데이터분석준전문가', 'SQL 개발자', '빅데이터분석기사', '정보처리기사', '정보처리산업기사', '정보보안기사', '리눅스마스터 1급', '리눅스마스터 2급', '네트워크관리사 1급', '네트워크관리사 2급']
+    const selectJob = ["학생", "취준생", "직장인"];
+    const selectInterest = ['운영체제', '데이터베이스', '클라우드', '네트워크', '정보보안'];
+    const selectQualifiedCertificate = ['데이터분석준전문가', 'SQL 개발자', '빅데이터분석기사', '정보처리기사', '정보처리산업기사', '정보보안기사', '리눅스마스터 1급', '리눅스마스터 2급', '네트워크관리사 1급', '네트워크관리사 2급'];
 
     // checkbox의 경우 한 가지만 선택할 시 api에 array가 아니라 string으로 값이 넘어가는 이슈 발생
     return (
         <Wrapper>
             <Title>입력해주세요😎</Title>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={onSubmit}>
                 <Check>
                     <Subtitle>나이</Subtitle>
                     <Age>
-                        <AgeInput type='number' min={0} max={120} placeholder='나이' {...register('age', {required: true})} />
+                        <AgeInput 
+                            type='number' 
+                            name='age'
+                            min={0} 
+                            max={120} 
+                            placeholder='나이' 
+                            required={true} 
+                            onChange={onChange}
+                        />
                         <label>세</label>
                     </Age>
                 </Check>
                 <Check>
                     <Subtitle>성별</Subtitle>
-                    <Select {...register('gender', {required: true})} defaultValue=''>
+                    <Select 
+                        defaultValue='' 
+                        required={true} 
+                        onChange={onChange} 
+                        name='gender' 
+                    >
                         <option value='' disabled>성별</option>
                         <option value='남자'>남</option>
                         <option value='여자'>여</option>
@@ -66,13 +108,15 @@ function CheckInterest() {
                 <Check>
                     <Subtitle>직업</Subtitle>
                     <CheckList >
-                        {job.map((data) => (
+                        {selectJob.map((data) => (
                                 <InputWrapper  key={data}>
                                     <Input
                                         type="radio"
+                                        name='job'
                                         value={data}
                                         id={data}
-                                        {...register('job', {required: true})}
+                                        required={true} 
+                                        onChange={onChange}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
                                 </InputWrapper>
@@ -82,13 +126,14 @@ function CheckInterest() {
                 <Check>
                     <Subtitle>관심분야</Subtitle>
                     <CheckList >
-                        {interest.map((data) => (
+                        {selectInterest.map((data) => (
                                 <InputWrapper  key={data}>
                                     <Input
                                         type="checkbox"
+                                        name='interest'
                                         value={data}
                                         id={data}
-                                        {...register('interest', {required: true})}
+                                        onChange={onChange}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
                                 </InputWrapper>
@@ -98,13 +143,14 @@ function CheckInterest() {
                 <Check>
                     <Subtitle>취득 자격증</Subtitle>
                     <CheckList >
-                        {qualifiedCertificate.map((data) => (
+                        {selectQualifiedCertificate.map((data) => (
                                 <InputWrapper  key={data}>
                                     <Input
                                         type="checkbox"
+                                        name='qualifiedCertificate'
                                         value={data}
                                         id={data}
-                                        {...register('qualifiedCertificate', {required: true})}
+                                        onChange={onChange}
                                     />
                                     <Label htmlFor={data}>{data}</Label>
                                 </InputWrapper>
@@ -236,7 +282,7 @@ const InputWrapper = styled.div`
 const Input = styled.input`
     display: none;
     &:checked + label {
-        border: 3px solid black;
+        border: 3px solid blue;
     }
 `;
 

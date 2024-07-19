@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import PropTypes from 'prop-types'; 
 
 function ProtectedRoute({children}) {
-    const user = localStorage.getItem('token');
+    const user = sessionStorage.getItem('token');
     if (user === null) {
         return <Navigate to="/login" />
     }

@@ -21,8 +21,8 @@ const s3 = new S3Client({
 
 function Head() {
 
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId'); 
+    const token = sessionStorage.getItem('token');
+    const userId = sessionStorage.getItem('userId'); 
     const { userInfo } = userStore();
     const navigate = useNavigate();
 

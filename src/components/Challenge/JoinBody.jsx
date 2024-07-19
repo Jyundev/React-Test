@@ -29,13 +29,13 @@ function JoinBody() {
 
   const userNickname = userInfo?.data?.nickname || "";
 
-  const userId = localStorage.getItem("userId");
+  const userId = sessionStorage.getItem("userId");
 
   const challenge = challengeDetailData?.challengeName || "";
 
   const thumbnail = challengeDetailData?.thumbnail || "";
 
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const UPDATE = import.meta.env.VITE_CHALLENGE_UPDATE;
 

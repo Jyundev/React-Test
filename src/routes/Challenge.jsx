@@ -14,7 +14,7 @@ function Challenge() {
 
     const { challengeId } = useParams();
 
-    const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
 
     useEffect(() => {
         fetchUserData();

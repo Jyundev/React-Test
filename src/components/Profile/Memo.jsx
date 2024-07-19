@@ -16,8 +16,8 @@ function Memo() {
     const theme = useTheme(getTheme());
 
     const fetchData = useCallback(async () => {
-        const token = localStorage.getItem('token');
-        const userId = localStorage.getItem('userId');
+        const token = sessionStorage.getItem('token');
+        const userId = sessionStorage.getItem('userId');
         const CHALLENGE = import.meta.env.VITE_CHALLENEGE;
         
         if (challengeId !== null) {

@@ -38,8 +38,8 @@ function Modal({ test, onClose, challengeId, step }) {
 
     const saveAnswer = useCallback(
         async(wrongQuestions) => {
-            const token = localStorage.getItem('token');
-            const userId = localStorage.getItem('userId');
+            const token = sessionStorage.getItem('token');
+            const userId = sessionStorage.getItem('userId');
             try {
                 await AuthApi({token}).put(`/api/v1/user/challenge/challengePage/wrongQuestion/${userId}/${challengeId}/${step}`, {
                     userId,

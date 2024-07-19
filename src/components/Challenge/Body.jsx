@@ -16,7 +16,7 @@ function Body() {
 
     const { challengeId } = useParams();
 
-    const userId = localStorage.getItem('userId')
+    const userId = sessionStorage.getItem('userId')
 
     // 처음 페이지 접근시 유저가 다음으로 진행해야 할 챌린지부터 화면에 띄워질 수 있도록.
     const basicView = challengeInfo.steps.find(step => step.complete === false) ? challengeInfo.steps.find(step => step.complete === false) : challengeInfo.steps[challengeInfo.steps.length - 1];
@@ -35,7 +35,7 @@ function Body() {
     const [test, setTest] = useState(basicTest ? basicTest.test : null);
     const [memo, setMemo] = useState();
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     const step = stepTitle;
     const day = toDo.day;
