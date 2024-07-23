@@ -158,6 +158,7 @@ const Subject = styled.div`
     width: 200px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
 `;
 
 const Img = styled.img`

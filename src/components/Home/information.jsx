@@ -278,11 +278,6 @@ const DetailIcon = styled.div`
     font-size: 18px;
 `
 
-const DetailTypeIcon = styled.div`
-    font-size: 15px;
-    margin-left: 2px;
-`
-
 const Button = styled.button`
     margin-top: 20px;
     padding: 10px;

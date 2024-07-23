@@ -81,7 +81,7 @@ const Title = styled.h1`
     flex-direction: row;
     gap: 10px;
     align-items: center;
-    margin-left: 10px;
+    margin-left: 20px;
 `;
 
 const Icon = styled.p`
@@ -99,7 +99,6 @@ const Row = styled.div`
     display: flex;
     width: 80vw;
     gap: 30px;
-    overflow-y: hidden;
     overflow-x: scroll;
     padding: 20px 0px 20px 20px;
     scroll-behavior: smooth;
@@ -151,6 +150,7 @@ const Subject = styled.div`
     width: 200px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
 `;
 
 const Img = styled.img`
